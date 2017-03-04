@@ -46,7 +46,7 @@ Alternately, you can 1-click deploy the app in the cloud on AWS or Heroku:
 
 ## Video Demo
 
-![Alt text for video](https://i.vimeocdn.com/video/525146269.webp?mw=900&mh=563)](https://vimeo.com/132467437)
+[![Alt text for video](https://i.vimeocdn.com/video/525146269.webp?mw=900&mh=563)](https://vimeo.com/132467437)
 
 ## Contributers
 
