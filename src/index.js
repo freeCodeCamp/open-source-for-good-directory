@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createLogger from 'redux-logger';
@@ -15,16 +15,13 @@ if (process.env.NODE_ENV !== 'production') middleware.push(createLogger());
 const store = createStore(reducer, applyMiddleware(...middleware));
 const root = document.getElementById('root');
 
-const render = Comp =>
-  ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <Comp />
-      </Provider>
-    </AppContainer>,
-    root,
-  );
-
-render(App);
+render(
+  <AppContainer>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </AppContainer>,
+  root,
+);
 
 if (module.hot) module.hot.accept('./App', () => render(App));
