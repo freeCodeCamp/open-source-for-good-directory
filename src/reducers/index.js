@@ -1,11 +1,5 @@
 import { combineReducers } from 'redux';
-
-const projects = (state = [], action) => {
-  switch (action.type) {
-    default:
-      return state;
-  }
-};
+import projects from './projects';
 
 const search = (state = '', action) => {
   switch (action.type) {

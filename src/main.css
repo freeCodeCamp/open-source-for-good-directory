@@ -303,7 +303,7 @@ body {
   color: #006400;
 }
 
-.project-btn {
+.project-link {
   cursor: pointer;
   font-size: 1.1em;
   color: inherit;
@@ -317,7 +317,7 @@ body {
   -webkit-transition: border-color 0.2s linear;
 }
 
-.project-btn:hover {
+.project-link:hover {
   border-color: #006400;
 }
 
