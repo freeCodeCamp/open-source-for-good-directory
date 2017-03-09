@@ -20,14 +20,16 @@ const initialState = {
 export default function projects(state = initialState, action) {
   switch (action.type) {
     case actions.GET_GITHUB_DATA:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         projectList: state.projectList.map((project) => {
-          if (project.full_name === action.full_name) {
-            return Object.assign({}, project, action);
+          if (project.full_name === action.githubData.full_name) {
+            return { ...project,
+              githubData: action.githubData };
           }
-          return Object.assign({}, project);
+          return { ...project };
         }),
-      });
+      };
     default:
       return state;
   }

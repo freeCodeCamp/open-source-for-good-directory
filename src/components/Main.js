@@ -8,7 +8,8 @@ const Main = ({ projectList }) => (
       <Navbar />
       <div className="content-container">
         <div className="card-container">
-          { projectList.map(project => <Card project={project} key={project.full_name} />) }
+          { projectList.map(project =>
+            <Card project={project.githubData} key={project.full_name} />) }
         </div>
       </div>
     </div>

@@ -13,12 +13,15 @@ import {
 export function getGithubData(repo) {
   return dispatch => axios.get(`https://api.github.com/repos/${repo}`)
     .then((response) => {
-      dispatch({
-        type: GET_GITHUB_DATA,
+      const githubData = {
         title: response.data.name.replace(/-/g, ' '),
         description: response.data.description,
         full_name: response.data.full_name,
         stargazer_count: response.data.stargazers_count,
+      };
+      dispatch({
+        type: GET_GITHUB_DATA,
+        githubData,
       });
     });
 }
