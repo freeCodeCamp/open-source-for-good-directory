@@ -3,10 +3,10 @@ import * as actions from '../actions/types';
 const initialState = {
   projectList: [
     {
-      repo: 'freeCodeCamp/food-bank-app',
+      full_name: 'freeCodeCamp/food-bank-app',
     },
     {
-      repo: 'freeCodeCamp/Mail-for-Good',
+      full_name: 'freeCodeCamp/Mail-for-Good',
     },
   ],
 };
@@ -22,7 +22,7 @@ export default function projects(state = initialState, action) {
     case actions.GET_GITHUB_DATA:
       return Object.assign({}, state, {
         projectList: state.projectList.map((project) => {
-          if (project.repo === action.full_name) {
+          if (project.full_name === action.full_name) {
             return Object.assign({}, project, action);
           }
           return Object.assign({}, project);

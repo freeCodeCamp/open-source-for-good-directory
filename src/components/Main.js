@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import Navbar from './Navbar';
 import Card from './Card';
 
@@ -9,7 +8,7 @@ const Main = ({ projectList }) => (
       <Navbar />
       <div className="content-container">
         <div className="card-container">
-          { projectList.map(project => <Card props={project} key={project.repo} />) }
+          { projectList.map(project => <Card project={project} key={project.full_name} />) }
         </div>
       </div>
     </div>
@@ -24,8 +23,4 @@ Main.defaultProps = {
   projectList: [],
 };
 
-const mapStateToProps = state => ({
-  projectList: state.projects.projectList,
-});
-
-export default connect(mapStateToProps)(Main);
+export default Main;

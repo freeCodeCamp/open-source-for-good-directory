@@ -12,16 +12,26 @@ import Main from '../components/Main';
  */
 class App extends React.Component {
   /**
-   * @param {*} props comprehends the array list of projects and the API call func
+   * @param {*} props comprehends all the props and actions defined below
    */
   constructor(props) {
     super(props);
-    (function asd() {
-      props.projectList.map(project => props.getGithubData(project.repo));
+    this.handleChange = this.handleChange.bind(this);
+    (function getData() {
+      props.projectList.map(project => props.getGithubData(project.full_name));
     }());
   }
+  /** handle the input change event
+   * @param {*} e the keyup event
+   * @returns {string} user input
+   */
+  handleChange(e) {
+    const value = e.target.value;
+    const store = this.context.store;
+    store.dispatch(this.props.updateSearchInput(value));
+  }
   /**
-   * this is render?
+   * this is our statefull render
    * @returns {objects} our stateless components
    */
   render() {
@@ -30,8 +40,8 @@ class App extends React.Component {
         <Header />
         <Banner />
         <Testimonial />
-        <Search />
-        <Main />
+        <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
+        <Main projectList={this.props.projectList} />
       </div>
     );
   }
@@ -39,16 +49,25 @@ class App extends React.Component {
 
 App.propTypes = {
   projectList: React.PropTypes.arrayOf(React.PropTypes.shape),
+  searchInput: React.PropTypes.string,
   getGithubData: React.PropTypes.func,
+  updateSearchInput: React.PropTypes.func,
 };
 
 App.defaultProps = {
   projectList: [],
+  searchInput: '',
   getGithubData: actions.getGithubData,
+  updateSearchInput: actions.updateSearchInput,
 };
 
 const mapStateToProps = state => ({
   projectList: state.projects.projectList,
+  searchInput: state.search.input_value,
 });
+
+App.contextTypes = {
+  store: React.PropTypes.object.isRequired,
+};
 
 export default connect(mapStateToProps, actions)(App);
