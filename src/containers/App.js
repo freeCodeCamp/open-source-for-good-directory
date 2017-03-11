@@ -41,7 +41,7 @@ class App extends React.Component {
         <Banner />
         <Testimonial />
         <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
-        <Main projectList={this.props.projectList} />
+        <Main projectList={this.props.projectList} searchInput={this.props.searchInput} />
       </div>
     );
   }
