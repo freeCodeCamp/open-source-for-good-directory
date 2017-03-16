@@ -2,17 +2,20 @@ import React from 'react';
 
 const Card = ({ project }) => (
   <div className="card">
-    <div className="tags">
-      <p>email-campaigns</p>
-      <p>email</p>
+    <div className={project.isDev === false ? 'title green' : 'title brown'}>
+      <h1>{ project.title }</h1>
     </div>
     <div className="card-content">
-      <h1>{ project.title }</h1>
       <div className="icon-frame">
         <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
       </div>
       <h3>{ project.description }</h3>
-      <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Live Demo</button></a>
+      {/* ternary operator to evaluate if should render normal card or dev card */}
+      { project.isDev === false ?
+        <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Live Demo</button></a>
+        :
+        <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Repository on GitHub</button></a>
+      }
       <div className="project-status">
         <p>live</p>
         <p>{ project.full_name }</p>

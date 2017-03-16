@@ -430,3 +430,21 @@ body {
     width: 100%;
   }
 }
+
+.title{  
+  color: #fff;
+  margin-bottom: 2em;
+}
+
+.green {
+  background: darkgreen;
+}
+
+.brown {
+  background: #A4755F;
+}
+
+.card, .title {  
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}

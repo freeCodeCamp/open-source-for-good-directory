@@ -18,6 +18,9 @@ export function getGithubData(repo) {
         description: response.data.description,
         full_name: response.data.full_name,
         stargazer_count: response.data.stargazers_count,
+        open_issues: response.data.open_issues,
+        subscribers_count: response.data.subscribers_count,
+        isDev: false,
       };
       dispatch({
         type: GET_GITHUB_DATA,
