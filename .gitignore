@@ -40,9 +40,11 @@ jspm_packages
 build
 
 # Jekyll build files
-
 *.gem
 docs/_site
 docs/.sass-cache
 docs/bundle
 docs/vendor
+
+# macOS store
+.DS_Store
