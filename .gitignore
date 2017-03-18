@@ -38,3 +38,11 @@ jspm_packages
 
 # Webpack build
 build
+
+# Jekyll build files
+
+*.gem
+docs/_site
+docs/.sass-cache
+docs/bundle
+docs/vendor
