@@ -17,13 +17,18 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    /* check if user is logged in for card component creation */
+    (function checkUser() {
+      props.checkUser();
+    }());
+    /* populate state with data from github for every repo */
     (function getData() {
       props.projectList.map(project => props.getGithubData(project.full_name));
     }());
   }
   /** handle the input change event
    * @param {*} e the keyup event
-   * @returns {string} user input
+   * @return {string} user input
    */
   handleChange(e) {
     const value = e.target.value;
@@ -32,7 +37,7 @@ class App extends React.Component {
   }
   /**
    * this is our statefull render
-   * @returns {objects} our stateless components
+   * @return {objects} our stateless components
    */
   render() {
     return (
@@ -41,29 +46,38 @@ class App extends React.Component {
         <Banner />
         <Testimonial />
         <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
-        <Main projectList={this.props.projectList} searchInput={this.props.searchInput} />
+        <Main
+          projectList={this.props.projectList}
+          isDev={this.props.isDev}
+          searchInput={this.props.searchInput}
+        />
       </div>
     );
   }
 }
 
 App.propTypes = {
-  projectList: React.PropTypes.arrayOf(React.PropTypes.shape),
+  projectList: React.PropTypes.arrayOf(React.PropTypes.object),
   searchInput: React.PropTypes.string,
+  isDev: React.PropTypes.bool,
   getGithubData: React.PropTypes.func,
   updateSearchInput: React.PropTypes.func,
+  checkUser: React.PropTypes.func,
 };
 
 App.defaultProps = {
   projectList: [],
   searchInput: '',
+  isDev: false,
   getGithubData: actions.getGithubData,
   updateSearchInput: actions.updateSearchInput,
+  checkUser: actions.checkUser,
 };
 
 const mapStateToProps = state => ({
   projectList: state.projects.projectList,
   searchInput: state.search.input_value,
+  isDev: state.projects.isDev,
 });
 
 App.contextTypes = {

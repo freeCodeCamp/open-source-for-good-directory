@@ -2,7 +2,7 @@ import React from 'react';
 // import Navbar from './Navbar';
 import Card from './Card';
 
-const Main = ({ projectList, searchInput }) => (
+const Main = ({ projectList, searchInput, isDev }) => (
   <main className="main">
     <div className="content-center">
       {/* <Navbar /> */}
@@ -18,7 +18,7 @@ const Main = ({ projectList, searchInput }) => (
            */
             projectList.filter(project =>
             ~project.full_name.replace(/-/g, ' ').toLowerCase().indexOf(searchInput.toLowerCase())).map(project =>
-              <Card project={project.githubData} key={project.full_name} />)
+              <Card project={project.githubData} isDev={isDev} key={project.full_name} />)
           }
         </div>
       </div>
@@ -29,11 +29,13 @@ const Main = ({ projectList, searchInput }) => (
 Main.propTypes = {
   projectList: React.PropTypes.arrayOf(React.PropTypes.shape),
   searchInput: React.PropTypes.string,
+  isDev: React.PropTypes.bool,
 };
 
 Main.defaultProps = {
   projectList: [],
   searchInput: '',
+  isDev: false,
 };
 
 export default Main;

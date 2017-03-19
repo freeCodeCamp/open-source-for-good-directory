@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Card = ({ project }) => (
+const Card = ({ project, isDev }) => (
   <div className="card">
-    <div className={project.isDev === false ? 'title green' : 'title brown'}>
+    <div className={isDev === false ? 'title green' : 'title brown'}>
       <h1>{ project.title }</h1>
     </div>
     <div className="card-content">
@@ -11,7 +11,7 @@ const Card = ({ project }) => (
       </div>
       <h3>{ project.description }</h3>
       {/* ternary operator to evaluate if should render normal card or dev card */}
-      { project.isDev === false ?
+      { isDev === false ?
         <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Live Demo</button></a>
         :
         <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Repository on GitHub</button></a>
@@ -30,10 +30,12 @@ const Card = ({ project }) => (
 
 Card.propTypes = {
   project: React.PropTypes.objectOf(React.PropTypes.shape),
+  isDev: React.PropTypes.bool,
 };
 
 Card.defaultProps = {
   project: {},
+  isDev: false,
 };
 
 export default Card;
