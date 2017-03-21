@@ -12,13 +12,10 @@ const DefinePluginConfig = new webpack.DefinePlugin({
 });
 
 module.exports = {
-  entry:
-  {
-    'app': [
-      'react-hot-loader/patch',
-      path.join(__dirname, '/src/index.js'),
-    ],
-  },
+  entry: [
+    'react-hot-loader/patch',
+    path.join(__dirname, '/src/index.js'),
+  ],
   module: {
     loaders: [
       {

@@ -29,8 +29,8 @@ const Card = ({ project, isDev }) => (
         <h3>{ project.description }</h3>
         <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Repository on GitHub</button></a>
         <div className="project-status">
-          <p><i className="fa fa-eye" aria-hidden="true" /> {this.state.data.subscribers_count}</p>
-          <p>open issues: {this.state.data.open_issues}</p>
+          <p><i className="fa fa-eye" aria-hidden="true" /> {project.subscribers_count}</p>
+          <p>open issues: {project.open_issues}</p>
           <p><i className="fa fa-star fa-fw" aria-hidden="true" /> { project.stargazer_count }</p>
         </div>
       </div>
