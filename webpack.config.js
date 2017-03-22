@@ -14,12 +14,12 @@ const DefinePluginConfig = new webpack.DefinePlugin({
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-    path.join(__dirname, '/src/index.js'),
+    path.join(__dirname, '/src/index.jsx'),
   ],
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
@@ -28,6 +28,9 @@ module.exports = {
         loader: 'style-loader!css-loader',
       },
     ],
+  },
+  resolve: {
+    extensions: ['.js', '.jsx'],
   },
   output: {
     filename: 'index.js',
