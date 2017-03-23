@@ -197,7 +197,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  github-pages
+  github-pages (= 128)
   hash-joiner
   jekyll (= 3.4.2)
   jekyll-feed (~> 0.6)

@@ -11,14 +11,7 @@ const DefinePluginConfig = new webpack.DefinePlugin({
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
 });
 
-<<<<<<< HEAD
 module.exports = {
-  entry: [
-    'react-hot-loader/patch',
-    path.join(__dirname, '/src/index.jsx'),
-  ],
-=======
-const config = {
   entry:
   {
     'app': [
@@ -26,11 +19,10 @@ const config = {
       path.join(__dirname, '/src/index.js'),
     ],
   },
->>>>>>> dev-update-webpack
   module: {
     loaders: [
       {
-        test: /\.jsx?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
       },
@@ -40,34 +32,9 @@ const config = {
       },
     ],
   },
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, '/docs'),
+    path: path.join(__dirname, '/build'),
   },
   plugins: [HTMLWebpackPluginConfig, DefinePluginConfig],
 };
-
-if (process.env.NODE_ENV === 'production') {
-  config.plugins = [
-      new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-      }),
-    new webpack.optimize.UglifyJsPlugin({
-       beautify: false,
-       mangle: {
-           screw_ie8: true,
-           keep_fnames: true
-       },
-       compress: {
-           screw_ie8: true
-       },
-       comments: false
-    })
-  ]
-}
-
-module.exports = config;
