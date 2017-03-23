@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "webpack",
+    "build": "NODE_ENV=development webpack --progress --profile --colors",
+    "prod": "NODE_ENV=production webpack --progress --profile --colors",
     "lint": "",
     "test": ""
   },
