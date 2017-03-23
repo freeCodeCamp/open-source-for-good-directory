@@ -11,7 +11,7 @@ const DefinePluginConfig = new webpack.DefinePlugin({
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
 });
 
-module.exports = {
+const config = {
   entry:
   {
     'app': [
@@ -34,7 +34,29 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, '/build'),
+    path: path.join(__dirname, '/docs'),
   },
   plugins: [HTMLWebpackPluginConfig, DefinePluginConfig],
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins = [
+      new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+      }),
+    new webpack.optimize.UglifyJsPlugin({
+       beautify: false,
+       mangle: {
+           screw_ie8: true,
+           keep_fnames: true
+       },
+       compress: {
+           screw_ie8: true
+       },
+       comments: false
+    })
+  ]
+}
+
+module.exports = config;
