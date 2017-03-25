@@ -13,7 +13,8 @@ const DefinePluginConfig = new webpack.DefinePlugin({
 });
 const UglifyJSPluginConfig = new UglifyJSPlugin({ mangle: false, sourcemap: false });
 
-module.exports = {
+
+const config = {
   entry: [
     'react-hot-loader/patch',
     path.join(__dirname, '/src/index.jsx'),
@@ -36,7 +37,29 @@ module.exports = {
   },
   output: {
     filename: 'index.js',
-    path: path.join(__dirname, '/build'),
+    path: path.join(__dirname, '/docs'),
   },
   plugins: [HTMLWebpackPluginConfig, DefinePluginConfig, UglifyJSPluginConfig],
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.plugins = [
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      beautify: false,
+      mangle: {
+        screw_ie8: true,
+        keep_fnames: true,
+      },
+      compress: {
+        screw_ie8: true,
+      },
+      comments: false,
+    }),
+  ];
+}
+
+module.exports = config;
