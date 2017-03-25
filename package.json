@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
-    "build": "webpack -p --progress --profile --colors",
-    "prod": "NODE_ENV=production webpack --progress --profile --colors",
+    "start": "NODE_ENV=development webpack-dev-server",
+    "build": "NODE_ENV=development webpack -p --progress --profile --colors",
+    "prod": "NODE_ENV=production webpack -p --progress --profile --colors",
     "lint": "",
     "test": ""
   },
@@ -45,8 +45,6 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "redux-logger": "^2.8.2",
     "style-loader": "^0.13.2",
-    "uglify-js": "github:mishoo/UglifyJS2#harmony",
-    "uglifyjs-webpack-plugin": "^0.3.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   }

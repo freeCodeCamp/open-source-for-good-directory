@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: path.join(__dirname, '/src/index.html'),
@@ -11,8 +10,6 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 const DefinePluginConfig = new webpack.DefinePlugin({
   'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
 });
-const UglifyJSPluginConfig = new UglifyJSPlugin({ mangle: false, sourcemap: false });
-
 
 const config = {
   entry: [
@@ -39,7 +36,7 @@ const config = {
     filename: 'index.js',
     path: path.join(__dirname, '/docs'),
   },
-  plugins: [HTMLWebpackPluginConfig, DefinePluginConfig, UglifyJSPluginConfig],
+  plugins: [HTMLWebpackPluginConfig, DefinePluginConfig],
 };
 
 if (process.env.NODE_ENV === 'production') {
