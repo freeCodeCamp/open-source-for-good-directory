@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server",
-    "build": "webpack",
+    "start": "webpack-dev-server",
+    "build": "webpack -p",
     "lint": "",
     "test": ""
   },
@@ -28,13 +28,12 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.3.2",
-    "babel-preset-latest": "^6.22.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.2.2",
     "babel-preset-react": "^6.23.0",
-    "babel-preset-stage-2": "^6.22.0",
     "css-loader": "^0.26.2",
     "eslint": "^3.16.1",
     "eslint-config-airbnb": "^14.1.0",
@@ -45,6 +44,8 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "redux-logger": "^2.8.2",
     "style-loader": "^0.13.2",
+    "uglify-js": "github:mishoo/UglifyJS2#harmony",
+    "uglifyjs-webpack-plugin": "^0.3.1",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   }
