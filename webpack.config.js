@@ -2,13 +2,30 @@ const path = require('path');
 const webpack = require('webpack');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
+const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1;
+
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: path.join(__dirname, '/src/index.html'),
   filename: 'index.html',
   inject: 'body',
 });
 const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
+  'process.env.NODE_ENV': JSON.stringify('production'),
+});
+const UglifyPluginConfig = new webpack.optimize.UglifyJsPlugin({
+  beautify: false,
+  mangle: {
+    screw_ie8: true,
+    keep_fnames: true,
+  },
+  compress: {
+    screw_ie8: true,
+  },
+  comments: false,
+});
+const LoaderOptionsPluginConfig = new webpack.LoaderOptionsPlugin({
+  minimize: true,
+  debug: false,
 });
 
 const config = {
@@ -36,27 +53,9 @@ const config = {
     filename: 'index.js',
     path: path.join(__dirname, '/docs'),
   },
-  plugins: [HTMLWebpackPluginConfig, DefinePluginConfig],
+  plugins: dev ? [HTMLWebpackPluginConfig] :
+  [HTMLWebpackPluginConfig, DefinePluginConfig, LoaderOptionsPluginConfig, UglifyPluginConfig],
 };
 
-if (process.env.NODE_ENV === 'production') {
-  config.plugins = [
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      mangle: {
-        screw_ie8: true,
-        keep_fnames: true,
-      },
-      compress: {
-        screw_ie8: true,
-      },
-      comments: false,
-    }),
-  ];
-}
 
 module.exports = config;
