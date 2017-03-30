@@ -19,3 +19,4 @@ if otherwise you use a *windows OS* just open `package.json` on your editor and 
 "scripts": {
     "start": "set NODE_ENV=development & webpack-dev-server",
 ```
+ 
