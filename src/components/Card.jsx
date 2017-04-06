@@ -2,18 +2,17 @@ import React from 'react';
 
 const Card = ({ project, isDev }) => (
   <div className="card">
-    <div className={isDev === false ? 'title green' : 'title brown'}>
-      <h1>{ project.title }</h1>
-    </div>
-    {/* ternary operator to evaluate if should render normal card or dev card */}
     { isDev === false ?
       /* Normal View */
       <div className="card-content">
-        <div className="icon-frame">
-          <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
-        </div>
-        <h3>{ project.description }</h3>
-        <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Live Demo</button></a>
+        <a className="project-link" href="#test">
+          <h1 className="project-title">{ project.title }</h1>
+          <div className="icon-frame">
+            <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
+          </div>
+          <h3 className="project-desc">{ project.description }</h3>
+        </a>
+        <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
         <div className="project-status">
           <p>live</p>
           <p>{ project.full_name }</p>
@@ -23,11 +22,14 @@ const Card = ({ project, isDev }) => (
       :
       /* Dev View */
       <div className="card-content">
-        <div className="icon-frame">
-          <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
-        </div>
-        <h3>{ project.description }</h3>
-        <a href={`https://github.com/${project.full_name}`}><button className="project-link">See Repository on GitHub</button></a>
+        <a className="project-link" href="#test">
+          <h1 className="project-title">{ project.title }</h1>
+          <div className="icon-frame">
+            <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
+          </div>
+            <h3 className="project-desc">{ project.description }</h3>
+        </a>
+        <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Repository on GitHub</a>
         <div className="project-status">
           <p><i className="fa fa-eye" aria-hidden="true" /> {project.subscribers_count}</p>
           <p>open issues: {project.open_issues}</p>

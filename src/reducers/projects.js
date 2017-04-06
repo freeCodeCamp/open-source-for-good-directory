@@ -8,6 +8,12 @@ const initialState = {
     {
       full_name: 'freeCodeCamp/Mail-for-Good',
     },
+    {
+      full_name: 'freeCodeCamp/Conference-for-Good',
+    },
+    {
+      full_name: 'freeCodeCamp/LetsMeet',
+    },
   ],
 };
 

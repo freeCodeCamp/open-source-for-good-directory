@@ -75,7 +75,6 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  min-height: 100vh;
   -webkit-flex-direction: row;
   -ms-flex-direction: row;
   flex-direction: row;
@@ -103,8 +102,8 @@ body {
 }
 
 .testimonals > div {
-  width: 18em;
-  height: 18em;
+  width: 16em;
+  height: 16em;
   margin: 2em 1em;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -123,12 +122,12 @@ body {
   margin: 2em auto;
   padding: 4em;
   background-color: #e0e0e0;
-  width: 58em;
+  width: 52em;
 }
 
 .break {
   border: 0;
-  width: 58em;
+  width: 52em;
   height: 1px;
   background-color: #e0e0e0;
 }
@@ -209,9 +208,9 @@ body {
 /* Card Box */
 
 .card-container {
-  width: 62em;
+  width: 58em;
   margin: 0 auto;
-  padding: 2em;
+  padding: 3em;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -227,9 +226,9 @@ body {
 
 .card {
   text-align: center;
-  width: calc(50% - 1em);
-  height: 30em;
-  margin-bottom: 2em;
+  width: calc(50% - 1.5em);
+  height: 28em;
+  margin-bottom: 3em;
   background-color: #ffffff;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -243,7 +242,7 @@ body {
   flex: 1;
   -webkit-flex: 1;
   -ms-flexbox: 1;
-  padding: 0 2em 2em 2em;
+  padding: 2em;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -291,8 +290,19 @@ body {
 }
 
 .project-link {
+  font-weight: 600;
   text-decoration: none;
   color: inherit;
+  transition: color 0.2s linear;
+  -webkit-transition: color 0.2s linear;
+}
+
+.project-link:hover .project-title {
+  color: #006400;
+}
+
+.project-link:hover .project-desc {
+  color: #006400;
 }
 
 .project-link > h3 {
@@ -303,7 +313,9 @@ body {
   color: #006400;
 }
 
-.project-link {
+.demo-link {
+  font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
   font-size: 1.1em;
   color: inherit;
@@ -317,7 +329,7 @@ body {
   -webkit-transition: border-color 0.2s linear;
 }
 
-.project-link:hover {
+.demo-link:hover {
   border-color: #006400;
 }
 
@@ -429,22 +441,4 @@ body {
   .card-container {
     width: 100%;
   }
-}
-
-.title{  
-  color: #fff;
-  margin-bottom: 2em;
-}
-
-.green {
-  background: darkgreen;
-}
-
-.brown {
-  background: #A4755F;
-}
-
-.card, .title {  
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
 }
