@@ -31,7 +31,7 @@ body {
   display: flex;
   background-color: #006400;
   color: #ffffff;
-  padding: 2em;
+  padding: 1em 2em;
 }
 
 .header-links {
@@ -81,14 +81,17 @@ body {
 }
 
 .main-title {
+  margin-top: 2em;
   font-size: 2.2em;
   text-align: center;
 }
 
 .main-desc {
-  font-size: 1.4em;
   margin: 0;
   text-align: center;
+  font-size: 1.3em;
+  font-weight: 300;
+  color: #333333;
 }
 
 .testimonals {
@@ -118,11 +121,21 @@ body {
 }
 
 .as-seen-on {
+  display: block;
   text-align: center;
   margin: 2em auto;
-  padding: 4em;
-  background-color: #e0e0e0;
+  padding: 2em 0;
   width: 52em;
+}
+
+.as-seen-on > img {
+  width: 100%;
+}
+
+.as-seen-on-desc {
+  font-size: 1.5em;
+  margin: 0.5em;
+  text-align: center;
 }
 
 .break {
