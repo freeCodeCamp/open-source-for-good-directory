@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
@@ -29,9 +30,13 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   background-color: #006400;
   color: #ffffff;
-  padding: 1em 2em;
+  padding: 0 26px;
+  height: 50px;
 }
 
 .header-links {
@@ -41,9 +46,9 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  flex: 1;
-  -webkit-flex: 1;
-  -ms-flexbox: 1;
+  flex: 4;
+  -webkit-flex: 4;
+  -ms-flexbox: 4;
   -webkit-justify-content: flex-end;
   -ms-justify-content: flex-end;
   justify-content: flex-end;
@@ -60,6 +65,7 @@ body {
 
 .header-brand {
   margin: 0;
+  height: 40px;
   flex: 1;
   -webkit-flex: 1;
   -ms-flexbox: 1;
@@ -87,14 +93,14 @@ body {
 }
 
 .main-desc {
+  font-size: 1.3em;
   margin: 0;
   text-align: center;
-  font-size: 1.3em;
   font-weight: 300;
   color: #333333;
 }
 
-.testimonals {
+.testimonals-container {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -104,43 +110,56 @@ body {
   margin: 0 auto;
 }
 
-.testimonals > div {
-  width: 16em;
-  height: 16em;
+.testimonal {
+  width: 18em;
+  height: 26em;
   margin: 2em 1em;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: center;
-  -ms-justify-content: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
-  background-color: #e0e0e0;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: space-between;
+  -ms-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+
+.testimonal > p {
+  margin: 1em 0 0;
+  line-height: 1.4;
+}
+
+.testimonal > img {
+  display: block;
+  margin: 0 auto;
+  border-radius: 50%;
+  width: 196px;
 }
 
 .as-seen-on {
-  display: block;
   text-align: center;
   margin: 2em auto;
-  padding: 2em 0;
-  width: 52em;
+  padding: 1em 0 1em;
+  width: 60em;
 }
 
 .as-seen-on > img {
+  display: block;
   width: 100%;
 }
 
 .as-seen-on-desc {
   font-size: 1.5em;
-  margin: 0.5em;
-  text-align: center;
 }
 
 .break {
   border: 0;
-  width: 52em;
+  width: 60em;
   height: 1px;
   background-color: #e0e0e0;
 }
@@ -398,18 +417,18 @@ body {
 }
 
 ::-moz-placeholder {
- text-align: center;
+text-align: center;
 }
 
 :-ms-input-placeholder {
- text-align: center;
+text-align: center;
 }
 
 /* Media Queries */
 
 @media screen and (max-width: 64em) {
   .card-container {
-    width: 52em;
+    width: 60em;
   }
   .card {
     height: 24em;
