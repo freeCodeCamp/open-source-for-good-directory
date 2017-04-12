@@ -4,7 +4,7 @@ const Testimonial = () => (
   <div className="testimonals-container">
     <div className="testimonal">
       <img
-        src="//i.imgur.com/ZHnFFN5.jpg"
+        src="http://i.imgur.com/ZHnFFN5.jpg"
         alt="Ewa's testimonal"
       />
       <p>
@@ -17,7 +17,7 @@ const Testimonial = () => (
     </div>
     <div className="testimonal">
       <img
-        src="//i.imgur.com/KHF8O2i.jpg"
+        src="http://i.imgur.com/KHF8O2i.jpg"
         alt="Jennifer's testimonal"
       />
       <p>
@@ -30,7 +30,7 @@ const Testimonial = () => (
     </div>
     <div className="testimonal">
       <img
-        src="//i.imgur.com/9VknVe3.jpg"
+        src="http://i.imgur.com/9VknVe3.jpg"
         alt="Jennifer's testimonal"
       />
       <p>
