@@ -1,20 +1,13 @@
 import * as actions from '../actions/types';
 
 const initialState = {
-  projectList: [
-    {
-      full_name: 'freeCodeCamp/food-bank-app',
-    },
-    {
-      full_name: 'freeCodeCamp/Mail-for-Good',
-    },
-    {
-      full_name: 'freeCodeCamp/Conference-for-Good',
-    },
-    {
-      full_name: 'freeCodeCamp/LetsMeet',
-    },
+  projectNames: [
+    'freeCodeCamp/food-bank-app',
+    'freeCodeCamp/Mail-for-Good',
+    'freeCodeCamp/Conference-for-Good',
+    'freeCodeCamp/LetsMeet',
   ],
+  projectData: [],
 };
 
 /**
@@ -25,20 +18,13 @@ const initialState = {
  */
 export default function projects(state = initialState, action) {
   switch (action.type) {
-    case actions.GET_GITHUB_DATA:
-      return {
-        ...state,
-        projectList: state.projectList.map((project) => {
-          if (project.full_name === action.githubData.full_name) {
-            return { ...project,
-              githubData: action.githubData };
-          }
-          return { ...project };
-        }),
-      };
+    case actions.GET_GITHUB_DATA: {
+      const newProjectData = state.projectData.slice();
+      newProjectData.push(action.githubData);
+      return { ...state, projectData: newProjectData };
+    }
     case actions.CHECK_USER:
-      return { ...state,
-        isDev: action.isDev };
+      return { ...state, isDev: action.isDev };
     default:
       return state;
   }

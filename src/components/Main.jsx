@@ -2,24 +2,48 @@ import React from 'react';
 // import Navbar from './Navbar';
 import Card from './Card';
 
-const Main = ({ projectList, searchInput, isDev }) => (
+/**
+ * @param {Array} projectData containing all the repos
+ * filter the key value
+ * @param {String} searchInput the search input submitted by the user
+ * both strings are normalized with toLowerCase() for better filtering
+ * @param {Boolean} isDev true if user has freeCodeCamp cookie, else false
+ * @returns {ReactElement} containing repos that pass the filter
+ * to be used to map the <Card /> components
+ */
+const renderProjects = (projectData, searchInput, isDev) => {
+  if (searchInput) {
+    return projectData.filter((project) => {
+      const keyWords = project.title.toLowerCase().split(' ');
+      const searchWords = searchInput.toLowerCase().split(' ');
+      for (let i = 0; i < searchWords.length; i++) {
+        if (keyWords.indexOf(searchWords[i]) !== -1) { return true; }
+      }
+      return false;
+    })
+    .map(project =>
+      <Card
+        project={project}
+        isDev={isDev}
+        key={project.full_name}
+      />);
+  }
+  return projectData.map(project => <Card
+    project={project}
+    isDev={isDev}
+    key={project.full_name}
+  />);
+};
+
+const Main = ({ projectData, searchInput, isDev }) => (
   <main className="main">
     <div className="content-center">
       {/* <Navbar /> */}
       <div className="content-container">
         <div className="card-container">
-          { /**
-           * takes @param {array} projectList containing all the repos
-           * filter the key value @param {string} project.full_name with
-           * @param {string} searchInput the search input submitted by the user
-           * both strings are normalized with toLowerCase() for better filtering
-           * @returns {array} containing repos that pass the filter
-           * to be used to map the <Card /> components
-           */
-            projectList.filter(project =>
-            ~project.full_name.replace(/-/g, ' ').toLowerCase().indexOf(searchInput.toLowerCase())).map(project =>
-              <Card project={project.githubData} isDev={isDev} key={project.full_name} />)
-          }
+          {projectData.length ?
+          renderProjects(projectData, searchInput, isDev)
+          : null}
         </div>
       </div>
     </div>
@@ -27,13 +51,14 @@ const Main = ({ projectList, searchInput, isDev }) => (
 );
 
 Main.propTypes = {
-  projectList: React.PropTypes.arrayOf(React.PropTypes.shape),
+  projectData: React.PropTypes.arrayOf(React.PropTypes.object),
   searchInput: React.PropTypes.string,
   isDev: React.PropTypes.bool,
 };
 
 Main.defaultProps = {
   projectList: [],
+  projectData: [],
   searchInput: '',
   isDev: false,
 };
