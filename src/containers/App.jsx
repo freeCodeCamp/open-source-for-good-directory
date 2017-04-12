@@ -23,7 +23,7 @@ class App extends React.Component {
     }());
     /* populate state with data from github for every repo */
     (function getData() {
-      props.projectList.map(project => props.getGithubData(project.full_name));
+      props.projectNames.map(name => props.getGithubData(name));
     }());
   }
   /** handle the input change event
@@ -47,7 +47,7 @@ class App extends React.Component {
         <Testimonial />
         <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
         <Main
-          projectList={this.props.projectList}
+          projectData={this.props.projectData}
           isDev={this.props.isDev}
           searchInput={this.props.searchInput}
         />
@@ -57,7 +57,8 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  projectList: React.PropTypes.arrayOf(React.PropTypes.object),
+  projectNames: React.PropTypes.arrayOf(React.PropTypes.string),
+  projectData: React.PropTypes.arrayOf(React.PropTypes.object),
   searchInput: React.PropTypes.string,
   isDev: React.PropTypes.bool,
   getGithubData: React.PropTypes.func,
@@ -66,7 +67,8 @@ App.propTypes = {
 };
 
 App.defaultProps = {
-  projectList: [],
+  projectNames: [],
+  projectData: [],
   searchInput: '',
   isDev: false,
   getGithubData: actions.getGithubData,
@@ -75,7 +77,8 @@ App.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  projectList: state.projects.projectList,
+  projectNames: state.projects.projectNames,
+  projectData: state.projects.projectData,
   searchInput: state.search.input_value,
   isDev: state.projects.isDev,
 });

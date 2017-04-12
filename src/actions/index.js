@@ -16,7 +16,7 @@ export function getGithubData(repo) {
     .then((response) => {
       const githubData = {
         title: response.data.name.replace(/-/g, ' '),
-        description: response.data.description,
+        description: response.data.description || '',
         full_name: response.data.full_name,
         stargazer_count: response.data.stargazers_count,
         open_issues: response.data.open_issues,
