@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import Header from '../components/Header';
@@ -57,13 +58,13 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  projectNames: React.PropTypes.arrayOf(React.PropTypes.string),
-  projectData: React.PropTypes.arrayOf(React.PropTypes.object),
-  searchInput: React.PropTypes.string,
-  isDev: React.PropTypes.bool,
-  getGithubData: React.PropTypes.func,
-  updateSearchInput: React.PropTypes.func,
-  checkUser: React.PropTypes.func,
+  projectNames: PropTypes.arrayOf(PropTypes.string),
+  projectData: PropTypes.arrayOf(PropTypes.object),
+  searchInput: PropTypes.string,
+  isDev: PropTypes.bool,
+  getGithubData: PropTypes.func,
+  updateSearchInput: PropTypes.func,
+  checkUser: PropTypes.func,
 };
 
 App.defaultProps = {
@@ -84,7 +85,7 @@ const mapStateToProps = state => ({
 });
 
 App.contextTypes = {
-  store: React.PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, actions)(App);

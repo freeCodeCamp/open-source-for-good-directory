@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Card = ({ project, isDev }) => (
   <div className="card">
@@ -27,7 +28,7 @@ const Card = ({ project, isDev }) => (
           <div className="icon-frame">
             <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
           </div>
-            <h3 className="project-desc">{ project.description }</h3>
+          <h3 className="project-desc">{ project.description }</h3>
         </a>
         <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Repository on GitHub</a>
         <div className="project-status">
@@ -41,8 +42,8 @@ const Card = ({ project, isDev }) => (
 );
 
 Card.propTypes = {
-  project: React.PropTypes.objectOf(React.PropTypes.shape),
-  isDev: React.PropTypes.bool,
+  project: PropTypes.objectOf(PropTypes.shape),
+  isDev: PropTypes.bool,
 };
 
 Card.defaultProps = {

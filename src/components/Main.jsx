@@ -1,5 +1,6 @@
 import React from 'react';
-// import Navbar from './Navbar';
+import PropTypes from 'prop-types';
+
 import Card from './Card';
 
 /**
@@ -51,9 +52,9 @@ const Main = ({ projectData, searchInput, isDev }) => (
 );
 
 Main.propTypes = {
-  projectData: React.PropTypes.arrayOf(React.PropTypes.object),
-  searchInput: React.PropTypes.string,
-  isDev: React.PropTypes.bool,
+  projectData: PropTypes.arrayOf(PropTypes.object),
+  searchInput: PropTypes.string,
+  isDev: PropTypes.bool,
 };
 
 Main.defaultProps = {

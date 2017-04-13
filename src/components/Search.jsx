@@ -1,12 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Search = ({ searchInput, onChange }) => (
   <input className="search-input" type="text" name="search" placeholder="Filter projects" value={searchInput} onChange={onChange} />
 );
 
 Search.propTypes = {
-  searchInput: React.PropTypes.string,
-  onChange: React.PropTypes.func,
+  searchInput: PropTypes.string,
+  onChange: PropTypes.func,
 };
 
 Search.defaultProps = {
