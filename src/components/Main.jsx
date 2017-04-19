@@ -10,10 +10,9 @@ import Card from './Card';
  * filter the title and description key value as a string against
  * @param {String} searchInput the search input submitted by the user, array of substrings
  * both values are normalized with toLowerCase() for better filtering
- * @param {Boolean} isDev true if user has freeCodeCamp cookie, else false
  * @returns {ReactElement} containing repos that pass the filter
  */
-const renderProjects = (projectData, searchInput, isDev) => {
+const renderProjects = (projectData, searchInput, projectTags, projectWords) => {
   if (searchInput) {
     return projectData.filter((project) => {
       const keyWords = project.title.toLowerCase() + project.description.toLowerCase();
@@ -23,28 +22,32 @@ const renderProjects = (projectData, searchInput, isDev) => {
       }
       return false;
     })
-    .map(project =>
+    .map((project, index) =>
       <Card
         project={project}
-        isDev={isDev}
+        tags={projectTags}
+        words={projectWords[index]}
         key={project.full_name}
       />);
   }
-  return projectData.map(project =>
+  return projectData.map((project, index) =>
     <Card
       project={project}
-      isDev={isDev}
+      tags={projectTags}
+      words={projectWords[index]}
       key={project.full_name}
     />);
 };
 
-const Main = ({ projectData, searchInput, isDev }) => (
+const Main = ({ projectData, searchInput, projectTags, projectWords }) => (
   <main className="main">
     <div className="content-center">
       {/* <Navbar /> */}
       <div className="content-container">
         <div className="card-container">
-          {projectData.length && renderProjects(projectData, searchInput, isDev)}
+          {projectData.length &&
+            renderProjects(projectData, searchInput, projectTags, projectWords)
+          }
         </div>
       </div>
     </div>
@@ -53,15 +56,15 @@ const Main = ({ projectData, searchInput, isDev }) => (
 
 Main.propTypes = {
   projectData: PropTypes.arrayOf(PropTypes.object),
+  projectTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  projectWords: PropTypes.arrayOf(PropTypes.string).isRequired,
   searchInput: PropTypes.string,
-  isDev: PropTypes.bool,
 };
 
 Main.defaultProps = {
   projectList: [],
   projectData: [],
   searchInput: '',
-  isDev: false,
 };
 
 export default Main;

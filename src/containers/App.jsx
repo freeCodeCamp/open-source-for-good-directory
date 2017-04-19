@@ -18,10 +18,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    /* check if user is logged in for card component creation */
-    (function checkUser() {
-      props.checkUser();
-    }());
     /* populate state with data from github for every repo */
     (function getData() {
       props.projectNames.map(name => props.getGithubData(name));
@@ -49,7 +45,8 @@ class App extends React.Component {
         <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
         <Main
           projectData={this.props.projectData}
-          isDev={this.props.isDev}
+          projectTags={this.props.projectTags}
+          projectWords={this.props.projectWords}
           searchInput={this.props.searchInput}
         />
       </div>
@@ -60,16 +57,18 @@ class App extends React.Component {
 App.propTypes = {
   projectNames: PropTypes.arrayOf(PropTypes.string),
   projectData: PropTypes.arrayOf(PropTypes.object),
+  projectTags: PropTypes.arrayOf(PropTypes.string),
+  projectWords: PropTypes.arrayOf(PropTypes.string),
   searchInput: PropTypes.string,
-  isDev: PropTypes.bool,
   getGithubData: PropTypes.func,
   updateSearchInput: PropTypes.func,
-  checkUser: PropTypes.func,
 };
 
 App.defaultProps = {
   projectNames: [],
   projectData: [],
+  projectTags: [],
+  projectWords: [],
   searchInput: '',
   isDev: false,
   getGithubData: actions.getGithubData,
@@ -80,8 +79,9 @@ App.defaultProps = {
 const mapStateToProps = state => ({
   projectNames: state.projects.projectNames,
   projectData: state.projects.projectData,
+  projectTags: state.projects.projectTags,
+  projectWords: state.projects.projectWords,
   searchInput: state.search.input_value,
-  isDev: state.projects.isDev,
 });
 
 App.contextTypes = {

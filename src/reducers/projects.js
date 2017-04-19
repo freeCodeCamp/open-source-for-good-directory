@@ -8,6 +8,8 @@ const initialState = {
     'freeCodeCamp/LetsMeet',
   ],
   projectData: [],
+  projectTags: ['email', 'marketing', 'automation', 'finance', 'inventory', 'service'],
+  projectWords: ['034', '125', '34', '02'],
 };
 
 /**
@@ -23,8 +25,6 @@ export default function projects(state = initialState, action) {
       newProjectData.push(action.githubData);
       return { ...state, projectData: newProjectData };
     }
-    case actions.CHECK_USER:
-      return { ...state, isDev: action.isDev };
     default:
       return state;
   }
