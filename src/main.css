@@ -259,7 +259,7 @@ body {
 .card {
   text-align: center;
   width: calc(50% - 1.5em);
-  height: 28em;
+  height: 26em;
   margin-bottom: 3em;
   background-color: #ffffff;
   display: -webkit-flex;
@@ -305,6 +305,7 @@ body {
 
 .project-title {
   margin: 0.5em 0;
+  font-size: 1.8em;
   transition: color 0.2s linear;
   -webkit-transition: color 0.2s linear;
 }

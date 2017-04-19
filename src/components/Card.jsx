@@ -7,6 +7,13 @@ const renderTags = (tags, words) => (
   ))
 );
 
+const randomColor = () => {
+  const color = Math.floor(Math.random() * 360);
+  return {
+    color: `hsl(${color}, 70%, 50%)`,
+  };
+};
+
 const Card = ({ project, tags, words }) => (
   <div className="card">
     <div className="card-content">
@@ -17,9 +24,13 @@ const Card = ({ project, tags, words }) => (
       <a className="project-link" href="#test">
         <h1 className="project-title">{ project.title }</h1>
         <div className="icon-frame">
-          <i className="fa fa-envelope-open-o fa-4x" aria-hidden="true" />
+          <i
+            className="fa fa-envelope-open-o fa-4x"
+            aria-hidden="true"
+            style={randomColor()}
+          />
         </div>
-        <h3 className="project-desc">{ project.description }</h3>
+        <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
       </a>
       <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
     </div>
