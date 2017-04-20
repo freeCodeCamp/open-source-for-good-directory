@@ -10,13 +10,18 @@ import Card from './Card';
  * filter the title and description key value as a string against
  * @param {String} searchInput the search input submitted by the user, array of substrings
  * both values are normalized with toLowerCase() for better filtering
+ * @param {Array} projectTags contains an array of tags that can be used by projects
+ * @param {Array} projectWords array of "filters" for every project to define what tags they can use
  * @returns {ReactElement} containing repos that pass the filter
  */
 const renderProjects = (projectData, searchInput, projectTags, projectWords) => {
   if (searchInput) {
     return projectData.filter((project) => {
       const keyWords = project.title.toLowerCase() + project.description.toLowerCase();
-      const searchWords = searchInput.toLowerCase().split(' ');
+      // if searchInput has more than one string in it we remove every empty one
+      const searchWords = (searchInput.split(' ').length > 1) ?
+      searchInput.toLowerCase().split(' ').filter(Boolean) :
+      searchInput.toLowerCase().split(' ');
       for (let i = 0; i < searchWords.length; i += 1) {
         if (keyWords.includes(searchWords[i])) { return true; }
       }

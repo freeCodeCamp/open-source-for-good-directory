@@ -35,11 +35,12 @@ body {
   align-items: center;
   background-color: #006400;
   color: #ffffff;
-  padding: 0 26px;
+  padding: 0 12px 0 30px;
   height: 50px;
 }
 
 .header-links {
+  height: 100%;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -57,18 +58,30 @@ body {
   align-items: center;
 }
 
-.header-links > li {
+.header-links > li > a {
+  height: inherit;
+  font-weight: 700;
+  font-size: 20px;
   cursor: pointer;
-  font-size: 1.1em;
-  margin-left: 2em;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  color: #eeeeee;
+  text-decoration: none;
+}
+@media (max-width: 768px) {
+  .header-links > li {
+    visibility: hidden;
+  }
 }
 
-.header-brand {
-  margin: 0;
+.header-links > li a:hover {
+  background: #eeeeee;
+  color: darkgreen;
+}
+
+.header-brand, .header-brand > img {
   height: 40px;
-  flex: 1;
-  -webkit-flex: 1;
-  -ms-flexbox: 1;
 }
 
 /* Main Section */

@@ -70,10 +70,8 @@ App.defaultProps = {
   projectTags: [],
   projectWords: [],
   searchInput: '',
-  isDev: false,
   getGithubData: actions.getGithubData,
   updateSearchInput: actions.updateSearchInput,
-  checkUser: actions.checkUser,
 };
 
 const mapStateToProps = state => ({
