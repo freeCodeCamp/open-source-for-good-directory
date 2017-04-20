@@ -37,6 +37,7 @@ class App extends React.Component {
    * @return {objects} our stateless components
    */
   render() {
+    const { projectData, projectTags, projectWords, projectIcons, searchInput } = this.props;
     return (
       <div className="app">
         <Header />
@@ -44,10 +45,11 @@ class App extends React.Component {
         <Testimonial />
         <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
         <Main
-          projectData={this.props.projectData}
-          projectTags={this.props.projectTags}
-          projectWords={this.props.projectWords}
-          searchInput={this.props.searchInput}
+          projectData={projectData}
+          projectTags={projectTags}
+          projectWords={projectWords}
+          projectIcons={projectIcons}
+          searchInput={searchInput}
         />
       </div>
     );
@@ -59,6 +61,7 @@ App.propTypes = {
   projectData: PropTypes.arrayOf(PropTypes.object),
   projectTags: PropTypes.arrayOf(PropTypes.string),
   projectWords: PropTypes.arrayOf(PropTypes.string),
+  projectIcons: PropTypes.arrayOf(PropTypes.string),
   searchInput: PropTypes.string,
   getGithubData: PropTypes.func,
   updateSearchInput: PropTypes.func,
@@ -69,6 +72,7 @@ App.defaultProps = {
   projectData: [],
   projectTags: [],
   projectWords: [],
+  projectIcons: [],
   searchInput: '',
   isDev: false,
   getGithubData: actions.getGithubData,
@@ -76,13 +80,17 @@ App.defaultProps = {
   checkUser: actions.checkUser,
 };
 
-const mapStateToProps = state => ({
-  projectNames: state.projects.projectNames,
-  projectData: state.projects.projectData,
-  projectTags: state.projects.projectTags,
-  projectWords: state.projects.projectWords,
-  searchInput: state.search.input_value,
-});
+const mapStateToProps = (state) => {
+  const { projects, search } = state;
+  return {
+    projectNames: projects.projectNames,
+    projectData: projects.projectData,
+    projectTags: projects.projectTags,
+    projectWords: projects.projectWords,
+    projectIcons: projects.projectIcons,
+    searchInput: search.input_value,
+  };
+};
 
 App.contextTypes = {
   store: PropTypes.object.isRequired,

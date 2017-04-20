@@ -7,9 +7,10 @@ const initialState = {
     'freeCodeCamp/Conference-for-Good',
     'freeCodeCamp/LetsMeet',
   ],
-  projectData: [],
   projectTags: ['email', 'marketing', 'automation', 'finance', 'inventory', 'service'],
-  projectWords: ['034', '125', '34', '02'],
+  projectWords: ['034', '135', '34', '201'],
+  projectIcons: ['fa-free-code-camp', 'fa-envelope-o', 'fa-cubes', 'fa-globe'],
+  projectData: [],
 };
 
 /**
