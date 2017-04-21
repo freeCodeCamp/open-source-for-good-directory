@@ -44,6 +44,13 @@ const config = {
         test: /\.css$/,
         loader: 'style-loader!css-loader',
       },
+      {
+        test: /\.(jpg|png|svg)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 25000,
+        },
+      },
     ],
   },
   resolve: {

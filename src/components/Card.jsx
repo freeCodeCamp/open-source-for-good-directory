@@ -3,31 +3,24 @@ import PropTypes from 'prop-types';
 
 const renderTags = (tags, words) => (
   words.split('').map(index => (
-    <p>{tags[index]}</p>
+    <p key={tags[index]}>
+      {tags[index]}
+    </p>
   ))
 );
 
-const randomColor = () => {
-  const color = Math.floor(Math.random() * 360);
-  return {
-    color: `hsl(${color}, 70%, 50%)`,
-  };
-};
-
-const Card = ({ project, tags, words }) => (
+const Card = ({ project, tags, words, icon }) => (
   <div className="card">
     <div className="card-content">
       <div className="project-status">
-        <p><i className="fa fa-eye fa-fw" aria-hidden="true" />&nbsp;0</p>
         <p><i className="fa fa-star fa-fw" aria-hidden="true" />&nbsp;{ project.stargazer_count }</p>
       </div>
       <a className="project-link" href="#test">
         <h1 className="project-title">{ project.title }</h1>
         <div className="icon-frame">
           <i
-            className="fa fa-envelope-open-o fa-4x"
+            className={`fa ${icon} fa-4x`}
             aria-hidden="true"
-            style={randomColor()}
           />
         </div>
         <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
@@ -44,6 +37,7 @@ Card.propTypes = {
   project: PropTypes.objectOf(PropTypes.shape),
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   words: PropTypes.string.isRequired,
+  icon: PropTypes.string.isRequired,
 };
 
 Card.defaultProps = {

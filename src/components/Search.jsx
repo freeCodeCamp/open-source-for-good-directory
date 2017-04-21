@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Search = ({ searchInput, onChange }) => (
-  <input className="search-input" type="text" name="search" placeholder="Filter projects" value={searchInput} onChange={onChange} />
+  <input className="search-input" type="text" name="search" placeholder="Search by keyword" value={searchInput} onChange={onChange} />
 );
 
 Search.propTypes = {

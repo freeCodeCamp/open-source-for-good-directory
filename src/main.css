@@ -39,6 +39,30 @@ body {
   height: 50px;
 }
 
+.header-brand {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header-brand > img {
+  height: 35px;
+}
+
+.header-logo {
+  color: #ffffff;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+.header-brand:hover .header-logo {
+  color: #ff9c2a;
+}
+
 .header-links {
   height: 100%;
   margin: 0;
@@ -80,8 +104,12 @@ body {
   color: darkgreen;
 }
 
-.header-brand, .header-brand > img {
-  height: 40px;
+.header-links > li > a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 1.25em;
+  font-weight: 700;
+
 }
 
 /* Main Section */
@@ -253,9 +281,9 @@ body {
 /* Card Box */
 
 .card-container {
-  width: 52em;
+  width: 70em;
   margin: 0 auto;
-  padding: 3em;
+  padding: 3em 0;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
@@ -271,8 +299,8 @@ body {
 
 .card {
   text-align: center;
-  width: calc(50% - 1.5em);
-  height: 26em;
+  width: calc(33% - 1.5em);
+  height: 28em;
   margin-bottom: 3em;
   background-color: #ffffff;
   display: -webkit-flex;
@@ -329,10 +357,12 @@ body {
   margin: 0 auto;
   border-radius: 50%;
   background-color: #e0e0e0;
+  transition: color 0.2s linear;
+  -webkit-transition: color 0.2s linear;
 }
 
 .icon-frame > i {
-  line-height: 1.6em;
+  line-height: 1.7em;
 }
 
 .project-link {
@@ -348,6 +378,10 @@ body {
 }
 
 .project-link:hover .project-desc {
+  color: #006400;
+}
+
+.project-link:hover .icon-frame {
   color: #006400;
 }
 
@@ -446,15 +480,18 @@ body {
   letter-spacing: normal;
   font-weight: 300;
   color: #adadad;
-  text-align: center;
 }
 
 ::-moz-placeholder {
-text-align: center;
+  letter-spacing: normal;
+  font-weight: 300;
+  color: #adadad;
 }
 
 :-ms-input-placeholder {
-text-align: center;
+  letter-spacing: normal;
+  font-weight: 300;
+  color: #adadad;
 }
 
 /* Media Queries */

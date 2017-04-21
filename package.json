@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server",
-    "build": "NODE_ENV=development webpack --progress --profile --colors",
-    "prod": "NODE_ENV=production webpack -p --progress --profile --colors",
+    "prod": "set NODE_ENV=production & webpack -p --progress --profile --colors",
     "lint": "",
     "test": ""
   },
@@ -46,6 +45,7 @@
     "react-hot-loader": "^3.0.0-beta.6",
     "redux-logger": "^3.0.1",
     "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.4.1"
   }

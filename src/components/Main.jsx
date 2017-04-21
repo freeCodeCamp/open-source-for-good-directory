@@ -12,9 +12,10 @@ import Card from './Card';
  * both values are normalized with toLowerCase() for better filtering
  * @param {Array} projectTags contains an array of tags that can be used by projects
  * @param {Array} projectWords array of "filters" for every project to define what tags they can use
+ * @param {Aray} projectIcons array of icons for cards
  * @returns {ReactElement} containing repos that pass the filter
  */
-const renderProjects = (projectData, searchInput, projectTags, projectWords) => {
+const renderProjects = (projectData, searchInput, projectTags, projectWords, projectIcons) => {
   if (searchInput) {
     return projectData.filter((project) => {
       const keyWords = project.title.toLowerCase() + project.description.toLowerCase();
@@ -32,6 +33,7 @@ const renderProjects = (projectData, searchInput, projectTags, projectWords) => 
         project={project}
         tags={projectTags}
         words={projectWords[index]}
+        icon={projectIcons[index]}
         key={project.full_name}
       />);
   }
@@ -40,18 +42,19 @@ const renderProjects = (projectData, searchInput, projectTags, projectWords) => 
       project={project}
       tags={projectTags}
       words={projectWords[index]}
+      icon={projectIcons[index]}
       key={project.full_name}
     />);
 };
 
-const Main = ({ projectData, searchInput, projectTags, projectWords }) => (
+const Main = ({ projectData, searchInput, projectTags, projectWords, projectIcons }) => (
   <main className="main">
     <div className="content-center">
       {/* <Navbar /> */}
       <div className="content-container">
         <div className="card-container">
           {projectData.length &&
-            renderProjects(projectData, searchInput, projectTags, projectWords)
+            renderProjects(projectData, searchInput, projectTags, projectWords, projectIcons)
           }
         </div>
       </div>
@@ -60,16 +63,11 @@ const Main = ({ projectData, searchInput, projectTags, projectWords }) => (
 );
 
 Main.propTypes = {
-  projectData: PropTypes.arrayOf(PropTypes.object),
+  projectData: PropTypes.arrayOf(PropTypes.object).isRequired,
   projectTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   projectWords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  searchInput: PropTypes.string,
-};
-
-Main.defaultProps = {
-  projectList: [],
-  projectData: [],
-  searchInput: '',
+  projectIcons: PropTypes.arrayOf(PropTypes.string).isRequired,
+  searchInput: PropTypes.string.isRequired,
 };
 
 export default Main;
