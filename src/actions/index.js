@@ -45,6 +45,18 @@ export function updateSearchInput(value) {
  * @return {boolean} true if userId exists, false if not
  */
 export function checkUser() {
+  /*
+  if (document.cookie.length) {
+    const cookieArray = document.cookie.split(';');
+    const cookieObj = cookieArray.reduce((prev, curr) => {
+      const currProp = curr.split('=');
+      const key = currProp[0];
+      const value = currProp[1];
+      return Object.assign(prev, { key: value });
+    }, {});
+  }
+  */
+
   const user = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
   return {
     type: CHECK_USER,
