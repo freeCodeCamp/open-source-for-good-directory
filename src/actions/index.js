@@ -3,6 +3,7 @@ import axios from 'axios';
 import {
   GET_GITHUB_DATA,
   UPDATE_SEARCH_INPUT,
+  CHECK_USER,
 } from './types';
 
 /**
@@ -36,5 +37,17 @@ export function updateSearchInput(value) {
   return {
     type: UPDATE_SEARCH_INPUT,
     input_value: value,
+  };
+}
+/**
+ * check if the user is logged on FreeCodeCamp website
+ * @const {string} user -> the cookie with infos regarding the user
+ * @return {boolean} true if userId exists, false if not
+ */
+export function checkUser() {
+  const user = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  return {
+    type: CHECK_USER,
+    isDev: !!(user),
   };
 }

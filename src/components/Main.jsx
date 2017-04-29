@@ -15,7 +15,10 @@ import Card from './Card';
  * @param {Aray} projectIcons array of icons for cards
  * @returns {ReactElement} containing repos that pass the filter
  */
-const renderProjects = (projectData, searchInput, projectTags, projectWords, projectIcons) => {
+const renderProjects = (
+    projectData, searchInput, projectTags,
+    projectWords, projectIcons, isDev,
+  ) => {
   if (searchInput) {
     return projectData.filter((project) => {
       const keyWords = project.title.toLowerCase() + project.description.toLowerCase();
@@ -35,6 +38,7 @@ const renderProjects = (projectData, searchInput, projectTags, projectWords, pro
         words={projectWords[index]}
         icon={projectIcons[index]}
         key={project.full_name}
+        isDev={isDev}
       />);
   }
   return projectData.map((project, index) =>
@@ -44,17 +48,18 @@ const renderProjects = (projectData, searchInput, projectTags, projectWords, pro
       words={projectWords[index]}
       icon={projectIcons[index]}
       key={project.full_name}
+      isDev={isDev}
     />);
 };
 
-const Main = ({ projectData, searchInput, projectTags, projectWords, projectIcons }) => (
+const Main = ({ projectData, searchInput, projectTags, projectWords, projectIcons, isDev }) => (
   <main className="main">
     <div className="content-center">
       {/* <Navbar /> */}
       <div className="content-container">
         <div className="card-container">
           {projectData.length &&
-            renderProjects(projectData, searchInput, projectTags, projectWords, projectIcons)
+            renderProjects(projectData, searchInput, projectTags, projectWords, projectIcons, isDev)
           }
         </div>
       </div>

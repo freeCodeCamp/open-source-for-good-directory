@@ -9,27 +9,53 @@ const renderTags = (tags, words) => (
   ))
 );
 
-const Card = ({ project, tags, words, icon }) => (
+const Card = ({ project, tags, words, icon, isDev }) => (
   <div className="card">
-    <div className="card-content">
-      <div className="project-status">
-        <p><i className="fa fa-star fa-fw" aria-hidden="true" />&nbsp;{ project.stargazer_count }</p>
-      </div>
-      <a className="project-link" href="#test">
-        <h1 className="project-title">{ project.title }</h1>
-        <div className="icon-frame">
-          <i
-            className={`fa ${icon} fa-4x`}
-            aria-hidden="true"
-          />
+    {isDev === false ?
+      <div>
+        <div className="card-content">
+          <div className="project-status">
+            <p><i className="fa fa-star fa-fw" aria-hidden="true" />&nbsp;{ project.stargazer_count }</p>
+          </div>
+          <a className="project-link" href="#test">
+            <h1 className="project-title">{ project.title }</h1>
+            <div className="icon-frame">
+              <i
+                className={`fa ${icon} fa-4x`}
+                aria-hidden="true"
+              />
+            </div>
+            <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
+          </a>
+          <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
         </div>
-        <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
-      </a>
-      <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
-    </div>
-    <div className="project-tags">
-      {renderTags(tags, words)}
-    </div>
+        <div className="project-tags">
+          {renderTags(tags, words)}
+        </div>
+      </div>
+  :
+      <div>
+        <div className="card-content">
+          <div className="project-status">
+            <p><i className="fa fa-star fa-fw" aria-hidden="true" />&nbsp;{ project.stargazer_count }</p>
+          </div>
+          <a className="project-link" href="#test">
+            <h1 className="project-title">asdasdasdas</h1>
+            <div className="icon-frame">
+              <i
+                className={`fa ${icon} fa-4x`}
+                aria-hidden="true"
+              />
+            </div>
+            <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
+          </a>
+          <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
+        </div>
+        <div className="project-tags">
+          {renderTags(tags, words)}
+        </div>
+      </div>
+    }
   </div>
 );
 
@@ -38,6 +64,7 @@ Card.propTypes = {
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   words: PropTypes.string.isRequired,
   icon: PropTypes.string.isRequired,
+  isDev: PropTypes.bool,
 };
 
 Card.defaultProps = {

@@ -22,6 +22,10 @@ class App extends React.Component {
     (function getData() {
       props.projectNames.map(name => props.getGithubData(name));
     }());
+    /* check if user is logged in for card component creation */
+    (function checkUser() {
+      props.checkUser();
+    }());
   }
   /** handle the input change event
    * @param {*} e the keyup event
@@ -37,19 +41,20 @@ class App extends React.Component {
    * @return {objects} our stateless components
    */
   render() {
-    const { projectData, projectTags, projectWords, projectIcons, searchInput } = this.props;
+    const { projectData, projectTags, projectWords, projectIcons, searchInput, isDev } = this.props;
     return (
       <div className="app">
         <Header />
         <Banner />
         <Testimonial />
-        <Search onChange={this.handleChange} searchInput={this.props.searchInput} />
+        <Search onChange={this.handleChange} searchInput={searchInput} />
         <Main
           projectData={projectData}
           projectTags={projectTags}
           projectWords={projectWords}
           projectIcons={projectIcons}
           searchInput={searchInput}
+          isDev={isDev}
         />
       </div>
     );
@@ -62,9 +67,11 @@ App.propTypes = {
   projectTags: PropTypes.arrayOf(PropTypes.string),
   projectWords: PropTypes.arrayOf(PropTypes.string),
   projectIcons: PropTypes.arrayOf(PropTypes.string),
+  isDev: PropTypes.bool,
   searchInput: PropTypes.string,
   getGithubData: PropTypes.func,
   updateSearchInput: PropTypes.func,
+  checkUser: PropTypes.func,
 };
 
 App.defaultProps = {
@@ -76,6 +83,8 @@ App.defaultProps = {
   searchInput: '',
   getGithubData: actions.getGithubData,
   updateSearchInput: actions.updateSearchInput,
+  checkUser: actions.checkUser,
+  isDev: false,
 };
 
 const mapStateToProps = (state) => {

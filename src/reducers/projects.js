@@ -11,6 +11,7 @@ const initialState = {
   projectWords: ['034', '135', '34', '201'],
   projectIcons: ['fa-free-code-camp', 'fa-envelope-o', 'fa-cubes', 'fa-globe'],
   projectData: [],
+  isDev: false,
 };
 
 /**
@@ -26,6 +27,8 @@ export default function projects(state = initialState, action) {
       newProjectData.push(action.githubData);
       return { ...state, projectData: newProjectData };
     }
+    case actions.CHECK_USER:
+      return { ...state, isDev: action.isDev };
     default:
       return state;
   }
