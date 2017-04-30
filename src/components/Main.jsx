@@ -20,11 +20,10 @@ const renderProjects = (
     projectData, searchInput, projectTags,
     projectWords, projectIcons, isDev,
   ) => {
-    // [1, 2, 3, 4] => [1, 3] => [1, 2];
   if (searchInput) {
-    return projectData.filter((project, i) => {
+    return projectData.filter((project) => {
       const wordsArray = project.title.toLowerCase().split(' ');
-      projectWords[i].split('').forEach((j) => {
+      projectWords[project.topics].split('').forEach((j) => {
         wordsArray.push(projectTags[j]);
       });
       const keyWords = wordsArray.join(' ');
@@ -39,22 +38,22 @@ const renderProjects = (
       }
       return false;
     })
-    .map((project, index) =>
+    .map(project =>
       <Card
         project={project}
         tags={projectTags}
-        words={projectWords[index]}
-        icon={projectIcons[index]}
+        words={projectWords[project.topics]}
+        icon={projectIcons[project.topics]}
         key={project.full_name}
         isDev={isDev}
       />);
   }
-  return projectData.map((project, index) =>
+  return projectData.map(project =>
     <Card
       project={project}
       tags={projectTags}
-      words={projectWords[index]}
-      icon={projectIcons[index]}
+      words={projectWords[project.topics]}
+      icon={projectIcons[project.topics]}
       key={project.full_name}
       isDev={isDev}
     />);

@@ -20,7 +20,7 @@ class App extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     /* populate state with data from github for every repo */
     (function getData() {
-      props.projectNames.map(name => props.getGithubData(name));
+      props.projectNames.map((name, i) => props.getGithubData(name, i));
     }());
     /* check if user is logged in for card component creation */
     (function checkUser() {

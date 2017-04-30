@@ -25,7 +25,7 @@ const Card = ({ project, tags, words, icon, isDev }) => {
                 aria-hidden="true"
               />
             </div>
-            <h3 className="project-desc">{ project.description || 'Project missing description' }</h3>
+            <h3 className="project-desc">{ project.description }</h3>
           </a>
           <a className="demo-link" href={`https://github.com/${project.full_name}`}>See Live Demo</a>
         </div>

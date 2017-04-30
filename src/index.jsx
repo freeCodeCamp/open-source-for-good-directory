@@ -15,13 +15,17 @@ if (process.env.NODE_ENV !== 'production') middleware.push(logger);
 const store = createStore(reducer, applyMiddleware(...middleware));
 const root = document.getElementById('root');
 
-render(
-  <AppContainer>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </AppContainer>,
-  root,
-);
+const hotRender = (Component) => {
+  render(
+    <AppContainer>
+      <Provider store={store}>
+        <Component />
+      </Provider>
+    </AppContainer>,
+    root,
+  );
+};
 
-if (module.hot) module.hot.accept('./App', () => render(App));
+hotRender(App);
+
+if (module.hot) module.hot.accept(App, () => hotRender(App));

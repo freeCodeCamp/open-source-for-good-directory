@@ -4,6 +4,8 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const dev = process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1;
 
+const HotModuleReplacementPluginConfig = new webpack.HotModuleReplacementPlugin();
+
 const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   template: path.join(__dirname, '/src/index.html'),
   filename: 'index.html',
@@ -60,7 +62,7 @@ const config = {
     filename: 'index.js',
     path: path.join(__dirname, '/docs'),
   },
-  plugins: dev ? [HTMLWebpackPluginConfig] :
+  plugins: dev ? [HTMLWebpackPluginConfig, HotModuleReplacementPluginConfig] :
   [HTMLWebpackPluginConfig, DefinePluginConfig, LoaderOptionsPluginConfig, UglifyPluginConfig],
 };
 
