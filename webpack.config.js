@@ -58,6 +58,7 @@ const config = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  devtool: 'source-map',
   output: {
     filename: 'index.js',
     path: path.join(__dirname, '/docs'),

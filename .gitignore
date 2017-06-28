@@ -48,3 +48,6 @@ docs/vendor
 
 # macOS store
 .DS_Store
+
+# VS Code Configuration files
+.vscode/
