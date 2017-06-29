@@ -109,7 +109,7 @@ body {
   padding: 2em;
 }
 
-.contributer img {
+.contributor img {
   width: 5em;
   height: 5em;
   border-radius: 50%;
@@ -119,12 +119,12 @@ body {
 
 @media screen and (max-width: 54em) {
   .content-container,
-  .contributers,
+  .contributors,
   .fcc-banner {
     padding: 0 2em;
     width: 40em;
   }
-  .contributers {
+  .contributors {
     padding: 2em;
   }
 }
