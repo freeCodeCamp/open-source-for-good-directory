@@ -100,4 +100,4 @@ const mapStateToProps = state => {
 
 export default connect(mapStateToProps, actions)(App);
 
-// Another Test 7
+// Another Test 8
