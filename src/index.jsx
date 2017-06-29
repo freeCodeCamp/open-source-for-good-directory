@@ -11,7 +11,6 @@ import './main.css';
 const middleware = [thunk];
 
 // For Redux Dev Tools Browser Extension
-// eslint-disable-next-line
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(

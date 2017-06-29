@@ -6,11 +6,6 @@ import {
   CHECK_USER,
 } from './types';
 
-/**
- * get API info from GitHub
- * @param {string} repo name as '/user/repo' to get the data from Github
- * @return {object} containing all the repo information required for <Card /> creation
- */
 export function getGithubData(repo, index) {
   return dispatch => axios.get(`https://api.github.com/repos/${repo}`)
     .then((response) => {
@@ -30,11 +25,6 @@ export function getGithubData(repo, index) {
     });
 }
 
-/**
- * modify search based on search input
- * @param {string} value of our input
- * @return {string} the updated value
- */
 export function updateSearchInput(value) {
   return {
     type: UPDATE_SEARCH_INPUT,
@@ -42,11 +32,6 @@ export function updateSearchInput(value) {
   };
 }
 
-/**
- * check if the user is logged on FreeCodeCamp website
- * @const {string} user -> the cookie with infos regarding the user
- * @return {boolean} true if userId exists, false if not
- */
 export function checkUser() {
   /*
   if (document.cookie.length) {

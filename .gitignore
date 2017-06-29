@@ -51,3 +51,6 @@ docs/vendor
 
 # VS Code Configuration files
 .vscode/
+
+# .env Confi Files
+.env

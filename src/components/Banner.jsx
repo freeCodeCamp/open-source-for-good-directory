@@ -1,9 +1,11 @@
 import React from 'react';
 
-const Banner = () => (
+const Banner = () =>
   <div>
     <h1 className="main-title">Open Source for Good</h1>
-    <h3 className="main-desc">Our mission is to provide free high-quality software to non-profits</h3>
+    <h3 className="main-desc">
+      Our mission is to provide free high-quality software to non-profits
+    </h3>
     <div className="as-seen-on">
       <h3 className="as-seen-on-desc">As seen on...</h3>
       <img
@@ -12,7 +14,6 @@ const Banner = () => (
       />
     </div>
     <hr className="break" />
-  </div>
-);
+  </div>;
 
 export default Banner;

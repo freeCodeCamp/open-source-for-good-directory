@@ -8,40 +8,35 @@ import Testimonial from '../components/Testimonial';
 import Search from '../components/Search';
 import Main from '../components/Main';
 
-/**
- * this container is defined as class so we can modify state
- */
 class App extends React.Component {
-  /**
-   * @param {*} props comprehends all the props and actions defined below
-   */
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     /* populate state with data from github for every repo */
     (function getData() {
       props.projectNames.map((name, i) => props.getGithubData(name, i));
-    }());
+    })();
     /* check if user is logged in for card component creation */
     (function checkUser() {
       props.checkUser();
-    }());
+    })();
   }
-  /** handle the input change event
-   * @param {*} e the keyup event
-   * @return {string} user input
-   */
+
   handleChange(e) {
     const value = e.target.value;
     const store = this.context.store;
     store.dispatch(this.props.updateSearchInput(value));
   }
-  /**
-   * this is our statefull render
-   * @return {objects} our stateless components
-   */
+
   render() {
-    const { projectData, projectTags, projectWords, projectIcons, searchInput, isDev } = this.props;
+    const {
+      projectData,
+      projectTags,
+      projectWords,
+      projectIcons,
+      searchInput,
+      isDev,
+    } = this.props;
     return (
       <div className="app">
         <Header />
@@ -87,7 +82,11 @@ App.defaultProps = {
   isDev: false,
 };
 
-const mapStateToProps = (state) => {
+App.contextTypes = {
+  store: PropTypes.object.isRequired,
+};
+
+const mapStateToProps = state => {
   const { projects, search } = state;
   return {
     projectNames: projects.projectNames,
@@ -97,10 +96,6 @@ const mapStateToProps = (state) => {
     projectIcons: projects.projectIcons,
     searchInput: search.input_value,
   };
-};
-
-App.contextTypes = {
-  store: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, actions)(App);
