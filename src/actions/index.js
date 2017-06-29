@@ -29,6 +29,7 @@ export function getGithubData(repo, index) {
       });
     });
 }
+
 /**
  * modify search based on search input
  * @param {string} value of our input
@@ -40,6 +41,7 @@ export function updateSearchInput(value) {
     input_value: value,
   };
 }
+
 /**
  * check if the user is logged on FreeCodeCamp website
  * @const {string} user -> the cookie with infos regarding the user

@@ -2,7 +2,7 @@ import * as actions from '../actions/types';
 
 const initialState = {
   projectNames: [
-    'freeCodeCamp/food-bank-app',
+    'freeCodeCamp/Pantry-for-Good',
     'freeCodeCamp/Mail-for-Good',
     'freeCodeCamp/Conference-for-Good',
     'freeCodeCamp/LetsMeet',
