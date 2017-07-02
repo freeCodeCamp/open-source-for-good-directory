@@ -20,4 +20,3 @@ if otherwise you use a *windows OS* just open `package.json` on your editor and 
     "start": "set NODE_ENV=development & webpack-dev-server",
 ```
  
-Another Test 43

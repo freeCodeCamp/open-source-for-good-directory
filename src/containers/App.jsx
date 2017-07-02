@@ -35,7 +35,7 @@ class App extends React.Component {
       projectWords,
       projectIcons,
       searchInput,
-      isDev,
+      isDev
     } = this.props;
     return (
       <div className="app">
@@ -66,7 +66,7 @@ App.propTypes = {
   searchInput: PropTypes.string,
   getGithubData: PropTypes.func,
   updateSearchInput: PropTypes.func,
-  checkUser: PropTypes.func,
+  checkUser: PropTypes.func
 };
 
 App.defaultProps = {
@@ -79,11 +79,11 @@ App.defaultProps = {
   getGithubData: actions.getGithubData,
   updateSearchInput: actions.updateSearchInput,
   checkUser: actions.checkUser,
-  isDev: false,
+  isDev: false
 };
 
 App.contextTypes = {
-  store: PropTypes.object.isRequired,
+  store: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
@@ -94,10 +94,8 @@ const mapStateToProps = state => {
     projectTags: projects.projectTags,
     projectWords: projects.projectWords,
     projectIcons: projects.projectIcons,
-    searchInput: search.input_value,
+    searchInput: search.input_value
   };
 };
 
 export default connect(mapStateToProps, actions)(App);
-
-// Another Test 43
