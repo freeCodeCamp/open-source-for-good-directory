@@ -15,9 +15,10 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
-const showdown = require('showdown');
-const converter = new showdown.Converter();
 const verifyGithubWebhook = require('verify-github-webhook').default;
+const showdown = require('showdown');
+
+const converter = new showdown.Converter();
 
 const app = express();
 
@@ -35,12 +36,12 @@ app.post('/event', (req, res) => {
       // Fetch Contributors
       .then(text => {
         rawReadme = text;
-        /* Header Inclusion necessary for the 
+        /* Header Inclusion necessary for the
            GitHub API https://developer.github.com/v3/#user-agent-required */
         const options = {
           headers: {
-            'User-Agent': 'open-source-for-good-directory',
-          },
+            'User-Agent': 'open-source-for-good-directory'
+          }
         };
         return fetch(contributorsURL, options);
       })
@@ -60,7 +61,7 @@ app.post('/event', (req, res) => {
         writeHtmlFile(page);
         const encodedPage = base64EncodeString(page);
 
-        /* 
+        /*
           Pushing to GitHub Repo
         */
         pushFileToRepo(encodedPage, repoName);
@@ -84,21 +85,29 @@ const server = app.listen(process.env.PORT, () => {
 */
 function verifySignature(body, headers) {
   const signature = headers['x-hub-signature'];
-  return verifyGithubWebhook(signature, JSON.stringify(body), process.env.WEBHOOK_KEY);
+  return verifyGithubWebhook(
+    signature,
+    JSON.stringify(body),
+    process.env.WEBHOOK_KEY
+  );
 }
 
 function isReadmeUpdated(body) {
   // Checks Modifications to the README.md file in the Master Branch
   const readme = 'README.md';
   let test = false;
-  const isMasterBranch = /master$/.test(body.ref);
+  const isMasterBranch = (/master$/).test(body.ref);
   if (isMasterBranch) {
     body.commits.forEach(commit => {
       commit.added.forEach(file => {
-        if (file === readme) test = true;
+        if (file === readme) {
+          test = true;
+        }
       });
       commit.modified.forEach(file => {
-        if (file === readme) test = true;
+        if (file === readme) {
+          test = true;
+        }
       });
     });
   }
@@ -168,7 +177,9 @@ function buildPage(name, body, contributors) {
 function writeHtmlFile(html) {
   const newPath = path.join(__dirname, '/views/index.html');
   fs.writeFile(newPath, html, 'utf-8', err => {
-    if (err) throw err;
+    if (err) {
+      throw err;
+    }
   });
 }
 
@@ -183,8 +194,8 @@ function pushFileToRepo(webPage, repo) {
   const fileURL = `https://api.github.com/repos/freecodecamp/open-source-for-good-directory/contents/docs/${repo}/index.html`;
   const options = {
     headers: {
-      'User-Agent': 'osfg-request',
-    },
+      'User-Agent': 'osfg-request'
+    }
   };
 
   /*
@@ -198,7 +209,7 @@ function pushFileToRepo(webPage, repo) {
       const options = {
         headers: {
           'User-Agent': 'osfg-request',
-          Authorization: `token ${process.env.GITHUB_TOKEN}`,
+          Authorization: `token ${process.env.GITHUB_TOKEN}`
         },
         method: 'PUT',
         body: JSON.stringify({
@@ -207,11 +218,11 @@ function pushFileToRepo(webPage, repo) {
           message: `Camper Bot updating README.md for ${repo}`,
           committer: {
             name: 'Camper Bot',
-            email: 'placeholder@test.com',
+            email: 'placeholder@test.com'
           },
           content: webPage,
-          branch: 'master',
-        }),
+          branch: 'master'
+        })
       };
       return fetch(fileURL, options);
     })
@@ -225,7 +236,7 @@ function pushFileToRepo(webPage, repo) {
         log = {
           message: 'Invalid response from GitHub file creation',
           status: res.statusText,
-          code: res.status,
+          code: res.status
         };
       }
       console.log(log);

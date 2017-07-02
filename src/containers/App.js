@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import * as actions from '../actions';
+import { checkUser, getGithubData, updateSearchInput } from '../actions';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Testimonial from '../components/Testimonial';
@@ -12,20 +12,17 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
-    /* populate state with data from github for every repo */
-    (function getData() {
-      props.projectNames.map((name, i) => props.getGithubData(name, i));
-    })();
-    /* check if user is logged in for card component creation */
-    (function checkUser() {
-      props.checkUser();
-    })();
+  }
+
+  componentDidMount() {
+    const { checkUser, getGithubData, projectNames } = this.props;
+    checkUser();
+    projectNames.map((name, i) => getGithubData(name, i));
   }
 
   handleChange(e) {
     const value = e.target.value;
-    const store = this.context.store;
-    store.dispatch(this.props.updateSearchInput(value));
+    this.props.updateSearchInput(value);
   }
 
   render() {
@@ -38,18 +35,18 @@ class App extends React.Component {
       isDev
     } = this.props;
     return (
-      <div className="app">
+      <div className='app'>
         <Header />
         <Banner />
         <Testimonial />
         <Search onChange={this.handleChange} searchInput={searchInput} />
         <Main
+          isDev={isDev}
           projectData={projectData}
+          projectIcons={projectIcons}
           projectTags={projectTags}
           projectWords={projectWords}
-          projectIcons={projectIcons}
           searchInput={searchInput}
-          isDev={isDev}
         />
       </div>
     );
@@ -57,16 +54,16 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  projectNames: PropTypes.arrayOf(PropTypes.string),
+  checkUser: PropTypes.func,
+  getGithubData: PropTypes.func,
+  isDev: PropTypes.bool,
   projectData: PropTypes.arrayOf(PropTypes.object),
+  projectIcons: PropTypes.arrayOf(PropTypes.string),
+  projectNames: PropTypes.arrayOf(PropTypes.string),
   projectTags: PropTypes.arrayOf(PropTypes.string),
   projectWords: PropTypes.arrayOf(PropTypes.string),
-  projectIcons: PropTypes.arrayOf(PropTypes.string),
-  isDev: PropTypes.bool,
   searchInput: PropTypes.string,
-  getGithubData: PropTypes.func,
-  updateSearchInput: PropTypes.func,
-  checkUser: PropTypes.func
+  updateSearchInput: PropTypes.func
 };
 
 App.defaultProps = {
@@ -76,14 +73,10 @@ App.defaultProps = {
   projectWords: [],
   projectIcons: [],
   searchInput: '',
-  getGithubData: actions.getGithubData,
-  updateSearchInput: actions.updateSearchInput,
-  checkUser: actions.checkUser,
+  getGithubData: getGithubData,
+  updateSearchInput: updateSearchInput,
+  checkUser: checkUser,
   isDev: false
-};
-
-App.contextTypes = {
-  store: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => {
@@ -98,4 +91,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, actions)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    checkUser: () => dispatch(checkUser()),
+    getData: () => dispatch(getGithubData())
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -9,7 +9,7 @@ const renderProjects = (
   projectTags,
   projectWords,
   projectIcons,
-  isDev,
+  isDev
 ) => {
   if (searchInput) {
     return projectData
@@ -19,7 +19,8 @@ const renderProjects = (
           wordsArray.push(projectTags[j]);
         });
         const keyWords = wordsArray.join(' ');
-        // if searchInput has more than one string in it we remove every empty one
+        // if searchInput has more than one string
+        // in it we remove every empty one
         const searchWords =
           searchInput.split(' ').length > 1
             ? searchInput.toLowerCase().split(' ').filter(Boolean)
@@ -33,24 +34,24 @@ const renderProjects = (
       })
       .map(project =>
         <Card
+          icon={projectIcons[project.topics]}
+          isDev={isDev}
+          key={project.full_name}
           project={project}
           tags={projectTags}
           words={projectWords[project.topics]}
-          icon={projectIcons[project.topics]}
-          key={project.full_name}
-          isDev={isDev}
-        />,
+        />
       );
   }
   return projectData.map(project =>
     <Card
+      icon={projectIcons[project.topics]}
+      isDev={isDev}
+      key={project.full_name}
       project={project}
       tags={projectTags}
       words={projectWords[project.topics]}
-      icon={projectIcons[project.topics]}
-      key={project.full_name}
-      isDev={isDev}
-    />,
+    />
   );
 };
 
@@ -60,13 +61,12 @@ const Main = ({
   projectTags,
   projectWords,
   projectIcons,
-  isDev,
+  isDev
 }) =>
-  <main className="main">
-    <div className="content-center">
-      {/* <Navbar /> */}
-      <div className="content-container">
-        <div className="card-container">
+  <main className='main'>
+    <div className='content-center'>
+      <div className='content-container'>
+        <div className='card-container'>
           {projectData.length &&
             renderProjects(
               projectData,
@@ -74,7 +74,7 @@ const Main = ({
               projectTags,
               projectWords,
               projectIcons,
-              isDev,
+              isDev
             )}
         </div>
       </div>
@@ -82,12 +82,12 @@ const Main = ({
   </main>;
 
 Main.propTypes = {
+  isDev: PropTypes.bool.isRequired,
   projectData: PropTypes.arrayOf(PropTypes.object).isRequired,
+  projectIcons: PropTypes.arrayOf(PropTypes.string).isRequired,
   projectTags: PropTypes.arrayOf(PropTypes.string).isRequired,
   projectWords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  projectIcons: PropTypes.arrayOf(PropTypes.string).isRequired,
-  searchInput: PropTypes.string.isRequired,
-  isDev: PropTypes.bool.isRequired,
+  searchInput: PropTypes.string.isRequired
 };
 
 export default Main;

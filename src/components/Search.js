@@ -3,22 +3,22 @@ import PropTypes from 'prop-types';
 
 const Search = ({ searchInput, onChange }) =>
   <input
-    className="search-input"
-    type="text"
-    name="search"
-    placeholder="Search by keyword"
-    value={searchInput}
+    className='search-input'
+    name='search'
     onChange={onChange}
+    placeholder='Search by keyword'
+    type='text'
+    value={searchInput}
   />;
 
 Search.propTypes = {
-  searchInput: PropTypes.string,
   onChange: PropTypes.func,
+  searchInput: PropTypes.string
 };
 
 Search.defaultProps = {
   searchInput: '',
-  onChange: '',
+  onChange: ''
 };
 
 export default Search;

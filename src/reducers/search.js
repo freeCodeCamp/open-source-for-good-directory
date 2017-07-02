@@ -1,15 +1,15 @@
-import * as actions from '../actions/types';
+import { UPDATE_SEARCH_INPUT } from '../actions';
 
 const initialState = {
-  input_value: '',
+  inputValue: ''
 };
 
 export default function search(state = initialState, action) {
   switch (action.type) {
-    case actions.UPDATE_SEARCH_INPUT:
+    case UPDATE_SEARCH_INPUT:
       return {
         ...state,
-        input_value: action.input_value,
+        inputValue: action.inputValue
       };
     default:
       return state;

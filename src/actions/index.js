@@ -1,34 +1,21 @@
+/* eslint-disable max-len */
+
 import axios from 'axios';
 
-import {
-  GET_GITHUB_DATA,
-  UPDATE_SEARCH_INPUT,
-  CHECK_USER,
-} from './types';
+/*
+  Types
+*/
+export const GET_GITHUB_DATA = 'GET_GITHUB_DATA';
+export const UPDATE_SEARCH_INPUT = 'UPDATE_SEARCH_INPUT';
+export const CHECK_USER = 'CHECK_USER';
 
-export function getGithubData(repo, index) {
-  return dispatch => axios.get(`https://api.github.com/repos/${repo}`)
-    .then((response) => {
-      const githubData = {
-        title: response.data.name.replace(/-/g, ' '),
-        description: response.data.description || 'Project missing description',
-        full_name: response.data.full_name,
-        stargazer_count: response.data.stargazers_count,
-        open_issues: response.data.open_issues,
-        subscribers_count: response.data.subscribers_count,
-        topics: index,
-      };
-      dispatch({
-        type: GET_GITHUB_DATA,
-        githubData,
-      });
-    });
-}
-
+/*
+  Actions
+*/
 export function updateSearchInput(value) {
   return {
     type: UPDATE_SEARCH_INPUT,
-    input_value: value,
+    inputValue: value
   };
 }
 
@@ -45,9 +32,38 @@ export function checkUser() {
   }
   */
 
-  const user = document.cookie.replace(/(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/, '$1');
+  const user = document.cookie.replace(
+    /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
+    '$1'
+  );
   return {
     type: CHECK_USER,
-    isDev: !!(user),
+    isDev: !!user
+  };
+}
+
+/*
+  Async Actions
+*/
+export function getGithubData(repo, index) {
+  return dispatch => {
+    axios.get(`https://api.github.com/repos/${repo}`)
+      .then(response => {
+        console.log(response);
+        const githubData = {
+          title: response.data.name.replace(/-/g, ' '),
+          description: response.data.description || 'Project missing description',
+          fullName: response.data.full_name,
+          stargazerCount: response.data.stargazers_count,
+          openIssues: response.data.open_issues,
+          subscribersCount: response.data.subscribers_count,
+          topics: index
+        };
+        dispatch({
+          type: GET_GITHUB_DATA,
+          githubData
+        });
+      })
+      .catch(err => console.log(err));
   };
 }

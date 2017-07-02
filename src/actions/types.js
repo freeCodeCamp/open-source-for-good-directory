@@ -1,3 +1,0 @@
-export const GET_GITHUB_DATA = 'GET_GITHUB_DATA';
-export const UPDATE_SEARCH_INPUT = 'UPDATE_SEARCH_INPUT';
-export const CHECK_USER = 'CHECK_USER';
