@@ -9,75 +9,105 @@
 * GitHub Pages.
 */
 
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
-const crypto = require('crypto');
-const assert = require('assert');
-const request = require('request');
 const fs = require('fs');
+const path = require('path');
+require('dotenv').config();
+const express = require('express');
+const bodyParser = require('body-parser');
+const fetch = require('node-fetch');
 const showdown = require('showdown');
 const converter = new showdown.Converter();
+const verifyGithubWebhook = require('verify-github-webhook').default;
 
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
 
+// Listenning for the Github WebHook
 app.post('/event', (req, res) => {
   if (verifySignature(req.body, req.headers) && isReadmeUpdated(req.body)) {
-    const url1 = getReadmeUrl(req.body);
-    const url2 = getContributorUrl(req.body);
-    fetchReadmeText(url1, (text) => {
-      getContributors(url2, (data) => {
-        const contributors = buildContributorHtml(data);
-        const body = converter.makeHtml(text);
-        const name = req.body.repository.name;
-        const page = buildPage(name, body, contributors);
-        writeHtmlFile(page);
-        const encoded = base64EncodeString(page);
-        pushFileToRepo(encoded, name);
+    const readmeURL = getReadmeUrl(req.body);
+    const contributorsURL = getContributorsURL(req.body);
+    let rawReadme;
+
+    fetch(readmeURL)
+      .then(res => res.text())
+      // Fetch Contributors
+      .then(text => {
+        rawReadme = text;
+        /* Header Inclusion necessary for the 
+           GitHub API https://developer.github.com/v3/#user-agent-required */
+        const options = {
+          headers: {
+            'User-Agent': 'open-source-for-good-directory',
+          },
+        };
+        return fetch(contributorsURL, options);
       })
-    });
-    console.log({ message: 'README.md created or updated' });
-  } else {
-    console.log({ message: 'POST signature doesn\'t match key' });
+      .then(res => res.json())
+      .then(contributorsData => {
+        /*
+          Building the HTML Web Page from the Fetched Data
+        */
+        const contributors = buildContributorHtml(contributorsData);
+        const body = converter.makeHtml(rawReadme);
+        const repoName = req.body.repository.name;
+        const page = buildPage(repoName, body, contributors);
+
+        /*
+          Processing the File
+        */
+        writeHtmlFile(page);
+        const encodedPage = base64EncodeString(page);
+
+        /* 
+          Pushing to GitHub Repo
+        */
+        pushFileToRepo(encodedPage, repoName);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }
 });
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '/views/index.html'));
+  res.send('Automated Server for FreeCodeCamp Open Source For Good Directory');
 });
 
 const server = app.listen(process.env.PORT, () => {
   console.log(`App is listening on port ${server.address().port}`);
 });
 
+/*
+  Verifications
+*/
 function verifySignature(body, headers) {
   const signature = headers['x-hub-signature'];
-  const hash = `sha1=${crypto.createHmac('sha1', process.env.WEBHOOK_KEY).update(body.toString()).digest('hex')}`;
-  // TODO: Test HMAC hash
-  return 1 === 1;
+  return verifyGithubWebhook(signature, JSON.stringify(body), process.env.WEBHOOK_KEY);
 }
 
 function isReadmeUpdated(body) {
+  // Checks Modifications to the README.md file in the Master Branch
   const readme = 'README.md';
-  for (let i = 0; i < body.commits.length; i++) {
-    const commit = body.commits[i];
-    for (let j = 0; j < commit.added.length; j++) {
-      if (commit.added[i] === readme) {
-        return true;
-      }
-    }
-    for (let k = 0; k < commit.modified.length; k++) {
-      if (commit.modified[i] === readme) {
-        return true;
-      }
-    }
+  let test = false;
+  const isMasterBranch = /master$/.test(body.ref);
+  if (isMasterBranch) {
+    body.commits.forEach(commit => {
+      commit.added.forEach(file => {
+        if (file === readme) test = true;
+      });
+      commit.modified.forEach(file => {
+        if (file === readme) test = true;
+      });
+    });
   }
-  return false;
+  return test;
 }
 
+/*
+  Data Parsing
+*/
 function getReadmeUrl(body) {
   const root = 'https://raw.githubusercontent.com/';
   const repo = body.repository.full_name;
@@ -85,64 +115,29 @@ function getReadmeUrl(body) {
   return root + repo + file;
 }
 
-function fetchReadmeText(url, callback) {
-  request(url, (err, res, body) => {
-    if (err) {
-      console.log({ message: 'Failed to fetch README', error: err });
-    }
-    if (res.statusCode === 200 && res.headers['content-type'] === 'text/plain; charset=utf-8') {
-      return callback(body);
-    }
-    console.log({ message: 'Invalid response from GitHub request', status: res.statusCode });
-    return callback(err);
-  });
-}
-
-function getContributorUrl(body) {
+function getContributorsURL(body) {
   const repo = body.repository.name;
   return `https://api.github.com/repos/freecodecamp/${repo}/contributors`;
 }
 
-function getContributors(url, callback) {
-  const options = {
-    url,
-    headers: {
-      'User-Agent': 'osfg-request',
-    },
-  };
-  request.get(options, (err, res, body) => {
-    if (res.statusCode === 200 && res.headers['content-type'] === 'application/json; charset=utf-8') {
-      callback(body);
-    } else {
-      console.log({ message: 'Invalid response from GitHub request', status: res.statusCode });
-    }
-  });
-}
-
-function buildContributorHtml(data) {
-  let contributors = [];
-  try {
-    contributors = JSON.parse(data);
-  } catch (err) {
-    console.log({ message: 'JSON parse failed on contributors' });
-  }
-  let markup = '';
-  contributors.forEach((c) => {
-    markup +=
-    `
-    <div class="contributer">
-      <a class="contributer-link" href=${c.url}>
-        <img className="contributer-img" src=${c.avatar_url}/>
+/*
+  Building WebPage
+*/
+function buildContributorHtml(contributors) {
+  let html = '';
+  contributors.forEach(c => {
+    html += `
+    <div class="contributor">
+      <a class="contributor-link" href="${c.url}">
+        <img className="contributor-img" src="${c.avatar_url}"/>
       </a>
-    </div>
-    `;
+    </div>`;
   });
-  return markup;
+  return html;
 }
 
 function buildPage(name, body, contributors) {
-  return (
-    `
+  return `
     <!DOCTYPE html>
     <html>
       <header>
@@ -164,16 +159,16 @@ function buildPage(name, body, contributors) {
         </div>
       </body>
     </html>
-    `
-  );
+    `;
 }
 
+/*
+  File Processing
+*/
 function writeHtmlFile(html) {
-  const path = path.join(__dirname, '/views/index.html');
-  fs.writeFile(path, html, 'utf-8', (err) => {
-    if (err) {
-      console.log({ message: 'Error writing file', error: err });
-    }
+  const newPath = path.join(__dirname, '/views/index.html');
+  fs.writeFile(newPath, html, 'utf-8', err => {
+    if (err) throw err;
   });
 }
 
@@ -181,57 +176,59 @@ function base64EncodeString(string) {
   return new Buffer(string).toString('base64');
 }
 
-function getFileSha(url, callback) {
+/*
+  Pushing to GitHub Repo
+*/
+function pushFileToRepo(webPage, repo) {
+  const fileURL = `https://api.github.com/repos/freecodecamp/open-source-for-good-directory/contents/docs/${repo}/index.html`;
   const options = {
-    url,
     headers: {
       'User-Agent': 'osfg-request',
     },
   };
-  request.get(options, (err, res, body) => {
-    if (res.statusCode === 200 && res.headers['content-type'] === 'application/json; charset=utf-8') {
-      try {
-        const data = JSON.parse(body);
-        callback(data.sha);
-      } catch (error) {
-        console.log({ message: 'JSON parse failed on SHA' });
-      }
-    } else {
-      callback('');
-    }
-  });
-}
 
-function pushFileToRepo(content, repo) {
-  const url = `https://api.github.com/repos/freecodecamp/open-source-for-good-directory/contents/docs/${repo}/index.html`;
-  getFileSha(url, (sha) => {
-    const options = {
-      url,
-      headers: {
-        'User-Agent': 'osfg-request',
-        Authorization: `token ${process.env.GITHUB_TOKEN}`,
-      },
-      method: 'PUT',
-      json: {
-        path: 'index.html',
-        sha,
-        message: `Camper Bot updating README.md for ${repo}`,
-        committer: {
-          name: 'Camper Bot',
-          email: 'placeholder@test.com',
+  /*
+    Request File to be Updated (Getting the SHA)
+  */
+  fetch(fileURL, options)
+    .then(res => res.json())
+    .then(data => {
+      const sha = data.sha || '';
+      // UPDATE or CREATE File
+      const options = {
+        headers: {
+          'User-Agent': 'osfg-request',
+          Authorization: `token ${process.env.GITHUB_TOKEN}`,
         },
-        content,
-        branch: 'master',
-      },
-    };
-    request(options, (err, res, body) => {
-      if (res.statusCode === 200) {
-        console.log({ message: `${repo} index.html updated` });
-      } else if (res.statusCode === 201) {
-        console.log({ message: `${repo} index.html created` });
+        method: 'PUT',
+        body: JSON.stringify({
+          path: `docs/${repo}/index.html`,
+          sha,
+          message: `Camper Bot updating README.md for ${repo}`,
+          committer: {
+            name: 'Camper Bot',
+            email: 'placeholder@test.com',
+          },
+          content: webPage,
+          branch: 'master',
+        }),
+      };
+      return fetch(fileURL, options);
+    })
+    .then(res => {
+      let log = {};
+      if (res.status === 200) {
+        log.message = `${repo} index.html updated`;
+      } else if (res.status === 201) {
+        log.message = `${repo} index.html created`;
       } else {
-        console.log({ message: 'Invalid response from GitHub file creation', status: res.statusCode });
+        log = {
+          message: 'Invalid response from GitHub file creation',
+          status: res.statusText,
+          code: res.status,
+        };
       }
-    });
-  });
+      console.log(log);
+    })
+    .catch(err => console.log(err));
 }
