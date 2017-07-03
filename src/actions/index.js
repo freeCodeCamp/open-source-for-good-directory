@@ -1,7 +1,5 @@
 /* eslint-disable max-len */
 
-import axios from 'axios';
-
 /*
   Types
 */
@@ -47,17 +45,18 @@ export function checkUser() {
 */
 export function getGithubData(repo, index) {
   return dispatch => {
-    return axios(`https://api.github.com/repos/${repo}`)
-      .then(response => {
-        console.log(response);
+    return fetch(`https://api.github.com/repos/${repo}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
         const githubData = {
-          title: response.data.name.replace(/-/g, ' '),
+          title: data.name.replace(/-/g, ' '),
           description:
-            response.data.description || 'Project missing description',
-          fullName: response.data.full_name,
-          stargazerCount: response.data.stargazers_count,
-          openIssues: response.data.open_issues,
-          subscribersCount: response.data.subscribers_count,
+            data.description || 'Project missing description',
+          fullName: data.full_name,
+          stargazerCount: data.stargazers_count,
+          openIssues: data.open_issues,
+          subscribersCount: data.subscribers_count,
           topics: index
         };
         dispatch({

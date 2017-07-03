@@ -87,14 +87,15 @@ const mapStateToProps = state => {
     projectTags: projects.projectTags,
     projectWords: projects.projectWords,
     projectIcons: projects.projectIcons,
-    searchInput: search.input_value
+    searchInput: search.inputValue
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     checkUser: () => dispatch(checkUser()),
-    getGithubData: (repo, index) => dispatch(getGithubData(repo, index))
+    getGithubData: (repo, index) => dispatch(getGithubData(repo, index)),
+    updateSearchInput: (value) => dispatch(updateSearchInput(value))
   };
 };
 

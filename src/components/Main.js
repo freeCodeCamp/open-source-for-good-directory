@@ -11,48 +11,36 @@ const renderProjects = (
   projectIcons,
   isDev
 ) => {
-  if (searchInput) {
-    return projectData
-      .filter(project => {
-        const wordsArray = project.title.toLowerCase().split(' ');
-        projectWords[project.topics].split('').forEach(j => {
-          wordsArray.push(projectTags[j]);
-        });
-        const keyWords = wordsArray.join(' ');
-        // if searchInput has more than one string
-        // in it we remove every empty one
-        const searchWords =
-          searchInput.split(' ').length > 1
-            ? searchInput.toLowerCase().split(' ').filter(Boolean)
-            : searchInput.toLowerCase().split(' ');
-        for (let k = 0; k < searchWords.length; k += 1) {
-          if (keyWords.includes(searchWords[k])) {
-            return true;
-          }
+  return projectData
+    .filter(project => {
+      const wordsArray = project.title.toLowerCase().split(' ');
+      projectWords[project.topics].split('').forEach(j => {
+        wordsArray.push(projectTags[j]);
+      });
+      const keyWords = wordsArray.join(' ');
+      // if searchInput has more than one string
+      // in it we remove every empty one
+      const searchWords =
+        searchInput.split(' ').length > 1
+          ? searchInput.toLowerCase().split(' ').filter(Boolean)
+          : searchInput.toLowerCase().split(' ');
+      for (let k = 0; k < searchWords.length; k += 1) {
+        if (keyWords.includes(searchWords[k])) {
+          return true;
         }
-        return false;
-      })
-      .map(project =>
-        <Card
-          icon={projectIcons[project.topics]}
-          isDev={isDev}
-          key={project.full_name}
-          project={project}
-          tags={projectTags}
-          words={projectWords[project.topics]}
-        />
-      );
-  }
-  return projectData.map(project =>
-    <Card
-      icon={projectIcons[project.topics]}
-      isDev={isDev}
-      key={project.full_name}
-      project={project}
-      tags={projectTags}
-      words={projectWords[project.topics]}
-    />
-  );
+      }
+      return false;
+    })
+    .map(project =>
+      <Card
+        icon={projectIcons[project.topics]}
+        isDev={isDev}
+        key={project.full_name}
+        project={project}
+        tags={projectTags}
+        words={projectWords[project.topics]}
+      />
+    );
 };
 
 const Main = ({
