@@ -94,7 +94,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     checkUser: () => dispatch(checkUser()),
-    getData: () => dispatch(getGithubData())
+    getGithubData: (repo, index) => dispatch(getGithubData(repo, index))
   };
 };
 

@@ -47,12 +47,13 @@ export function checkUser() {
 */
 export function getGithubData(repo, index) {
   return dispatch => {
-    axios.get(`https://api.github.com/repos/${repo}`)
+    return axios(`https://api.github.com/repos/${repo}`)
       .then(response => {
         console.log(response);
         const githubData = {
           title: response.data.name.replace(/-/g, ' '),
-          description: response.data.description || 'Project missing description',
+          description:
+            response.data.description || 'Project missing description',
           fullName: response.data.full_name,
           stargazerCount: response.data.stargazers_count,
           openIssues: response.data.open_issues,

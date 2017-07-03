@@ -23,11 +23,10 @@ const initialState = {
 
 export default function projects(state = initialState, action) {
   switch (action.type) {
-    case GET_GITHUB_DATA: {
+    case GET_GITHUB_DATA:
       const newProjectData = state.projectData.slice();
       newProjectData.push(action.githubData);
       return { ...state, projectData: newProjectData };
-    }
     case CHECK_USER:
       return { ...state, isDev: action.isDev };
     default:
