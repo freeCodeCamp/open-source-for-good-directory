@@ -4,7 +4,7 @@ const Banner = () =>
   <div>
     <h1 className='main-title'>Open Source for Good</h1>
     <h3 className='main-desc'>
-      Our mission is to provide free high-quality software to non-profits
+      Free High-Quality Software Tools for Non-Profits
     </h3>
     <div className='as-seen-on'>
       <h3 className='as-seen-on-desc'>As seen on...</h3>
