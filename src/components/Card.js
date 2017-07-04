@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Card = ({ description, icon, name, stars, tags, title }) => {
+const Card = ({ description, icon, link, name, stars, tags, title }) => {
   const tagsArray = tags.map(tag =>
     <p key={`${name}-${tag}`}>
       {tag}
@@ -29,7 +29,7 @@ const Card = ({ description, icon, name, stars, tags, title }) => {
         </a>
         <a
           className='demo-link'
-          href={`https://github.com/freecodecamp/${name}`}
+          href={link}
           target='_blank'
           >
           See Public Repo
@@ -44,8 +44,9 @@ const Card = ({ description, icon, name, stars, tags, title }) => {
 
 Card.propTypes = {
   description: PropTypes.string,
-  icon: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
+  icon: PropTypes.string,
+  link: PropTypes.string,
+  name: PropTypes.string,
   stars: PropTypes.number,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   title: PropTypes.string

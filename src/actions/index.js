@@ -47,13 +47,14 @@ export function requestRepoData(repo) {
   };
 }
 
-export function receiveRepoData(repo, title, description, stars) {
+export function receiveRepoData(repo, title, description, stars, topics) {
   return {
     type: RECEIVE_REPO_DATA,
     repo,
     title,
     description,
-    stars
+    stars,
+    topics
   };
 }
 
@@ -63,15 +64,21 @@ export function receiveRepoData(repo, title, description, stars) {
 export function fetchGithubData(repo) {
   return dispatch => {
     dispatch(requestRepoData(repo));
-    return fetch(`https://api.github.com/repos/freecodecamp/${repo}`)
+    const options = {
+      headers: new Headers({
+        Accept: 'application/vnd.github.mercy-preview+json'
+      })
+    };
+    return fetch(`https://api.github.com/repos/freecodecamp/${repo}`, options)
       .then(res => res.json())
       .then(data => {
         const title = data.name.replace(/-/g, ' ');
         const description = data.description || 'Project missing description';
         const stars = data.stargazers_count;
+        const topics = data.topics;
         // const openIssues = data.open_issues;
         // const subscribersCount = data.subscribers_count;
-        dispatch(receiveRepoData(repo, title, description, stars));
+        dispatch(receiveRepoData(repo, title, description, stars, topics));
       })
       .catch(err => console.log(err));
   };

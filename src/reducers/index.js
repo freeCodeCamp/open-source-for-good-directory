@@ -2,7 +2,7 @@ import { REQUEST_REPO_DATA, RECEIVE_REPO_DATA, SET_SEARCH } from '../actions';
 import repoList from '../config/repo-list';
 
 const initialState = {
-  isDev: true,
+  isDev: false,
   isFetching: false,
   repos: repoList,
   search: ''
@@ -22,7 +22,8 @@ export default function reducer(state = initialState, action) {
             ...repo,
             title: action.title,
             description: action.description,
-            stars: Number(action.stars)
+            stars: Number(action.stars),
+            topics: action.topics
           };
         }
         return repo;

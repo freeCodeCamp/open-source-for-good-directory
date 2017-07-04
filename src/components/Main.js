@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-
-const Main = ({ isFetching, repos, search }) => {
+const Main = ({ isDev, isFetching, repos, search }) => {
   const cardsArray = repos
     .filter(repo => {
       // IMPROVE SEARCH SYSTEM
@@ -14,9 +13,14 @@ const Main = ({ isFetching, repos, search }) => {
         description={repo.description}
         icon={repo.icon}
         key={`card-${repo.name}`}
+        link={
+          isDev
+            ? `https://github.com/freecodecamp/${repo.name}`
+            : `${repo.name}`
+        }
         name={repo.name}
         stars={repo.stars}
-        tags={repo.tags}
+        tags={isDev && repo.topics ? repo.topics : repo.tags}
         title={repo.title}
       />
     );
@@ -37,6 +41,7 @@ const Main = ({ isFetching, repos, search }) => {
 };
 
 Main.propTypes = {
+  isDev: PropTypes.bool,
   isFetching: PropTypes.bool,
   repos: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired
