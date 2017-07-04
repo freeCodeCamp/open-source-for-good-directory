@@ -3,16 +3,17 @@
 /*
   Types
 */
-export const GET_GITHUB_DATA = 'GET_GITHUB_DATA';
-export const UPDATE_SEARCH_INPUT = 'UPDATE_SEARCH_INPUT';
+export const REQUEST_REPO_DATA = 'REQUEST_REPO_DATA';
+export const RECEIVE_REPO_DATA = 'RECEIVE_REPO_DATA';
+export const SET_SEARCH = 'SET_SEARCH';
 export const CHECK_USER = 'CHECK_USER';
 
 /*
   Actions
 */
-export function updateSearchInput(value) {
+export function setSearch(value) {
   return {
-    type: UPDATE_SEARCH_INPUT,
+    type: SET_SEARCH,
     inputValue: value
   };
 }
@@ -29,7 +30,6 @@ export function checkUser() {
     }, {});
   }
   */
-
   const user = document.cookie.replace(
     /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
     '$1'
@@ -40,29 +40,38 @@ export function checkUser() {
   };
 }
 
+export function requestRepoData(repo) {
+  return {
+    type: REQUEST_REPO_DATA,
+    repo
+  };
+}
+
+export function receiveRepoData(repo, title, description, stars) {
+  return {
+    type: RECEIVE_REPO_DATA,
+    repo,
+    title,
+    description,
+    stars
+  };
+}
+
 /*
   Async Actions
 */
-export function getGithubData(repo, index) {
+export function fetchGithubData(repo) {
   return dispatch => {
-    return fetch(`https://api.github.com/repos/${repo}`)
+    dispatch(requestRepoData(repo));
+    return fetch(`https://api.github.com/repos/freecodecamp/${repo}`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-        const githubData = {
-          title: data.name.replace(/-/g, ' '),
-          description:
-            data.description || 'Project missing description',
-          fullName: data.full_name,
-          stargazerCount: data.stargazers_count,
-          openIssues: data.open_issues,
-          subscribersCount: data.subscribers_count,
-          topics: index
-        };
-        dispatch({
-          type: GET_GITHUB_DATA,
-          githubData
-        });
+        const title = data.name.replace(/-/g, ' ');
+        const description = data.description || 'Project missing description';
+        const stars = data.stargazers_count;
+        // const openIssues = data.open_issues;
+        // const subscribersCount = data.subscribers_count;
+        dispatch(receiveRepoData(repo, title, description, stars));
       })
       .catch(err => console.log(err));
   };

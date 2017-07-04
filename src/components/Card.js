@@ -1,93 +1,54 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const renderTags = (tags, words) =>
-  words.split('').map(index =>
-    <p key={tags[index]}>
-      {tags[index]}
+const Card = ({ description, icon, name, stars, tags, title }) => {
+  const tagsArray = tags.map(tag =>
+    <p key={`${name}-${tag}`}>
+      {tag}
     </p>
   );
-
-const Card = ({ project, tags, words, icon, isDev }) => {
-  if (isDev) {
-    return (
-      <div className='card'>
-        <div className='project-status'>
-          <p>
-            <i aria-hidden='true' className='fa fa-star fa-fw' />
-            &nbsp;{project.stargazer_count}
-          </p>
-        </div>
-        <div className='card-content'>
-          <a className='project-link' href='#test'>
-            <h1 className='project-title'>
-              {project.title}
-            </h1>
-            <div className='icon-frame'>
-              <i aria-hidden='true' className={`fa ${icon} fa-4x`} />
-            </div>
-            <h3 className='project-desc'>
-              {project.description}
-            </h3>
-          </a>
-          <a
-            className='demo-link'
-            href={`https://github.com/${project.full_name}`}
-            >
-            See Live Demo
-          </a>
-        </div>
-        <div className='project-tags'>
-          {renderTags(tags, words)}
-        </div>
-      </div>
-    );
-  }
   return (
     <div className='card'>
       <div className='project-status'>
         <p>
           <i aria-hidden='true' className='fa fa-star fa-fw' />
-          &nbsp;{project.stargazer_count}
+          {stars}
         </p>
       </div>
       <div className='card-content'>
         <a className='project-link' href='#test'>
           <h1 className='project-title'>
-            {project.title}
+            {title}
           </h1>
           <div className='icon-frame'>
             <i aria-hidden='true' className={`fa ${icon} fa-4x`} />
           </div>
           <h3 className='project-desc'>
-            {project.description || 'Project missing description'}
+            {description}
           </h3>
         </a>
         <a
           className='demo-link'
-          href={`https://github.com/${project.full_name}`}
+          href={`https://github.com/freecodecamp/${name}`}
+          target='_blank'
           >
-          See Live Demo
+          See Public Repo
         </a>
       </div>
       <div className='project-tags'>
-        {renderTags(tags, words)}
+        {tagsArray}
       </div>
     </div>
   );
 };
 
 Card.propTypes = {
+  description: PropTypes.string,
   icon: PropTypes.string.isRequired,
-  isDev: PropTypes.bool,
-  project: PropTypes.objectOf(PropTypes.shape),
+  name: PropTypes.string.isRequired,
+  stars: PropTypes.number,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  words: PropTypes.string.isRequired
-};
-
-Card.defaultProps = {
-  project: {},
-  isDev: false
+  title: PropTypes.string
 };
 
 export default Card;

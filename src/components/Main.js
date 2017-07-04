@@ -1,81 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Card from './Card';
 
-const renderProjects = (
-  projectData,
-  searchInput,
-  projectTags,
-  projectWords,
-  projectIcons,
-  isDev
-) => {
-  return projectData
-    .filter(project => {
-      const wordsArray = project.title.toLowerCase().split(' ');
-      projectWords[project.topics].split('').forEach(j => {
-        wordsArray.push(projectTags[j]);
-      });
-      const keyWords = wordsArray.join(' ');
-      // if searchInput has more than one string
-      // in it we remove every empty one
-      const searchWords =
-        searchInput.split(' ').length > 1
-          ? searchInput.toLowerCase().split(' ').filter(Boolean)
-          : searchInput.toLowerCase().split(' ');
-      for (let k = 0; k < searchWords.length; k += 1) {
-        if (keyWords.includes(searchWords[k])) {
-          return true;
-        }
-      }
-      return false;
+
+const Main = ({ isFetching, repos, search }) => {
+  const cardsArray = repos
+    .filter(repo => {
+      // IMPROVE SEARCH SYSTEM
+      return repo.name.includes(search);
     })
-    .map(project =>
+    .map(repo =>
       <Card
-        icon={projectIcons[project.topics]}
-        isDev={isDev}
-        key={project.full_name}
-        project={project}
-        tags={projectTags}
-        words={projectWords[project.topics]}
+        description={repo.description}
+        icon={repo.icon}
+        key={`card-${repo.name}`}
+        name={repo.name}
+        stars={repo.stars}
+        tags={repo.tags}
+        title={repo.title}
       />
     );
-};
 
-const Main = ({
-  projectData,
-  searchInput,
-  projectTags,
-  projectWords,
-  projectIcons,
-  isDev
-}) =>
-  <main className='main'>
-    <div className='content-center'>
-      <div className='content-container'>
-        <div className='card-container'>
-          {projectData.length &&
-            renderProjects(
-              projectData,
-              searchInput,
-              projectTags,
-              projectWords,
-              projectIcons,
-              isDev
-            )}
+  const spinner = <i className='fa fa-cog fa-spin fa-5x fa-fw' />;
+
+  return (
+    <main className='main'>
+      <div className='content-center'>
+        <div className='content-container'>
+          <div className='card-container'>
+            {isFetching ? spinner : cardsArray}
+          </div>
         </div>
       </div>
-    </div>
-  </main>;
+    </main>
+  );
+};
 
 Main.propTypes = {
-  isDev: PropTypes.bool.isRequired,
-  projectData: PropTypes.arrayOf(PropTypes.object).isRequired,
-  projectIcons: PropTypes.arrayOf(PropTypes.string).isRequired,
-  projectTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  projectWords: PropTypes.arrayOf(PropTypes.string).isRequired,
-  searchInput: PropTypes.string.isRequired
+  isFetching: PropTypes.bool,
+  repos: PropTypes.array.isRequired,
+  search: PropTypes.string.isRequired
 };
 
 export default Main;
