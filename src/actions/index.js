@@ -14,7 +14,7 @@ export const CHECK_USER = 'CHECK_USER';
 export function setSearch(value) {
   return {
     type: SET_SEARCH,
-    inputValue: value
+    value
   };
 }
 
