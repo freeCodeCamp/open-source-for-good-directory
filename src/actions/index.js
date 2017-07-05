@@ -9,6 +9,7 @@ export const SET_SEARCH = 'SET_SEARCH';
 export const CHECK_USER = 'CHECK_USER';
 export const ADD_TAG_FILTER = 'ADD_TAG_FILTER';
 export const REMOVE_TAG_FILTER = 'REMOVE_TAG_FILTER';
+export const SET_SORT_BY = 'SET_SORT_BY';
 
 /*
   Actions
@@ -74,6 +75,13 @@ export function removeTagFilter(tag) {
   };
 }
 
+export function setSortBy(mode) {
+  return {
+    type: SET_SORT_BY,
+    mode
+  };
+}
+
 /*
   Async Actions
 */
@@ -82,6 +90,7 @@ export function fetchGithubData(repo) {
     dispatch(requestRepoData(repo));
     const options = {
       headers: new Headers({
+        // To get Github topics
         Accept: 'application/vnd.github.mercy-preview+json'
       })
     };

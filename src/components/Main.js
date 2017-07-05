@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-const Main = ({ isDev, isFetching, repos, search, tagFilters }) => {
+const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
   const cardsArray = repos
     // Search Filter
     .filter(repo => {
@@ -14,8 +14,17 @@ const Main = ({ isDev, isFetching, repos, search, tagFilters }) => {
       const tagsOrTopics = isDev ? 'topics' : 'tags';
       return tagFilters.every(elem => repo[tagsOrTopics].indexOf(elem) > -1);
     })
-    // SORTING FUNCTIONALITY HERE
-    // .sort()
+    .sort((repoA, repoB) => {
+      // Symbol '+' or '-'
+      const dir = sortBy[0];
+      // Repo Property: 'name' or 'stars'
+      const val = sortBy.slice(1);
+      if (dir === '+') {
+        return repoA[val] > repoB[val];
+      } else {
+        return repoA[val] < repoB[val];
+      }
+    })
     .map(repo => {
       const nonProfitLink =
         process.env === 'production'
@@ -59,6 +68,7 @@ Main.propTypes = {
   isFetching: PropTypes.bool,
   repos: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
+  sortBy: PropTypes.string,
   tagFilters: PropTypes.arrayOf(PropTypes.string)
 };
 

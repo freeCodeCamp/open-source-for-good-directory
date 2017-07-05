@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { checkUser, fetchGithubData, setSearch } from '../actions';
+import { checkUser, fetchGithubData, setSearch, setSortBy } from '../actions';
 import Header from '../components/Header';
 import Banner from '../components/Banner';
 import Testimonial from '../components/Testimonial';
 import Search from '../components/Search';
+import SortMenu from '../components/SortMenu';
 import Main from '../components/Main';
 
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSort = this.handleSort.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +27,33 @@ class App extends React.Component {
     this.props.setSearch(value);
   }
 
+  handleSort(e) {
+    const mode = e.currentTarget.value;
+    this.props.setSortBy(mode);
+  }
+
   render() {
-    const { isDev, isFetching, repos, search, tagFilters } = this.props;
+    const {
+      isDev,
+      isFetching,
+      repos,
+      search,
+      sortBy,
+      tagFilters
+    } = this.props;
     return (
       <div className='app'>
         <Header />
         <Banner />
         <Testimonial />
         <Search onChange={this.handleChange} search={search} />
+        <SortMenu setSortBy={this.handleSort} />
         <Main
           isDev={isDev}
           isFetching={isFetching}
           repos={repos}
           search={search}
+          sortBy={sortBy}
           tagFilters={tagFilters}
         />
       </div>
@@ -53,16 +69,19 @@ App.propTypes = {
   repos: PropTypes.array,
   search: PropTypes.string,
   setSearch: PropTypes.func,
+  setSortBy: PropTypes.func,
+  sortBy: PropTypes.string,
   tagFilters: PropTypes.array
 };
 
 const mapStateToProps = state => {
-  const { isDev, isFetching, repos, search, tagFilters } = state;
+  const { isDev, isFetching, repos, search, sortBy, tagFilters } = state;
   return {
     isDev,
     isFetching,
     repos,
     search,
+    sortBy,
     tagFilters
   };
 };
@@ -70,7 +89,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   checkUser: () => dispatch(checkUser()),
   fetchGithubData: repo => dispatch(fetchGithubData(repo)),
-  setSearch: value => dispatch(setSearch(value))
+  setSearch: value => dispatch(setSearch(value)),
+  setSortBy: mode => dispatch(setSortBy(mode))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
