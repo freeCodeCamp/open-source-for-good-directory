@@ -360,7 +360,7 @@ body {
           flex-direction: column;
 
   width: 20em;
-  height: 28em;
+  /*height: 28em;*/
   margin: 0 1em 2em;
 
   text-align: center;
