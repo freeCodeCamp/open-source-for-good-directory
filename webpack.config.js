@@ -12,9 +12,11 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
   filename: 'index.html',
   inject: 'body'
 });
+
 const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify('production')
+  'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production')
 });
+
 const UglifyPluginConfig = new webpack.optimize.UglifyJsPlugin({
   beautify: false,
   mangle: {
@@ -26,6 +28,7 @@ const UglifyPluginConfig = new webpack.optimize.UglifyJsPlugin({
   },
   comments: false
 });
+
 const LoaderOptionsPluginConfig = new webpack.LoaderOptionsPlugin({
   minimize: true,
   debug: false
@@ -62,7 +65,11 @@ const config = {
     path: path.join(__dirname, '/docs')
   },
   plugins: dev
-    ? [HTMLWebpackPluginConfig, HotModuleReplacementPluginConfig]
+    ? [
+        DefinePluginConfig,
+        HTMLWebpackPluginConfig,
+        HotModuleReplacementPluginConfig
+      ]
     : [
         HTMLWebpackPluginConfig,
         DefinePluginConfig,

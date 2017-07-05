@@ -1,11 +1,18 @@
-import { REQUEST_REPO_DATA, RECEIVE_REPO_DATA, SET_SEARCH } from '../actions';
+import {
+  REQUEST_REPO_DATA,
+  RECEIVE_REPO_DATA,
+  SET_SEARCH,
+  ADD_TAG_FILTER,
+  REMOVE_TAG_FILTER
+} from '../actions';
 import repoList from '../config/repo-list';
 
 const initialState = {
   isDev: false,
   isFetching: false,
   repos: repoList,
-  search: ''
+  search: '',
+  tagFilters: []
 };
 
 export default function reducer(state = initialState, action) {
@@ -37,6 +44,18 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         search: action.value
+      };
+    case ADD_TAG_FILTER:
+      return {
+        ...state,
+        tagFilters: [...state.tagFilters, action.tag]
+      };
+    case REMOVE_TAG_FILTER:
+      return {
+        ...state,
+        tagFilters: state.tagFilters.filter(tag => {
+          return tag !== action.tag;
+        })
       };
     default:
       return state;

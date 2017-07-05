@@ -15,7 +15,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { checkUser, fetchGithubData, repos} = this.props;
+    const { checkUser, fetchGithubData, repos } = this.props;
     checkUser();
     repos.map(repo => fetchGithubData(repo.name));
   }
@@ -26,12 +26,7 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      isDev,
-      isFetching,
-      repos,
-      search
-    } = this.props;
+    const { isDev, isFetching, repos, search, tagFilters } = this.props;
     return (
       <div className='app'>
         <Header />
@@ -43,6 +38,7 @@ class App extends React.Component {
           isFetching={isFetching}
           repos={repos}
           search={search}
+          tagFilters={tagFilters}
         />
       </div>
     );
@@ -56,25 +52,25 @@ App.propTypes = {
   isFetching: PropTypes.bool,
   repos: PropTypes.array,
   search: PropTypes.string,
-  setSearch: PropTypes.func
+  setSearch: PropTypes.func,
+  tagFilters: PropTypes.array
 };
 
 const mapStateToProps = state => {
-  const { isDev, isFetching, repos, search } = state;
+  const { isDev, isFetching, repos, search, tagFilters } = state;
   return {
     isDev,
     isFetching,
     repos,
-    search
+    search,
+    tagFilters
   };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    checkUser: () => dispatch(checkUser()),
-    fetchGithubData: repo => dispatch(fetchGithubData(repo)),
-    setSearch: value => dispatch(setSearch(value))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  checkUser: () => dispatch(checkUser()),
+  fetchGithubData: repo => dispatch(fetchGithubData(repo)),
+  setSearch: value => dispatch(setSearch(value))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -7,10 +7,30 @@ export const REQUEST_REPO_DATA = 'REQUEST_REPO_DATA';
 export const RECEIVE_REPO_DATA = 'RECEIVE_REPO_DATA';
 export const SET_SEARCH = 'SET_SEARCH';
 export const CHECK_USER = 'CHECK_USER';
+export const ADD_TAG_FILTER = 'ADD_TAG_FILTER';
+export const REMOVE_TAG_FILTER = 'REMOVE_TAG_FILTER';
 
 /*
   Actions
 */
+export function requestRepoData(repo) {
+  return {
+    type: REQUEST_REPO_DATA,
+    repo
+  };
+}
+
+export function receiveRepoData(repo, title, description, stars, topics) {
+  return {
+    type: RECEIVE_REPO_DATA,
+    repo,
+    title,
+    description,
+    stars,
+    topics
+  };
+}
+
 export function setSearch(value) {
   return {
     type: SET_SEARCH,
@@ -40,21 +60,17 @@ export function checkUser() {
   };
 }
 
-export function requestRepoData(repo) {
+export function addTagFilter(tag) {
   return {
-    type: REQUEST_REPO_DATA,
-    repo
+    type: ADD_TAG_FILTER,
+    tag
   };
 }
 
-export function receiveRepoData(repo, title, description, stars, topics) {
+export function removeTagFilter(tag) {
   return {
-    type: RECEIVE_REPO_DATA,
-    repo,
-    title,
-    description,
-    stars,
-    topics
+    type: REMOVE_TAG_FILTER,
+    tag
   };
 }
 
