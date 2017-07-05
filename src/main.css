@@ -71,10 +71,6 @@ body {
   color: #fff;
 }
 
-.header-brand:hover .header-logo {
-  color: #ff9c2a;
-}
-
 .header-links {
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -117,11 +113,6 @@ body {
   .header-links > li {
     visibility: hidden;
   }
-}
-
-.header-links > li a:hover {
-  color: darkgreen;
-  background: #eee;
 }
 
 .header-links > li > a {
@@ -360,7 +351,6 @@ body {
           flex-direction: column;
 
   width: 20em;
-  /*height: 28em;*/
   margin: 0 1em 2em;
 
   text-align: center;
