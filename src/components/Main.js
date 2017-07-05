@@ -6,8 +6,14 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
   const cardsArray = repos
     // Search Filter
     .filter(repo => {
-      // IMPROVE SEARCH SYSTEM
-      return repo.name.includes(search);
+      if (search) {
+        return (
+          repo.name.includes(search) ||
+          repo.topics.some(topic => topic.includes(search)) ||
+          repo.tags.some(tag => tag.includes(search))
+        );
+      }
+      return true;
     })
     // Tags Filter
     .filter(repo => {
@@ -16,10 +22,10 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
     })
     .sort((repoA, repoB) => {
       // Symbol '+' or '-'
-      const dir = sortBy[0];
+      const direction = sortBy[0];
       // Repo Property: 'name' or 'stars'
       const val = sortBy.slice(1);
-      if (dir === '+') {
+      if (direction === '+') {
         return repoA[val] > repoB[val];
       }
       return repoA[val] < repoB[val];

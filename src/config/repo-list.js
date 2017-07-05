@@ -1,7 +1,8 @@
 /*
   List of Repos to be included in the Directory
   INSTRUCTIONS:
-  Please keep this file alphabetically sorted by repo name
+  Please keep this file ALPHABETICALLY SORTED by repo name
+  EVERYTHING should be in lower case. Really important for Search Functionality
   name: Github Repo name in lower case (without the preceeding freecodecamp/)
   icon: Font Awesome Icon CSS Class Name http://fontawesome.io/icons/
 */

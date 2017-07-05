@@ -33,14 +33,7 @@ class App extends Component {
   }
 
   render() {
-    const {
-      isDev,
-      isFetching,
-      repos,
-      search,
-      sortBy,
-      tagFilters
-    } = this.props;
+    const { isDev, isFetching, repos, search, sortBy, tagFilters } = this.props;
     return (
       <div className='app'>
         <Header />
