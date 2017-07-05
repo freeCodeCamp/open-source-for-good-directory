@@ -8,7 +8,7 @@ import {
 import repoList from '../config/repo-list';
 
 const initialState = {
-  isDev: false,
+  isDev: true,
   isFetching: false,
   repos: repoList,
   search: '',

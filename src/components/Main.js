@@ -11,6 +11,9 @@ const Main = ({ isDev, isFetching, repos, search, tagFilters }) => {
     })
     // Tags Filter
     .filter(repo => {
+      if (isDev) {
+        return tagFilters.every(topic => repo.topics.indexOf(topic) > -1);
+      }
       return tagFilters.every(tag => repo.tags.indexOf(tag) > -1);
     })
     // SORTING FUNCTIONALITY HERE
