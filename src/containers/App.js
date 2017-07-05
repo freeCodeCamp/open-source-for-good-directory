@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { checkUser, fetchGithubData, setSearch, setSortBy } from '../actions';
 import Header from '../components/Header';
-import Banner from '../components/Banner';
+import Title from '../components/Title';
 import Testimonial from '../components/Testimonial';
 import Search from '../components/Search';
 import SortMenu from '../components/SortMenu';
@@ -37,10 +37,11 @@ class App extends Component {
     return (
       <div className='app'>
         <Header />
-        <Banner />
-        <Testimonial />
-        <Search onChange={this.handleChange} search={search} />
-        <SortMenu setSortBy={this.handleSort} />
+        <Title />
+        <div className='search-bar'>
+          <Search onChange={this.handleChange} search={search} />
+          <SortMenu setSortBy={this.handleSort} />
+        </div>
         <Main
           isDev={isDev}
           isFetching={isFetching}
@@ -49,6 +50,7 @@ class App extends Component {
           sortBy={sortBy}
           tagFilters={tagFilters}
         />
+        <Testimonial />
       </div>
     );
   }

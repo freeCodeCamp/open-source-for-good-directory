@@ -144,7 +144,7 @@ body {
 .main-title {
   font-size: 2.2em;
 
-  margin-top: 2em;
+  margin-top: 1.5em;
 
   text-align: center;
 }
@@ -154,6 +154,7 @@ body {
   font-weight: 300;
 
   margin: 0;
+  margin-bottom: 50px;
 
   text-align: center;
 
@@ -213,7 +214,7 @@ body {
 
 .as-seen-on {
   width: 60em;
-  margin: 2em auto;
+  margin: 1em auto;
   padding: 1em 0 1em;
 
   text-align: center;
@@ -239,12 +240,23 @@ body {
 
 /* Search Bar */
 
+.search-bar {
+  line-height: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  align-items: center;
+  justify-content: center;
+}
+
 .search-input {
-  font-size: 1.5em;
+  font-size: 1.2em;
 
   width: 30em;
   max-width: 80%;
-  margin: 0 auto;
+  margin-right: 10px;
+  margin-bottom: 10px;
   padding: 0.5em;
 
   -webkit-transition: all 0.2s;
