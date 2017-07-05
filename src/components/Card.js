@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addTagFilter } from '../actions';
+import { addTagFilter, removeTagFilter } from '../actions';
 
 const Card = ({
-  addTagFilter,
+  processTag,
   description,
   tagFilters,
   icon,
@@ -17,10 +17,11 @@ const Card = ({
   const tagsArray = tags.map(tag =>
     <p
       key={`${name}-${tag}`}
-      onClick={e => addTagFilter(e)}
+      onClick={e => processTag(e)}
       style={{
-        cursor: tagFilters.includes(tag) ? 'default' : 'pointer',
-        backgroundColor: tagFilters.includes(tag) ? 'pink' : ''
+        cursor: 'pointer',
+        backgroundColor: tagFilters.includes(tag) ? 'pink' : '',
+        userSelect: 'none'
       }}
       >
       {tag}
@@ -58,11 +59,11 @@ const Card = ({
 };
 
 Card.propTypes = {
-  addTagFilter: PropTypes.func,
   description: PropTypes.string,
   icon: PropTypes.string,
   link: PropTypes.string,
   name: PropTypes.string,
+  processTag: PropTypes.func,
   stars: PropTypes.number,
   tagFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -70,10 +71,12 @@ Card.propTypes = {
 };
 
 const mapDispathcToProps = (dispatch, ownProps) => ({
-  addTagFilter: event => {
+  processTag: event => {
     const tag = event.currentTarget.innerText;
     if (!ownProps.tagFilters.includes(tag)) {
       dispatch(addTagFilter(tag));
+    } else {
+      dispatch(removeTagFilter(tag));
     }
   }
 });

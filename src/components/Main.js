@@ -21,9 +21,8 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
       const val = sortBy.slice(1);
       if (dir === '+') {
         return repoA[val] > repoB[val];
-      } else {
-        return repoA[val] < repoB[val];
       }
+      return repoA[val] < repoB[val];
     })
     .map(repo => {
       const nonProfitLink =
