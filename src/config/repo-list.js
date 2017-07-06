@@ -25,7 +25,7 @@ const repoList = [
   },
   {
     name: 'open-source-for-good-directory',
-    icon: 'fa-globe',
+    icon: 'fa-folder-open-o',
     tags: ['meeting', 'coordination']
   },
   {
