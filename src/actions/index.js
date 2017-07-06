@@ -21,14 +21,24 @@ export function requestRepoData(repo) {
   };
 }
 
-export function receiveRepoData(repo, title, description, stars, topics) {
+export function receiveRepoData(
+  repo,
+  title,
+  description,
+  stars,
+  topics,
+  issues,
+  subscribers
+) {
   return {
     type: RECEIVE_REPO_DATA,
     repo,
     title,
     description,
     stars,
-    topics
+    topics,
+    issues,
+    subscribers
   };
 }
 
@@ -99,11 +109,21 @@ export function fetchGithubData(repo) {
       .then(data => {
         const title = data.name.replace(/-/g, ' ');
         const description = data.description || 'Project missing description';
-        const stars = data.stargazers_count;
+        const stars = Number(data.stargazers_count);
         const topics = data.topics;
-        // const openIssues = data.open_issues;
-        // const subscribersCount = data.subscribers_count;
-        dispatch(receiveRepoData(repo, title, description, stars, topics));
+        const issues = Number(data.open_issues);
+        const subscribers = Number(data.subscribers_count);
+        dispatch(
+          receiveRepoData(
+            repo,
+            title,
+            description,
+            stars,
+            topics,
+            issues,
+            subscribers
+          )
+        );
       })
       .catch(err => console.log(err));
   };

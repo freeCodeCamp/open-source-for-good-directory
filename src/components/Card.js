@@ -8,9 +8,11 @@ const Card = ({
   description,
   tagFilters,
   icon,
+  issues,
   link,
   name,
   stars,
+  subscribers,
   tags,
   title
 }) => {
@@ -30,6 +32,14 @@ const Card = ({
   return (
     <div className='card'>
       <div className='project-status'>
+        <p>
+          <i aria-hidden='true' className='fa fa-exclamation-triangle fa-fw' />
+          {issues}
+        </p>
+        <p>
+          <i aria-hidden='true' className='fa fa-eye fa-fw' />
+          {subscribers}
+        </p>
         <p>
           <i aria-hidden='true' className='fa fa-star fa-fw' />
           {stars}
@@ -61,10 +71,12 @@ const Card = ({
 Card.propTypes = {
   description: PropTypes.string,
   icon: PropTypes.string,
+  issues: PropTypes.number,
   link: PropTypes.string,
   name: PropTypes.string,
   processTag: PropTypes.func,
   stars: PropTypes.number,
+  subscribers: PropTypes.number,
   tagFilters: PropTypes.arrayOf(PropTypes.string).isRequired,
   tags: PropTypes.arrayOf(PropTypes.string).isRequired,
   title: PropTypes.string

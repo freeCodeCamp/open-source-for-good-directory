@@ -43,10 +43,12 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
         <Card
           description={repo.description}
           icon={repo.icon}
+          issues={repo.issues}
           key={`card-${repo.name}`}
           link={isDev ? repoLink : nonProfitLink}
           name={repo.name}
           stars={repo.stars}
+          subscribers={repo.subscribers}
           tagFilters={tagFilters}
           tags={isDev && repo.topics ? repo.topics : repo.tags}
           title={repo.title}

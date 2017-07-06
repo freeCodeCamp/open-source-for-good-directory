@@ -31,8 +31,11 @@ export default function reducer(state = initialState, action) {
             ...repo,
             title: action.title,
             description: action.description,
-            stars: Number(action.stars),
-            topics: action.topics
+            stars: action.stars,
+            topics: action.topics,
+            issues: action.issues,
+            watchers: action.watchers,
+            subscribers: action.subscribers
           };
         }
         return repo;
