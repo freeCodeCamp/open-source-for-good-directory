@@ -4,7 +4,8 @@ import {
   SET_SEARCH,
   ADD_TAG_FILTER,
   REMOVE_TAG_FILTER,
-  SET_SORT_BY
+  SET_SORT_BY,
+  SET_USER
 } from '../actions';
 import repoList from '../config/repo-list';
 
@@ -66,6 +67,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         sortBy: action.mode
+      };
+    case SET_USER:
+      return {
+        ...state,
+        isDev: action.isDev
       };
     default:
       return state;

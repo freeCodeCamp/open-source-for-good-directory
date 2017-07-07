@@ -10,6 +10,7 @@ export const CHECK_USER = 'CHECK_USER';
 export const ADD_TAG_FILTER = 'ADD_TAG_FILTER';
 export const REMOVE_TAG_FILTER = 'REMOVE_TAG_FILTER';
 export const SET_SORT_BY = 'SET_SORT_BY';
+export const SET_USER = 'SET_USER';
 
 /*
   Actions
@@ -49,25 +50,10 @@ export function setSearch(value) {
   };
 }
 
-export function checkUser() {
-  /*
-  if (document.cookie.length) {
-    const cookieArray = document.cookie.split(';');
-    const cookieObj = cookieArray.reduce((prev, curr) => {
-      const currProp = curr.split('=');
-      const key = currProp[0];
-      const value = currProp[1];
-      return Object.assign(prev, { key: value });
-    }, {});
-  }
-  */
-  const user = document.cookie.replace(
-    /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-    '$1'
-  );
+export function setUser(isDev) {
   return {
-    type: CHECK_USER,
-    isDev: !!user
+    type: SET_USER,
+    isDev
   };
 }
 

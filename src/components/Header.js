@@ -3,7 +3,7 @@ import logo from '../assets/fcc-logo-white.png';
 
 const Header = () =>
   <nav className='header'>
-    <a className='header-brand' href='https://www.freecodecamp.com/'>
+    <a className='header-brand' href='https://www.freecodecamp.org/'>
       <img alt='freeCodeCamp logo' src={logo} />
       <i
         aria-hidden='true'
@@ -12,7 +12,10 @@ const Header = () =>
     </a>
     <ul className='header-links'>
       <li>
-        <a href='https://www.freecodecamp.com/'>Return to freeCodeCamp.com</a>
+        <a href='https://www.freecodecamp.org/donate' target='_blank'>Donate</a>
+      </li>
+      <li>
+        <a href='https://www.freecodecamp.org/'>Return to freeCodeCamp.org</a>
       </li>
     </ul>
   </nav>;

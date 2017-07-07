@@ -137,7 +137,7 @@ function buildContributorHtml(contributors) {
   contributors.forEach(c => {
     html += `
     <div class="contributor">
-      <a class="contributor-link" href="${c.url}">
+      <a class="contributor-link" href="${c.html_url}">
         <img className="contributor-img" src="${c.avatar_url}"/>
       </a>
     </div>`;

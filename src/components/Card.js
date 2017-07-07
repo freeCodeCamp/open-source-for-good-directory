@@ -8,6 +8,7 @@ const Card = ({
   description,
   tagFilters,
   icon,
+  isDev,
   issues,
   link,
   name,
@@ -16,54 +17,68 @@ const Card = ({
   tags,
   title
 }) => {
-  const tagsArray = tags.map(tag =>
-    <p
-      key={`${name}-${tag}`}
-      onClick={e => processTag(e)}
-      style={{
-        cursor: 'pointer',
-        backgroundColor: tagFilters.includes(tag) ? 'pink' : '',
-        userSelect: 'none'
-      }}
-      >
-      {tag}
-    </p>
-  );
+  const tagsArray = tags.map(tag => {
+    const included = tagFilters.includes(tag);
+    return (
+      <p
+        key={`${name}-${tag}`}
+        onClick={e => processTag(e)}
+        style={{
+          cursor: 'pointer',
+          backgroundColor: included ? '#FF6D58' : null,
+          // backgroundColor: included ? '#007E00' : null,
+          // backgroundColor: included ? '#939393' : null,
+          color: included ? 'white' : null,
+          fontWeight: included ? 700 : '',
+          userSelect: 'none'
+        }}
+        >
+        {tag}
+      </p>
+    );
+  });
   return (
     <div className='card'>
-      <div className='project-status'>
-        <p>
-          <i aria-hidden='true' className='fa fa-exclamation-triangle fa-fw' />
-          {issues}
-        </p>
-        <p>
-          <i aria-hidden='true' className='fa fa-eye fa-fw' />
-          {subscribers}
-        </p>
-        <p>
-          <i aria-hidden='true' className='fa fa-star fa-fw' />
-          {stars}
-        </p>
-      </div>
-      <div className='card-content'>
-        <a className='project-link' href='#test'>
-          <h1 className='project-title'>
-            {title}
-          </h1>
+      <a className='project-link' href={link} target='_blank'>
+        <div className='project-status'>
+          {isDev
+            ? <p title='Open Issues'>
+                <i
+                  aria-hidden='true'
+                  className='fa fa-exclamation-triangle fa-fw'
+                />
+                {issues}
+              </p>
+            : null}
+          <p title={isDev ? 'Watching' : 'Subscribers'}>
+            <i aria-hidden='true' className='fa fa-eye fa-fw' />
+            {subscribers}
+          </p>
+          <p title='Stars'>
+            <i aria-hidden='true' className='fa fa-star fa-fw' />
+            {stars}
+          </p>
+        </div>
+        <div className='card-content'>
+          <div className='project-title'>
+            <h2>
+              {title}
+            </h2>
+          </div>
           <div className='icon-frame'>
             <i aria-hidden='true' className={`fa ${icon} fa-4x`} />
           </div>
-          <h3 className='project-desc'>
-            {description}
-          </h3>
-        </a>
-        <a className='demo-link' href={link} target='_blank'>
-          See Public Repo
-        </a>
-      </div>
-      <div className='project-tags'>
-        {tagsArray}
-      </div>
+          <div className='project-desc'>
+            <p>
+              {description}
+            </p>
+          </div>
+        </div>
+      </a>
+        <hr className='project-divider' />
+        <div className='project-tags'>
+          {tagsArray}
+        </div>
     </div>
   );
 };
@@ -71,6 +86,7 @@ const Card = ({
 Card.propTypes = {
   description: PropTypes.string,
   icon: PropTypes.string,
+  isDev: PropTypes.bool,
   issues: PropTypes.number,
   link: PropTypes.string,
   name: PropTypes.string,
@@ -84,6 +100,7 @@ Card.propTypes = {
 
 const mapDispathcToProps = (dispatch, ownProps) => ({
   processTag: event => {
+    event.preventDefault();
     const tag = event.currentTarget.innerText;
     if (!ownProps.tagFilters.includes(tag)) {
       dispatch(addTagFilter(tag));
