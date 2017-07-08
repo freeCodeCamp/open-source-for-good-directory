@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/freeCodeCamp/open-source-for-good-directory#readme",
   "dependencies": {
-    "axios": "^0.16.1",
     "prop-types": "^15.5.8",
     "react": "^15.5.0",
     "react-dom": "^15.5.0",

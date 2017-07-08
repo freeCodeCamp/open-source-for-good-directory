@@ -5,33 +5,39 @@
   EVERYTHING should be in lower case. Really important for Search Functionality
   name: Github Repo name in lower case (without the preceeding freecodecamp/)
   icon: Font Awesome Icon CSS Class Name http://fontawesome.io/icons/
+  status: Choose betwwen "dev" and "prod"
 */
 
 const repoList = [
   {
     name: 'conference-for-good',
     icon: 'fa-users',
-    tags: ['finnance', 'service']
+    tags: ['finnance', 'service'],
+    status: 'prod'
   },
   {
     name: 'mail-for-good',
     icon: 'fa-envelope-o',
-    tags: ['email', 'marketing', 'finnance' ]
+    tags: ['email', 'marketing', 'finnance' ],
+    status: 'prod'
   },
   {
     name: 'meeting-for-good',
     icon: 'fa-globe',
-    tags: ['meeting', 'coordination']
+    tags: ['meeting', 'coordination'],
+    status: 'prod'
   },
   {
     name: 'open-source-for-good-directory',
     icon: 'fa-folder-open-o',
-    tags: ['meeting', 'coordination']
+    tags: ['meeting', 'coordination'],
+    status: 'dev'
   },
   {
     name: 'pantry-for-good',
     icon: 'fa-cutlery',
-    tags: ['email', 'finnance', 'inventory']
+    tags: ['email', 'finnance', 'inventory'],
+    status: 'prod'
   }
 ];
 

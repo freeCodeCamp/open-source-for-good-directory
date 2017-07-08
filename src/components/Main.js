@@ -21,6 +21,12 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
       const tagsOrTopics = isDev ? 'topics' : 'tags';
       return tagFilters.every(elem => repo[tagsOrTopics].indexOf(elem) > -1);
     })
+    .filter(repo => {
+      if (!isDev && repo.status === 'dev') {
+        return false;
+      }
+      return true;
+    })
     .sort((repoA, repoB) => {
       // Symbol '+' or '-'
       const direction = sortBy[0];
