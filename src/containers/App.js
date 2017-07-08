@@ -24,17 +24,8 @@ class App extends Component {
   }
 
   checkUser() {
-    const cookieStr = document.cookie;
-    const cookieArr = cookieStr.split('; ');
-
-    let isDev = false;
-    cookieArr.forEach(cookie => {
-      if (cookie.includes('userId=')) {
-        isDev = true;
-      }
-    });
-
-    // this.props.setUser(isDev);
+    const isDev = (/(\;\s+|^)userId=.+/g).test(document.cookie);
+    this.props.setUser(isDev);
   }
 
   handleChange(e) {
