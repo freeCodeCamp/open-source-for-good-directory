@@ -40,7 +40,7 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
     })
     .map(repo => {
       const nonProfitLink =
-        process.env === 'production'
+        process.env.NODE_ENV !== 'development'
           ? `${repo.name}`
           : `../../docs/${repo.name}`;
 

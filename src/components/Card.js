@@ -49,13 +49,13 @@ const Card = ({
                 </p>
               </a>
             : null}
-          <a href={`${link}/watchers`} target='_blank'>
+          <a href={isDev ? `${link}/watchers` : link} target='_blank'>
             <p title={isDev ? 'Watching' : 'Subscribers'}>
               <i aria-hidden='true' className='fa fa-eye fa-fw' />
               {subscribers}
             </p>
           </a>
-          <a href={`${link}/stargazers`} target='_blank'>
+          <a href={isDev ? `${link}/stargazers` : link} target='_blank'>
             <p title='Stars'>
               <i aria-hidden='true' className='fa fa-star fa-fw' />
               {stars}
