@@ -31,7 +31,7 @@ const repoList = [
     name: 'open-source-for-good-directory',
     icon: 'fa-folder-open-o',
     tags: ['meeting', 'coordination'],
-    status: 'dev'
+    status: 'prod'
   },
   {
     name: 'pantry-for-good',

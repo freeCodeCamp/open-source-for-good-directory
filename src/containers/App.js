@@ -25,7 +25,7 @@ class App extends Component {
 
   checkUser() {
     const isDev = (/(\;\s+|^)userId=.+/g).test(document.cookie);
-    // this.props.setUser(isDev);
+    this.props.setUser(isDev);
   }
 
   handleChange(e) {
