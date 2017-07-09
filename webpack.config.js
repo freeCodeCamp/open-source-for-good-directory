@@ -4,6 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 
 const dev =
   process.env.NODE_ENV !== 'production' && process.argv.indexOf('-p') === -1;
+console.log(process.env.NODE_ENV);
 
 const HotModuleReplacementPluginConfig = new webpack.HotModuleReplacementPlugin();
 
@@ -14,7 +15,7 @@ const HTMLWebpackPluginConfig = new HTMLWebpackPlugin({
 });
 
 const DefinePluginConfig = new webpack.DefinePlugin({
-  'process.env.NODE_ENV': JSON.stringify(dev ? 'development' : 'production')
+  'process.env.NODE_ENV': dev ? 'development' : 'production'
 });
 
 const UglifyPluginConfig = new webpack.optimize.UglifyJsPlugin({
