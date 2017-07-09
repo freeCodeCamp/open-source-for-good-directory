@@ -18,6 +18,13 @@ const Header = () =>
         <a href='https://www.freecodecamp.org/'>Return to freeCodeCamp.org</a>
       </li>
     </ul>
+    <a
+      href='https://www.freecodecamp.org/donate'
+      id='donate-icon'
+      target='_blank'
+      >
+      <i aria-hidden='true' className='fa fa-heart' />
+    </a>
   </nav>;
 
 export default Header;
