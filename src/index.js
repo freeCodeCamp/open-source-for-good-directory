@@ -11,28 +11,27 @@ import './main.css';
 const middleware = [thunk];
 
 // For Redux Dev Tools Browser Extension
-// eslint-disable-next-line
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
   reducer,
-  composeEnhancers(
-   applyMiddleware(...middleware),
-  ),
+  composeEnhancers(applyMiddleware(...middleware))
 );
 const root = document.getElementById('root');
 
-const hotRender = (Component) => {
+const hotRender = Component => {
   render(
     <AppContainer>
       <Provider store={store}>
         <Component />
       </Provider>
     </AppContainer>,
-    root,
+    root
   );
 };
 
 hotRender(App);
 
-if (module.hot) module.hot.accept(App, () => hotRender(App));
+if (module.hot) {
+  module.hot.accept(App, () => hotRender(App));
+}
