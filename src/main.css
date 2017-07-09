@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 
@@ -86,14 +87,15 @@ body {
 
   align-items: center;
 }
+@media (max-width: 768px) {
+  .header-links > li {
+    visibility: hidden;
+  }
+}
 
 .header-links > li > a:hover {
   color: #006400;
   background-color: #eee;
-}
-
-#donate-icon {
-  display: none;
 }
 
 /* Main Section */
@@ -114,11 +116,10 @@ body {
 }
 
 .main-desc {
-  font-size: 1.4em;
+  font-size: 1.3em;
   font-weight: 300;
-  font-style: italic;
 
-  margin: 0 10px;
+  margin: 0;
   margin-bottom: 50px;
 
   text-align: center;
@@ -298,6 +299,17 @@ body {
   /*       */ 0 1px 4px -1px rgba(0,0,0,0.2);
 }
 
+/*
+.card:hover {
+  transition: all 0.25s ease-out;
+  transform: translateY(-3px);
+
+  box-shadow: 0 4px 5px 1px rgba(0,0,0,0.14),
+   0 1px 10px 1px rgba(0,0,0,0.12),
+   0 2px 4px -1px rgba(0,0,0,0.2);
+}*/
+
+
 .card-content {
   display: flex;
   flex-direction: column;
@@ -352,6 +364,7 @@ body {
 .project-link {
   font-weight: 600;
 
+  transition: color 0.2s linear;
   text-decoration: none;
 
   color: #006400;
@@ -370,8 +383,10 @@ body {
   font-weight: 300;
 
   display: flex;
+  /*overflow: hidden;*/
 
   min-height: 50px;
+  /*max-height: 72px;*/
   padding: 0.5em 1em;
 
   text-decoration: none;
@@ -454,51 +469,25 @@ body {
   color: #adadad;
 }
 
+
 /* Media Queries */
-@media screen and (max-width: 70em) {
-  .break {
-    width: calc(100% - 4em);
-  }
-  .as-seen-on {
-    width: calc(100% - 4em);
-    min-width: 320px;
-  }
-  
-}
 
-@media screen and (max-width: 775px) {
-  .header-links {
-    display: none;
-  }
-  #donate-icon {
-    font-size: 1.3em;
-    display: block;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    height: inherit;
-    padding: 10px 15px; 
-    color: #eee;
-
-    text-decoration: none;
-  }
-  #donate-icon:hover {
-    background-color: #eee;
-    color: darkgreen
-  }
-}
-
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 64em) {
   .list-top {
     margin-left: 4em;
 
     justify-content: flex-start;
   }
-  .header {
-      padding: 5px 0 0 7px;
+}
+
+@media screen and (max-width: 70em) {
+  .testimonals > div {
+    margin-bottom: 0;
   }
-  .card {
-    width: 92vw;
-    margin: 1em 0;
+  .break {
+    width: calc(100% - 4em);
+  }
+  .as-seen-on {
+    width: calc(100% - 4em);
   }
 }
