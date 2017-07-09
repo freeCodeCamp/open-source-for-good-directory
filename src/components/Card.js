@@ -42,22 +42,25 @@ const Card = ({
       <a className='project-link' href={link} target='_blank'>
         <div className='project-status'>
           {isDev
-            ? <p title='Open Issues'>
-                <i
-                  aria-hidden='true'
-                  className='fa fa-exclamation-triangle fa-fw'
-                />
-                {issues}
-              </p>
+            ? <a href={`${link}/issues`} target='_blank'>
+                <p title='Open Issues'>
+                  <i aria-hidden='true' className='fa fa-github fa-fw' />
+                  {issues}
+                </p>
+              </a>
             : null}
-          <p title={isDev ? 'Watching' : 'Subscribers'}>
-            <i aria-hidden='true' className='fa fa-eye fa-fw' />
-            {subscribers}
-          </p>
-          <p title='Stars'>
-            <i aria-hidden='true' className='fa fa-star fa-fw' />
-            {stars}
-          </p>
+          <a href={`${link}/watchers`} target='_blank'>
+            <p title={isDev ? 'Watching' : 'Subscribers'}>
+              <i aria-hidden='true' className='fa fa-eye fa-fw' />
+              {subscribers}
+            </p>
+          </a>
+          <a href={`${link}/stargazers`} target='_blank'>
+            <p title='Stars'>
+              <i aria-hidden='true' className='fa fa-star fa-fw' />
+              {stars}
+            </p>
+          </a>
         </div>
         <div className='card-content'>
           <div className='project-title'>
@@ -75,10 +78,10 @@ const Card = ({
           </div>
         </div>
       </a>
-        <hr className='project-divider' />
-        <div className='project-tags'>
-          {tagsArray}
-        </div>
+      <hr className='project-divider' />
+      <div className='project-tags'>
+        {tagsArray}
+      </div>
     </div>
   );
 };

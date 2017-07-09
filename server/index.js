@@ -1,12 +1,12 @@
 /**
-* Note, the open-source-for-good-directory does not have a server back-end.
-* This is the reference code for a remote server that receives GitHub webhooks.
-* Here's how it's used: The server receives incoming push events for all
-* freeCodeCamp repos. The server captures the webhook POST request, determines
-* if there is an update to a README file, and if so, downloads the file from the
-* repo, transforms the file to an HTML template, remotely pushes the file to
-* open-source-for-good-directory repo which is then automatically deployed to
-* GitHub Pages.
+* NOTICE: the open-source-for-good-directory does not have a server Back-end.
+* This is the reference code for a remote server that receives GitHub WebHooks.
+* WORKING MODEL: The WebHook registers push events for all freeCodeCamp repos.
+* Then, it sends a POST request (URL/event) to a server hosted in Glitch.com
+* If there is an update to the configuration file '.osfg-dir-config.js', it
+* downloads the file and builds an HTML file that is pushed to the
+* open-source-for-good-directory repo inside the 'docs' folder.
+* Everything inside this folder is automatically deployed to GitHub Pages.
 */
 
 const fs = require('fs');
@@ -16,7 +16,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fetch = require('node-fetch');
 const verifyGithubWebhook = require('verify-github-webhook').default;
+const htmlAutoFormat = require('js-beautify').html;
 const showdown = require('showdown');
+const embed = require('embed-video');
 
 const converter = new showdown.Converter();
 
@@ -24,42 +26,49 @@ const app = express();
 
 app.use(bodyParser.json());
 
+const configFile = '.osfg-dir-config.js';
+
 // Listenning for the Github WebHook
 app.post('/event', (req, res) => {
-  if (verifySignature(req.body, req.headers) && isReadmeUpdated(req.body)) {
-    const readmeURL = getReadmeUrl(req.body);
-    const contributorsURL = getContributorsURL(req.body);
-    let rawReadme;
+  if (
+    verifySignature(req.body, req.headers) &&
+    wasConfigUpdated(req.body, configFile)
+  ) {
+    let repoConfig;
+    const fileURL = getFileUrl(req.body, configFile);
 
-    fetch(readmeURL)
+    fetch(fileURL)
       .then(res => res.text())
       // Fetch Contributors
-      .then(text => {
-        rawReadme = text;
-        /* Header Inclusion necessary for the
+      .then(repoConfigFile => {
+        repoConfig = eval(repoConfigFile);
+        repoConfig.url = getRepoURL(req.body);
+
+        const contributorsURL = getContributorsURL(req.body);
+        /* Header Inclusion mandatory for the
            GitHub API https://developer.github.com/v3/#user-agent-required */
-        const options = {
+        const reqOptions = {
           headers: {
             'User-Agent': 'open-source-for-good-directory'
           }
         };
-        return fetch(contributorsURL, options);
+        return fetch(contributorsURL, reqOptions);
       })
       .then(res => res.json())
       .then(contributorsData => {
         /*
           Building the HTML Web Page from the Fetched Data
         */
-        const contributors = buildContributorHtml(contributorsData);
-        const body = converter.makeHtml(rawReadme);
+        const contributorsHTML = buildContributorsHtml(contributorsData);
         const repoName = req.body.repository.name;
-        const page = buildPage(repoName, body, contributors);
+        const page = buildPage(repoConfig, contributorsHTML);
+        const formattedPage = htmlAutoFormat(page, { indent_size: 2 });
 
         /*
           Processing the File
         */
-        writeHtmlFile(page);
-        const encodedPage = base64EncodeString(page);
+        writeHtmlFile(formattedPage);
+        const encodedPage = base64EncodeString(formattedPage);
 
         /*
           Pushing to GitHub Repo
@@ -92,22 +101,17 @@ function verifySignature(body, headers) {
   );
 }
 
-function isReadmeUpdated(body) {
+function wasConfigUpdated(body, configFile) {
   // Checks Modifications to the README.md file in the Master Branch
-  const readme = 'README.md';
   let test = false;
   const isMasterBranch = (/master$/).test(body.ref);
   if (isMasterBranch) {
     body.commits.forEach(commit => {
       commit.added.forEach(file => {
-        if (file === readme) {
-          test = true;
-        }
+        if (file === configFile) {test = true;}
       });
       commit.modified.forEach(file => {
-        if (file === readme) {
-          test = true;
-        }
+        if (file === configFile) {test = true;}
       });
     });
   }
@@ -117,10 +121,10 @@ function isReadmeUpdated(body) {
 /*
   Data Parsing
 */
-function getReadmeUrl(body) {
+function getFileUrl(body, configFile) {
   const root = 'https://raw.githubusercontent.com/';
   const repo = body.repository.full_name;
-  const file = '/master/README.md';
+  const file = `/master/${configFile}`;
   return root + repo + file;
 }
 
@@ -129,37 +133,72 @@ function getContributorsURL(body) {
   return `https://api.github.com/repos/freecodecamp/${repo}/contributors`;
 }
 
+function getRepoURL(body) {
+  return `https://www.github.com/${body.repository.full_name}`;
+}
+
 /*
   Building WebPage
 */
-function buildContributorHtml(contributors) {
+function buildContributorsHtml(contribData) {
   let html = '';
-  contributors.forEach(c => {
+  contribData.forEach(contributor => {
     html += `
     <div class="contributor">
-      <a class="contributor-link" href="${c.html_url}">
-        <img className="contributor-img" src="${c.avatar_url}"/>
+      <a class="contributor-link" href="${contributor.html_url}" target="_blank">
+        <img class="contributor-img" src="${contributor.avatar_url}"/>
       </a>
     </div>`;
   });
   return html;
 }
 
-function buildPage(name, body, contributors) {
+function buildPage(repoConfig, contributors) {
+  const { title, description, demoVideo, liveDemo, url, body } = repoConfig;
   return `
     <!DOCTYPE html>
     <html>
       <header>
         <link rel="stylesheet" href="../style.css">
+        <!-- Font Awesome -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
       </header>
       <body>
         <div class="wrapper">
-          <div class="fcc-banner">
-            <img src="https://cdn.glitch.com/f9a9063e-4605-4536-942e-6a948a65598e%2Ffcc-logo-white.png?1491457226808"/>
-          </div>
+          <a href="https://www.freecodecamp.org">
+            <div class="fcc-banner">
+              <img src="https://cdn.glitch.com/f9a9063e-4605-4536-942e-6a948a65598e%2Ffcc-logo-white.png?1491457226808"/>
+            </div>
+          </a>
           <div class="content-container">
-            <h1 class="repo-name">${name}</h1>
-            ${body}
+            <h1 class="repo-name">${title}</h1>
+            <div class="project-description">
+              ${description ? converter.makeHtml(description) : ''}
+            </div>
+            ${demoVideo
+              ? `<div class="project-video">
+                  <div class="video-container">
+                    ${embed(demoVideo, { attr: { width: 640, height: 360 } })}
+                  </div>
+                </div>`
+              : ''}
+            <div class="buttons-container">
+              ${liveDemo
+                ? `<a href="${liveDemo}" target="_blank">
+                <button>
+                  Live Demo 
+                  <i class="fa fa-cube" aria-hidden="true"></i>
+                </button></a>`
+                : ''}
+              <a href="${url}" target="_blank">
+                <button>
+                  Code Repo
+                  <i class="fa fa-code" aria-hidden="true"></i>
+                </button></a>
+            </div>
+            <div class="body-container">
+              ${body ? converter.makeHtml(body) : ''}
+            </div>
             <h2>Contributors</h2>
             <div class="contributors">
               ${contributors}
@@ -177,9 +216,7 @@ function buildPage(name, body, contributors) {
 function writeHtmlFile(html) {
   const newPath = path.join(__dirname, '/views/index.html');
   fs.writeFile(newPath, html, 'utf-8', err => {
-    if (err) {
-      throw err;
-    }
+    if (err) {throw err;}
   });
 }
 

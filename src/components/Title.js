@@ -4,7 +4,7 @@ const Title = () =>
   <div>
     <h1 className='main-title'>Open Source for Good</h1>
     <h3 className='main-desc'>
-      Free High-Quality Software Tools for Non-Profits
+      Spend money on the mission, not the software.
     </h3>
   </div>;
 

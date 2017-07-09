@@ -25,7 +25,7 @@ class App extends Component {
 
   checkUser() {
     const isDev = (/(\;\s+|^)userId=.+/g).test(document.cookie);
-    this.props.setUser(isDev);
+    // this.props.setUser(isDev);
   }
 
   handleChange(e) {
@@ -46,7 +46,7 @@ class App extends Component {
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />
-          {/* <SortMenu setSortBy={this.handleSort} />*/}
+           {/*<SortMenu setSortBy={this.handleSort} />*/}
         </div>
         <Main
           isDev={isDev}
