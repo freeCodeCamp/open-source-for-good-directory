@@ -3,10 +3,10 @@ import { render } from 'react-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { AppContainer } from 'react-hot-loader';
 import reducer from './reducers';
 import App from './containers/App';
-import './main.css';
+import './index.css';
+import registerServiceWorker from './registerServiceWorker';
 
 const middleware = [thunk];
 
@@ -19,19 +19,10 @@ const store = createStore(
 );
 const root = document.getElementById('root');
 
-const hotRender = Component => {
-  render(
-    <AppContainer>
-      <Provider store={store}>
-        <Component />
-      </Provider>
-    </AppContainer>,
-    root
-  );
-};
-
-hotRender(App);
-
-if (module.hot) {
-  module.hot.accept(App, () => hotRender(App));
-}
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  root
+);
+registerServiceWorker();

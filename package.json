@@ -1,50 +1,33 @@
 {
-  "name": "osfg-app",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "open-source-for-good-directory",
+  "version": "1.0.1",
+  "private": true,
+  "dependencies": {
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-redux": "^5.0.5",
+    "redux": "^3.7.1",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "eslint-plugin-prefer-object-spread": "^1.2.1",
+    "react-scripts": "1.0.10"
+  },
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server",
-    "prod": "NODE_ENV=production webpack -p --progress --profile --colors",
-    "lint": "",
-    "test": ""
+    "start": "react-scripts start",
+    "build": "react-scripts build && rm -rf docs && mv build docs",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/freeCodeCamp/open-source-for-good-directory.git"
   },
-  "author": "Francesco Agnoletto, Joe McIlhargey",
-  "license": "ISC",
+  "author": "Juan David Acosta, Francesco Agnoletto, Joe McIlhargey",
+  "license": "BSD 3-Clause",
   "bugs": {
     "url": "https://github.com/freeCodeCamp/open-source-for-good-directory/issues"
   },
-  "homepage": "https://github.com/freeCodeCamp/open-source-for-good-directory#readme",
-  "dependencies": {
-    "prop-types": "^15.5.8",
-    "react": "^15.5.0",
-    "react-dom": "^15.5.0",
-    "react-redux": "^5.0.3",
-    "redux": "^3.6.0",
-    "redux-thunk": "^2.2.0"
-  },
-  "devDependencies": {
-    "babel-core": "^6.23.1",
-    "babel-eslint": "^7.1.1",
-    "babel-loader": "^6.3.2",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.2.2",
-    "babel-preset-react": "^6.23.0",
-    "css-loader": "^0.28.0",
-    "eslint": "^3.16.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-prefer-object-spread": "^1.2.1",
-    "eslint-plugin-react": "^6.10.0",
-    "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.28.0",
-    "react-hot-loader": "^3.0.0-beta.6",
-    "style-loader": "^0.16.1",
-    "url-loader": "^0.5.9",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
-  }
+  "homepage": "./"
 }

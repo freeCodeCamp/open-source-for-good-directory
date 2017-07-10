@@ -54,3 +54,7 @@ docs/vendor
 
 # .env Confi Files
 .env
+
+# Create React App Build folder
+build
+
