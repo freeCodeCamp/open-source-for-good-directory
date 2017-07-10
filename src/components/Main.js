@@ -39,11 +39,6 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
       return repoA[val] < repoB[val];
     })
     .map(repo => {
-      const nonProfitLink =
-        process.env.NODE_ENV !== 'development'
-          ? `${repo.name}`
-          : `../../docs/${repo.name}`;
-
       const repoLink = `https://github.com/freecodecamp/${repo.name}`;
 
       return (
@@ -53,7 +48,7 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
           isDev={isDev}
           issues={repo.issues}
           key={`card-${repo.name}`}
-          link={isDev ? repoLink : nonProfitLink}
+          link={isDev ? repoLink : repo.name}
           name={repo.name}
           stars={repo.stars}
           subscribers={repo.subscribers}
