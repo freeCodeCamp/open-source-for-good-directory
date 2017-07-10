@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Testimonial = () =>
-  <div>
+  (<div>
     <div className='as-seen-on'>
       <h3 className='as-seen-on-desc'>As seen on...</h3>
       <img
@@ -12,7 +12,7 @@ const Testimonial = () =>
     <hr className='break' />
     <div className='testimonals-container'>
       <div className='testimonal'>
-        <img alt="Ewa's testimonal" src='http://i.imgur.com/ZHnFFN5.jpg' />
+        <img alt="Ewa's testimonal" src='https://i.imgur.com/ZHnFFN5.jpg' />
         <p>
           With Free Code Camp&#39;s valuable contribution, we were able to
           improve all of our systems and processes as part of our Wonder Women
@@ -24,7 +24,10 @@ const Testimonial = () =>
         </p>
       </div>
       <div className='testimonal'>
-        <img alt="Jennifer's testimonal" src='http://i.imgur.com/KHF8O2i.jpg' />
+        <img
+          alt="Jennifer's testimonal"
+          src='https://i.imgur.com/KHF8O2i.jpg'
+        />
         <p>
           We have been blown away by the professional quality of the work that
           has been produced by the campers working on our projects. Free Code
@@ -36,7 +39,10 @@ const Testimonial = () =>
         </p>
       </div>
       <div className='testimonal'>
-        <img alt="Jennifer's testimonal" src='http://i.imgur.com/9VknVe3.jpg' />
+        <img
+          alt="Jennifer's testimonal"
+          src='https://i.imgur.com/9VknVe3.jpg'
+        />
         <p>
           We had the pleasure to work with two very talented campers who went
           above and beyond to create a web-based app for us. I would highly
@@ -48,6 +54,6 @@ const Testimonial = () =>
         </p>
       </div>
     </div>
-  </div>;
+  </div>);
 
 export default Testimonial;

@@ -39,7 +39,7 @@ const Card = ({
   });
   return (
     <div className='card'>
-      <a className='project-link' href={link} target='_blank'>
+      <a className='project-link' href={link}>
         <div className='project-status'>
           {isDev
             ? <a href={`${link}/issues`} target='_blank'>

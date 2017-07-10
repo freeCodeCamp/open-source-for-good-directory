@@ -48,7 +48,7 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
           isDev={isDev}
           issues={repo.issues}
           key={`card-${repo.name}`}
-          link={isDev ? repoLink : repo.name}
+          link={isDev ? repoLink : `${repo.name}`}
           name={repo.name}
           stars={repo.stars}
           subscribers={repo.subscribers}
