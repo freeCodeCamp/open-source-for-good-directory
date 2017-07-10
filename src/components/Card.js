@@ -26,8 +26,6 @@ const Card = ({
         style={{
           cursor: 'pointer',
           backgroundColor: included ? '#FF6D58' : null,
-          // backgroundColor: included ? '#007E00' : null,
-          // backgroundColor: included ? '#939393' : null,
           color: included ? 'white' : null,
           fontWeight: included ? 700 : '',
           userSelect: 'none'

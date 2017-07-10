@@ -6,7 +6,6 @@ import thunk from 'redux-thunk';
 import reducer from './reducers';
 import App from './containers/App';
 import './index.css';
-import registerServiceWorker from './registerServiceWorker';
 
 const middleware = [thunk];
 
@@ -25,4 +24,3 @@ render(
   </Provider>,
   root
 );
-registerServiceWorker();
