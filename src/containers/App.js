@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { setUser, fetchGithubData, setSearch, setSortBy } from '../actions';
+import {
+  setUser,
+  fetchGithubData,
+  setSearch,
+  setSortBy,
+  setRepoList
+} from '../actions';
 import Header from '../components/Header';
 import Title from '../components/Title';
 import Testimonial from '../components/Testimonial';
@@ -15,17 +21,27 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSort = this.handleSort.bind(this);
     this.checkUser = this.checkUser.bind(this);
+    this.getRepoList = this.getRepoList.bind(this);
   }
 
   componentDidMount() {
-    const { fetchGithubData, repos } = this.props;
-    repos.map(repo => fetchGithubData(repo.name));
     this.checkUser();
+    this.getRepoList().then(repoList => {
+      const { setRepoList, fetchGithubData } = this.props;
+      setRepoList(repoList);
+      repoList.map(repo => fetchGithubData(repo.name));
+    });
   }
 
   checkUser() {
     const isDev = (/(;\s+|^)userId=.+/g).test(document.cookie);
     this.props.setUser(isDev);
+  }
+
+  getRepoList() {
+    const repoListUrl =
+      'https://raw.githubusercontent.com/freeCodeCamp/open-source-for-good-directory/master/repo-list.json';
+    return fetch(repoListUrl).then(res => res.json());
   }
 
   handleChange(e) {
@@ -46,7 +62,7 @@ class App extends Component {
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />
-           {/*<SortMenu setSortBy={this.handleSort} />*/}
+          {/* <SortMenu setSortBy={this.handleSort} />*/}
         </div>
         <Main
           isDev={isDev}
@@ -69,6 +85,7 @@ App.propTypes = {
   isFetching: PropTypes.bool,
   repos: PropTypes.array,
   search: PropTypes.string,
+  setRepoList: PropTypes.func,
   setSearch: PropTypes.func,
   setSortBy: PropTypes.func,
   setUser: PropTypes.func,
@@ -90,6 +107,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => ({
   fetchGithubData: repo => dispatch(fetchGithubData(repo)),
+  setRepoList: repos => dispatch(setRepoList(repos)),
   setSearch: value => dispatch(setSearch(value)),
   setSortBy: mode => dispatch(setSortBy(mode)),
   setUser: isDev => dispatch(setUser(isDev))

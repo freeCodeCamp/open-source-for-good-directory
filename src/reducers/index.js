@@ -4,15 +4,15 @@ import {
   SET_SEARCH,
   ADD_TAG_FILTER,
   REMOVE_TAG_FILTER,
+  SET_REPO_LIST,
   SET_SORT_BY,
   SET_USER
 } from '../actions';
-import repoList from '../config/repo-list';
 
 const initialState = {
   isDev: true,
   isFetching: false,
-  repos: repoList,
+  repos: [],
   search: '',
   sortBy: '+name',
   tagFilters: []
@@ -20,6 +20,11 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case SET_REPO_LIST:
+      return {
+        ...state,
+        repos: action.repos
+      };
     case REQUEST_REPO_DATA:
       return {
         ...state,
