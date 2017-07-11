@@ -8,10 +8,13 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
     .filter(repo => {
       if (search) {
         const lowCaseSearch = search.toLowerCase();
+        const descWords = repo.description.split(/(\s|\. )/g);
         return (
           repo.name.includes(lowCaseSearch) ||
-          repo.topics.some(topic => topic.includes(lowCaseSearch)) ||
-          repo.tags.some(tag => tag.includes(lowCaseSearch))
+          (isDev
+            ? repo.topics.some(topic => topic.includes(lowCaseSearch))
+            : repo.tags.some(tag => tag.includes(lowCaseSearch))) ||
+          descWords.some(word => word.includes(lowCaseSearch))
         );
       }
       return true;
