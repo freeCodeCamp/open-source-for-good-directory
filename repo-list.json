@@ -6,9 +6,15 @@
     "status": "prod"
   },
   {
+    "name": "league-for-good",
+    "icon": "fa-futbol-o",
+    "tags": ["league management", "sports", "league"],
+    "status": "dev"
+  },
+  {
     "name": "mail-for-good",
     "icon": "fa-envelope-o",
-    "tags": ["email", "marketing", "finnance"],
+    "tags": ["email", "marketing"],
     "status": "prod"
   },
   {
@@ -26,7 +32,7 @@
   {
     "name": "pantry-for-good",
     "icon": "fa-cutlery",
-    "tags": ["email", "finnance", "inventory"],
+    "tags": ["email", "inventory"],
     "status": "prod"
   }
 ]
