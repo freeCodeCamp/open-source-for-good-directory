@@ -48,7 +48,9 @@ We want to help nonprofits manage their email campaigns as inexpensively as poss
 
 ### License
 
-This computer software is licensed under the open source [BSD-3-Clause](https://github.com/freeCodeCamp/Mail-for-Good/blob/master/LICENSE.md).
+This computer software is licensed under the Open Source [BSD-3-Clause](https://github.com/freeCodeCamp/Mail-for-Good/blob/master/LICENSE.md).
+
 Copyright (c) 2017, freeCodeCamp.
-`
+`,
+  test: 'Testing NonProfit Favicon'
 };
