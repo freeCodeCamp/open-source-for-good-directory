@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+import { formatRepoTitle } from '../helpers';
 
 /*
   Types
@@ -101,7 +102,7 @@ export function fetchGithubData(repo) {
     return fetch(`https://api.github.com/repos/freecodecamp/${repo}`, options)
       .then(res => res.json())
       .then(data => {
-        const title = data.name.replace(/-/g, ' ');
+        const title = formatRepoTitle(data.name);
         const description = data.description || 'Project missing description';
         const stars = Number(data.stargazers_count);
         const topics = data.topics;

@@ -36,7 +36,7 @@ const Card = ({
     );
   });
   return (
-    <div className='card'>
+    <div className='card' title={title}>
       <a className='project-link' href={link}>
         <div className='project-status'>
           {isDev
