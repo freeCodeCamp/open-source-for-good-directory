@@ -4,8 +4,11 @@
   Please keep this file ALPHABETICALLY SORTED by repo name
   EVERYTHING should be in lower case. Really important for Search Functionality
   name: Github Repo name in lower case (without the preceeding freecodecamp/)
-  icon: Font Awesome Icon CSS Class Name http://fontawesome.io/icons/
-  status: Choose betwwen "dev" and "prod"
+  icon: Image to be displayed in the Project's Card. The string contains a
+        Font Awesome Icon calss. Choose yours in http://fontawesome.io/icons/
+  tags: tags to be shown if the user is not authenticated (for NonProfits)
+  status: Choose between 'dev' and 'prod'. Projects in 'dev' won't be
+          displayed to NonProfits.
 */
 
 const repoList = [
