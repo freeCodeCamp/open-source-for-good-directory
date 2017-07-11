@@ -1,0 +1,32 @@
+[
+  {
+    "name": "conference-for-good",
+    "icon": "fa-users",
+    "tags": ["finnance", "service"],
+    "status": "prod"
+  },
+  {
+    "name": "mail-for-good",
+    "icon": "fa-envelope-o",
+    "tags": ["email", "marketing", "finnance"],
+    "status": "prod"
+  },
+  {
+    "name": "meeting-for-good",
+    "icon": "fa-globe",
+    "tags": ["meeting", "coordination"],
+    "status": "prod"
+  },
+  {
+    "name": "open-source-for-good-directory",
+    "icon": "fa-folder-open-o",
+    "tags": ["meeting", "coordination"],
+    "status": "prod"
+  },
+  {
+    "name": "pantry-for-good",
+    "icon": "fa-cutlery",
+    "tags": ["email", "finnance", "inventory"],
+    "status": "prod"
+  }
+]
