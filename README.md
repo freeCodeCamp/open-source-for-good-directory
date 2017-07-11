@@ -31,6 +31,8 @@ To add an Open Sorce for Good Project to the Directory there are 2 steps necessa
       * **tags:** tags to be shown if the user is not authenticated (for NonProfits)
       * **status:** Choose between `'dev'` and `'prod'`. Projects in `'dev'` won't be displayed to NonProfits (unauthenticated users).
 
+Please be paitient and wait while Github updates the Directory, it will take a couple of minutes before the changes are reflected.
+
 
 ## Installation
 
