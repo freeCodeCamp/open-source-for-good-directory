@@ -9,7 +9,7 @@ There are two steps to add an Open Source for Good Project to the directory:
 1. Add the file `.osfg-dir-config.js` to the **root of the Project**. 
     * This will trigger an automatic build of the Project's page inside the directory.
     * Please **verify** that an **update** by CamperBot to `docs/[project-name]` has occurred in the master branch of the directory.
-    * Fiels Fields:
+    * Fields:
       * **title:** Displayed at the top and as the webpage title
       * **demoVideo:** the YouTube video address
       * **liveDemo:** the address of the project's homepage
