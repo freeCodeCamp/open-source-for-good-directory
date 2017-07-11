@@ -3,6 +3,7 @@
 /*
   Types
 */
+export const SET_REPO_LIST = 'SET_REPO_LIST';
 export const REQUEST_REPO_DATA = 'REQUEST_REPO_DATA';
 export const RECEIVE_REPO_DATA = 'RECEIVE_REPO_DATA';
 export const SET_SEARCH = 'SET_SEARCH';
@@ -15,6 +16,13 @@ export const SET_USER = 'SET_USER';
 /*
   Actions
 */
+export function setRepoList(repos) {
+  return {
+    type: SET_REPO_LIST,
+    repos
+  };
+}
+
 export function requestRepoData(repo) {
   return {
     type: REQUEST_REPO_DATA,

@@ -4,24 +4,33 @@ A directory for freeCodeCamp's Open Source for Good Apps - Solutions for Non-Pro
 
 ## Instructions for adding a Non-Profit Project
 
-To add an Open Sorce for Good Project to the Directory there are 3 steps necessary:
+To add an Open Sorce for Good Project to the Directory there are 2 steps necessary:
 
 1. Add the file `.osfg-dir-config.js` to the **root of the Project**. 
     * This will trigger an automatic build of the Project's page inside the directory.
     * Please **verify** an **update** by CamperBot to `docs/[project-name]` has occurred in the master branch of the Directory.
-    * For information about the file's format, checkout the [**sample config file**](https://github.com/freeCodeCamp/open-source-for-good-directory/blob/master/.osfg-dir-config.js) at the root of this repo.
+    * Fiels Fields:
+      * **title:** Displayed at the Top and as the WebPage Title
+      * **demoVideo:** common YouTube address
+      * **liveDemo:** address to the Homepage of the Project.
+      * **description:** an ES6 Template String with Github Markdown. Keep it relatively short, a paragraph tops.
+      * **body:** an ES6 Template String with Github Markdown. Please include the license and FreeCodeCamp copyright at the end.
+      * If the `liveDemo` or the `demoVideo` aren't yet available you can exclued them, they just won't be added to the Project's page.
 
-2. Edit the file `src/config/repo-list.js` to include the Project.
-    * Install the Directory with the instructions bellow, and edit the file.
-    * This file is a **Redux Initial State** that will instruct the Directory App to fetch the Github data and include a Card for the project.
-    * For instructions on how to make an edit check [**the file**](https://github.com/freeCodeCamp/open-source-for-good-directory/blob/master/src/config/repo-list.js).
+    * Checkout the [**sample config file**](https://github.com/freeCodeCamp/open-source-for-good-directory/blob/master/.osfg-dir-config.js) at the root of this repo.
+
+2. Edit the file `repo-list.json` at the root of the Directory to include the Project.
+    * This file will instruct the Directory App to fetch the corresponding Github data and include a Card for the Project.
     * If you **don't have permissions** to update this repo, please **request the edit** to one of the main contributors.
+    * INSTRUCTIONS for the file: 
+      * Please keep this file **ALPHABETICALLY SORTED** by repo name
+      * **EVERYTHING** should be in **lower case**. Really important for Search Functionality
+      * **name:** Github Repo name in lower case (without the preceeding freecodecamp/)
+      * **icon:** Image to be displayed in the Project's Card. The string contains a
+        [Font Awesome Icon HTML Calss](http://fontawesome.io/icons/).
+      * **tags:** tags to be shown if the user is not authenticated (for NonProfits)
+      * **status:** Choose between `'dev'` and `'prod'`. Projects in `'dev'` won't be displayed to NonProfits (unauthenticated users).
 
-3. Re-build the Directory after making the edit.
-    * Make sure you're in the **master branch** since it's the only one connected to Github WebPages.
-    * Build with `yarn build` or `npm run build`.
-    * Commit the changes to Github.
-    * Verify an update to the Directory has occurred.
 
 ## Installation
 
@@ -41,7 +50,10 @@ For Windows users wanting to use the script you'll probably need the [Linux Subs
 
 The Directory is built with [Create React App](https://github.com/facebookincubator/create-react-app), so you can look for more info if you run into troubles.
 
+To Deploy the Directory run `yarn build` or `npm run build`. Then commit the changes to Github.
+
 ### License
 
 This computer software is licensed under the open source [BSD-3-Clause](https://github.com/freeCodeCamp/open-source-for-good-directory/blob/master/LICENSE.md).
-Copyright (c) 2017, freeCodeCamp.
+
+Copyright (c) 2017, [freeCodeCamp](https://www.freecodecamp.org).
