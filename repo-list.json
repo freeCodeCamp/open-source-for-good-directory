@@ -24,12 +24,6 @@
     "status": "prod"
   },
   {
-    "name": "open-source-for-good-directory",
-    "icon": "fa-folder-open-o",
-    "tags": ["meeting", "coordination"],
-    "status": "prod"
-  },
-  {
     "name": "pantry-for-good",
     "icon": "fa-cutlery",
     "tags": ["food-banks", "inventory", "inventory management", "charity", "donors"],
