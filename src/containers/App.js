@@ -12,7 +12,7 @@ import Header from '../components/Header';
 import Title from '../components/Title';
 import Testimonial from '../components/Testimonial';
 import Search from '../components/Search';
-import SortMenu from '../components/SortMenu';
+// import SortMenu from '../components/SortMenu';
 import Main from '../components/Main';
 
 class App extends Component {
@@ -62,7 +62,7 @@ class App extends Component {
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />
-          {/* <SortMenu setSortBy={this.handleSort} />*/}
+          {/* <SortMenu setSortBy={this.handleSort} /> */}
         </div>
         <Main
           isDev={isDev}

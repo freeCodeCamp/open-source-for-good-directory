@@ -280,6 +280,8 @@ body {
 
 /* Card */
 .card {
+  position: relative;
+
   display: flex;
   flex-direction: column;
 
@@ -301,6 +303,7 @@ body {
   flex: 1;
 
   padding: 0 2em;
+  padding-top: 3.2em;
 
   justify-content: space-between;
 }
@@ -393,19 +396,22 @@ body {
 .project-status {
   font-weight: 500;
 
-  position: relative;
+  position: absolute;
   top: 0;
-
-  display: flex;
+  right: 0;
 
   padding-right: 15px;
   padding-bottom: 0;
+
+  color: #006400;
 
   align-items: flex-end;
   justify-content: flex-end;
 }
 
 .project-status > a {
+  float: right;
+
   margin-left: 0.7em;
 
   text-decoration: none;
@@ -460,7 +466,6 @@ body {
     width: calc(100% - 4em);
     min-width: 320px;
   }
-  
 }
 
 @media screen and (max-width: 775px) {
@@ -469,19 +474,23 @@ body {
   }
   #donate-icon {
     font-size: 1.3em;
-    display: block;
+
     position: absolute;
-    top: 0px;
-    right: 0px;
+    top: 0;
+    right: 0;
+
+    display: block;
+
     height: inherit;
-    padding: 10px 15px; 
-    color: #eee;
+    padding: 10px 15px;
 
     text-decoration: none;
+
+    color: #eee;
   }
   #donate-icon:hover {
+    color: darkgreen;
     background-color: #eee;
-    color: darkgreen
   }
 }
 
@@ -492,7 +501,7 @@ body {
     justify-content: flex-start;
   }
   .header {
-      padding: 5px 0 0 7px;
+    padding: 5px 0 0 7px;
   }
   .card {
     width: 92vw;

@@ -37,29 +37,35 @@ const Card = ({
   });
   return (
     <div className='card' title={title}>
-      <a className='project-link' href={link}>
-        <div className='project-status'>
-          {isDev
-            ? <a href={`${link}/issues`} target='_blank'>
-                <p title='Open Issues'>
-                  <i aria-hidden='true' className='fa fa-github fa-fw' />
-                  {issues}
-                </p>
-              </a>
-            : null}
-          <a href={isDev ? `${link}/watchers` : link} target='_blank'>
-            <p title={isDev ? 'Watching' : 'Subscribers'}>
-              <i aria-hidden='true' className='fa fa-eye fa-fw' />
-              {subscribers}
-            </p>
-          </a>
-          <a href={isDev ? `${link}/stargazers` : link} target='_blank'>
-            <p title='Stars'>
-              <i aria-hidden='true' className='fa fa-star fa-fw' />
-              {stars}
-            </p>
-          </a>
-        </div>
+      <div className='project-status'>
+        <a
+          href={link}
+          target={isDev ? '_blank' : ''}
+          >
+          <p title='Stars'>
+            <i aria-hidden='true' className='fa fa-star fa-fw' />
+            {stars}
+          </p>
+        </a>
+        <a
+          href={link}
+          target={isDev ? '_blank' : ''}
+          >
+          <p title={isDev ? 'Watching' : 'Subscribers'}>
+            <i aria-hidden='true' className='fa fa-eye fa-fw' />
+            {subscribers}
+          </p>
+        </a>
+        {isDev
+          ? <a href={`${link}/issues`} target='_blank'>
+              <p title='Open Issues'>
+                <i aria-hidden='true' className='fa fa-github fa-fw' />
+                {issues}
+              </p>
+            </a>
+          : null}
+      </div>
+      <a className='project-link' href={link} target={isDev ? '_blank' : ''}>
         <div className='card-content'>
           <div className='project-title'>
             <h2>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const SortMenu = ({ setSortBy }) =>
-  <form>
+  (<form>
     <select onChange={setSortBy}>
       <option value='+name'> Name Asc </option>
       <option value='-name'>Name Desc</option>
@@ -13,7 +13,7 @@ const SortMenu = ({ setSortBy }) =>
       <option value='+issues'>Issues Asc</option>
       <option value='-issues'>Issues Desc</option>
     </select>
-  </form>;
+  </form>);
 
 SortMenu.propTypes = {
   setSortBy: PropTypes.func
