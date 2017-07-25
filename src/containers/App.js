@@ -40,7 +40,8 @@ class App extends Component {
 
   getRepoList() {
     const repoListUrl =
-      'https://raw.githubusercontent.com/freeCodeCamp/open-source-for-good-directory/master/repo-list.json';
+      'https://raw.githubusercontent.com/freeCodeCamp/' +
+      'open-source-for-good-directory/master/repo-list.json';
     return fetch(repoListUrl).then(res => res.json());
   }
 
@@ -58,7 +59,7 @@ class App extends Component {
     const { isDev, isFetching, repos, search, sortBy, tagFilters } = this.props;
     return (
       <div className='app'>
-        <Header />
+        <Header isDev={isDev}/>
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />
