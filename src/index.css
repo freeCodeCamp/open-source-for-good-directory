@@ -336,7 +336,7 @@ body {
 }
 
 .project-desc {
-  font-size: 1.15em;
+  font-size: 1.1em;
   font-weight: 300;
 
   display: flex;
@@ -400,7 +400,6 @@ body {
   top: 0;
   right: 0;
 
-  padding-right: 15px;
   padding-bottom: 0;
 
   color: #006400;
@@ -412,11 +411,20 @@ body {
 .project-status > a {
   float: right;
 
-  margin-left: 0.7em;
+  padding-right: 0.7em;
 
   text-decoration: none;
 
   color: inherit;
+}
+
+.project-status > a:first-child {
+  padding-right: 1.1em;
+}
+
+.git-icon {
+  font-size: 1.2em;
+  line-height: 0.8;
 }
 
 .signup-input {
