@@ -59,7 +59,7 @@ class App extends Component {
     const { isDev, isFetching, repos, search, sortBy, tagFilters } = this.props;
     return (
       <div className='app'>
-        <Header isDev={isDev}/>
+        <Header isDev={isDev} />
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />

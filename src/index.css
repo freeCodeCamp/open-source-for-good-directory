@@ -18,7 +18,6 @@ body {
 }
 
 .app {
-  max-width: 100vw;
   min-height: 100vh;
 }
 
@@ -520,7 +519,7 @@ body {
 }
 
 @media screen and (max-width: 380px) {
-   .header-links li:nth-child(1) {
+  .header-links li:nth-child(1) {
     display: none;
-  } 
+  }
 }

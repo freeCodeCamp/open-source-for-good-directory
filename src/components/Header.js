@@ -18,7 +18,7 @@ const Header = ({ isDev }) =>
               <i aria-hidden='true' className='fa fa-user-circle' />
             </a>
           </li>
-        : null}
+        : <li />}
       <li title='Donate'>
         <a
           href='https://www.freecodecamp.org/donate'
