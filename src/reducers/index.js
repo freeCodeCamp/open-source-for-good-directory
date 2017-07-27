@@ -11,7 +11,6 @@ import {
 
 const initialState = {
   isDev: true,
-  isFetching: false,
   repos: [],
   search: '',
   sortBy: '+name',
@@ -23,7 +22,10 @@ export default function reducer(state = initialState, action) {
     case SET_REPO_LIST:
       return {
         ...state,
-        repos: action.repos
+        repos: action.repos.map(repo => {
+          repo.isFetching = true;
+          return repo;
+        })
       };
     case REQUEST_REPO_DATA:
       return {
@@ -40,6 +42,7 @@ export default function reducer(state = initialState, action) {
             stars: action.stars,
             topics: action.topics,
             issues: action.issues,
+            isFetching: false,
             watchers: action.watchers,
             subscribers: action.subscribers
           };
@@ -48,7 +51,6 @@ export default function reducer(state = initialState, action) {
       });
       return {
         ...state,
-        isFetching: false,
         repos: newRepos
       };
     case SET_SEARCH:

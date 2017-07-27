@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from './Card';
 
-const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
+const Main = ({ isDev, repos, search, sortBy, tagFilters }) => {
   const cardsArray = repos
     // Search Filter
     .filter(repo => {
@@ -31,6 +31,8 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
       }
       return true;
     })
+    // Only Show Repo if it has data
+    .filter(repo => !repo.isFetching)
     .sort((repoA, repoB) => {
       // Symbol '+' or '-'
       const direction = sortBy[0];
@@ -63,13 +65,14 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
     });
 
   const spinner = <i className='fa fa-cog fa-spin fa-5x fa-fw' />;
+  const areFetching = repos.every(repo => repo.isFetching);
 
   return (
     <main className='main'>
       <div className='content-center'>
         <div className='content-container'>
           <div className='card-container'>
-            {isFetching ? spinner : cardsArray}
+            {areFetching ? spinner : cardsArray}
           </div>
         </div>
       </div>
@@ -79,7 +82,6 @@ const Main = ({ isDev, isFetching, repos, search, sortBy, tagFilters }) => {
 
 Main.propTypes = {
   isDev: PropTypes.bool,
-  isFetching: PropTypes.bool,
   repos: PropTypes.array.isRequired,
   search: PropTypes.string.isRequired,
   sortBy: PropTypes.string,

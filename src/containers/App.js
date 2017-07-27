@@ -27,9 +27,12 @@ class App extends Component {
   componentDidMount() {
     this.checkUser();
     this.getRepoList().then(repoList => {
-      const { setRepoList, fetchGithubData } = this.props;
-      setRepoList(repoList);
-      repoList.map(repo => fetchGithubData(repo.name));
+      const { setRepoList, fetchGithubData, isDev } = this.props;
+      const filteredList = repoList.filter(
+        repo => (isDev ? true : repo.status === 'prod')
+      );
+      setRepoList(filteredList);
+      filteredList.forEach(repo => fetchGithubData(repo.name));
     });
   }
 
