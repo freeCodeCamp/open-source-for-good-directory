@@ -59,7 +59,7 @@ const Card = ({
         {isDev
           ? <a href={`${link}/issues`} target='_blank'>
               <p title='Open Issues'>
-                <i aria-hidden='true' className='fa fa-github fa-fw' />
+                <i aria-hidden='true' className='fa fa-github fa-fw git-icon' />
                 {issues}
               </p>
             </a>

@@ -84,6 +84,16 @@ body {
   align-items: center;
 }
 
+/* Camper Icon */
+#header-camper {
+  font-size: 1.35em;
+
+  height: inherit;
+}
+#header-camper > a {
+  cursor: default;
+}
+
 .header-links > li > a:hover {
   color: #006400;
   background-color: #eee;
@@ -336,7 +346,7 @@ body {
 }
 
 .project-desc {
-  font-size: 1.15em;
+  font-size: 1.1em;
   font-weight: 300;
 
   display: flex;
@@ -400,7 +410,6 @@ body {
   top: 0;
   right: 0;
 
-  padding-right: 15px;
   padding-bottom: 0;
 
   color: #006400;
@@ -412,11 +421,20 @@ body {
 .project-status > a {
   float: right;
 
-  margin-left: 0.7em;
+  padding-right: 0.7em;
 
   text-decoration: none;
 
   color: inherit;
+}
+
+.project-status > a:first-child {
+  padding-right: 1.1em;
+}
+
+.git-icon {
+  font-size: 1.2em;
+  line-height: 0.8;
 }
 
 .signup-input {
@@ -469,28 +487,19 @@ body {
 }
 
 @media screen and (max-width: 775px) {
-  .header-links {
+  .header-links li:nth-child(2),
+  .header-links li:nth-child(3) {
     display: none;
   }
-  #donate-icon {
-    font-size: 1.3em;
-
+  .header-links {
     position: absolute;
     top: 0;
     right: 0;
 
-    display: block;
-
     height: inherit;
-    padding: 10px 15px;
-
-    text-decoration: none;
-
-    color: #eee;
   }
-  #donate-icon:hover {
-    color: darkgreen;
-    background-color: #eee;
+  #donate-icon {
+    display: block;
   }
 }
 
@@ -506,5 +515,11 @@ body {
   .card {
     width: 92vw;
     margin: 1em 0;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .header-links li:nth-child(1) {
+    display: none;
   }
 }

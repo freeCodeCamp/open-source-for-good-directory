@@ -27,9 +27,12 @@ class App extends Component {
   componentDidMount() {
     this.checkUser();
     this.getRepoList().then(repoList => {
-      const { setRepoList, fetchGithubData } = this.props;
-      setRepoList(repoList);
-      repoList.map(repo => fetchGithubData(repo.name));
+      const { setRepoList, fetchGithubData, isDev } = this.props;
+      const filteredList = repoList.filter(
+        repo => (isDev ? true : repo.status === 'prod')
+      );
+      setRepoList(filteredList);
+      filteredList.forEach(repo => fetchGithubData(repo.name));
     });
   }
 
@@ -40,7 +43,8 @@ class App extends Component {
 
   getRepoList() {
     const repoListUrl =
-      'https://raw.githubusercontent.com/freeCodeCamp/open-source-for-good-directory/master/repo-list.json';
+      'https://raw.githubusercontent.com/freeCodeCamp/' +
+      'open-source-for-good-directory/master/repo-list.json';
     return fetch(repoListUrl).then(res => res.json());
   }
 
@@ -58,7 +62,7 @@ class App extends Component {
     const { isDev, isFetching, repos, search, sortBy, tagFilters } = this.props;
     return (
       <div className='app'>
-        <Header />
+        <Header isDev={isDev} />
         <Title />
         <div className='search-bar'>
           <Search onChange={this.handleChange} search={search} />

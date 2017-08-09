@@ -27,7 +27,10 @@ export function setRepoList(repos) {
 export function requestRepoData(repo) {
   return {
     type: REQUEST_REPO_DATA,
-    repo
+    repo: {
+      isFetching: true,
+      ...repo
+    }
   };
 }
 

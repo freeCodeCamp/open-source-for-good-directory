@@ -52,6 +52,16 @@ This directory is built using [Create React App](https://github.com/facebookincu
 
 To deploy the directory, run `yarn build` or `npm run build`. Then commit the changes to Github.
 
+## Server
+The directory depends on a remote server to perform an automated webpage build for each project that requires it. The server works in the following way:
+
+1. A Github WebHook registers push events for all the freeCodeCamp repos. It sends a POST request (URL/event) to a server hosted in Glitch.com (Specified on the WebHook configuration)
+1. If there is an update to the configuration file `.osfg-dir-config.js`, it downloads the file and builds an HTML file.
+1. The file is pushed to **this repo** inside the `docs` folder.
+1. Everything inside the `docs` folder is automatically deployed to GitHub Pages, which in turn are linked to the directory's website.
+
+You can find the code for the server in [this repository](https://github.com/juandaco/osfg-dir-server)
+
 ### License
 
 This computer software is licensed under the open source [BSD-3-Clause](https://github.com/freeCodeCamp/open-source-for-good-directory/blob/master/LICENSE.md).

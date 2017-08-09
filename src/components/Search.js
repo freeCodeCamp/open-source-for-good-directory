@@ -9,15 +9,15 @@ const clearSearch = (e, onChange) => {
 };
 
 const Search = ({ search, onChange }) =>
-  <input
+  (<input
     className='search-input'
     name='search'
     onChange={onChange}
-    onKeyDown={(e) => clearSearch(e, onChange)}
+    onKeyDown={e => clearSearch(e, onChange)}
     placeholder='Search by keyword'
     type='text'
     value={search}
-  />;
+  />);
 
 Search.propTypes = {
   onChange: PropTypes.func,
