@@ -24,7 +24,7 @@
     "type": "git",
     "url": "git+https://github.com/freeCodeCamp/open-source-for-good-directory.git"
   },
-  "author": "Juan David Acosta, Francesco Agnoletto, Joe McIlhargey",
+  "author": "David Acosta, Francesco Agnoletto, Joe McIlhargey",
   "license": "BSD 3-Clause",
   "bugs": {
     "url": "https://github.com/freeCodeCamp/open-source-for-good-directory/issues"
