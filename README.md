@@ -60,7 +60,7 @@ The directory depends on a remote server to perform an automated webpage build f
 1. The file is pushed to **this repo** inside the `docs` folder.
 1. Everything inside the `docs` folder is automatically deployed to GitHub Pages, which in turn are linked to the directory's website.
 
-You can find the code for the server in [this repository](https://github.com/juandaco/osfg-dir-server)
+You can find the code for the server in [this repository](https://github.com/freeCodeCamp/osfg-dir-server)
 
 ### License
 
